@@ -1,0 +1,705 @@
+ <!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<title>Master App</title>
+<link href="http://m.josue45.com/mobile/mobileTest/css.css" rel="stylesheet" type="text/css">
+<link href="http://m.josue45.com/jquery-mobile/jquery.mobile.theme-1.0.min.css" rel="stylesheet" type="text/css"/>
+<link href="http://m.josue45.com/jquery-mobile/jquery.mobile.structure-1.0.min.css" rel="stylesheet" type="text/css"/>
+
+
+<!-- external files already-->
+<script src="http://m.josue45.com/jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+<!-- <script src="http://m.josue45.com/mobile/mobileTest/js/jquery.innerfade.js" type="text/javascript"></script> -->
+<script src="http://m.josue45.com/jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<script>
+	
+//**************************************
+//place user id here to make it an app
+//*******************************************id here for app
+//*********************************************
+console.log(localStorage.getItem("userId"));
+if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
+	var id = localStorage.getItem("userId");
+	}else{
+		var id=1;
+	}
+//}
+	
+ 	function yeahBaby(){ return "http://m.josue45.com/"; }		
+	
+	function thePath(){ //this will return the path of current user
+		return id;
+			}	
+//**************************************
+//**********josue45.com baby********
+//**************************************
+	/*
+	function sendEmail(){
+		var name = document.getElementById("name");
+					var phone = document.getElementById("phone");
+					var email = document.getElementById("email");
+					var date = document.getElementById("date");
+					var description = document.getElementById("description");
+					var emailTo = document.getElementById("emailTo");
+					if(name.value.length > 0 && phone.value.length > 0 && email.value.length > 0 && date.value.length > 0 && description.value.length > 0){
+						//if(name.value != null & phone.value != null & email.value != null & date.value != null & description.value != null){
+					$.ajax({
+						
+						type:"POST",
+						url:"sendEmail.php",
+						data:{to:emailTo.value, Name:name.value, Phone:phone.value, Email:email.value, DATE: date.value, Description:description.value}
+						})
+						.done( function(){
+								$("#report").empty();
+								$("#report").append("<h1>Email Sent.</h1>");
+								name.value = ''; phone.value = ''; email.value = ''; date.value = ''; description.value = '';
+							});
+					}else{
+						$("#report").empty();
+						$("#report").append('<h2 style="color:red">Please include All Info</h2>');
+						//$("#report").hide(2000);
+						//setTimeout($("#report").empty().css("display", "block"), 3000);
+						}
+				
+			}
+			*/
+			
+	
+$(document).ready( function(){
+
+			appSettings();
+			module();
+			phones();	
+			logMe.checkIfLoggedIn();
+			logMe.displayFolders();
+			
+	var data = '';
+
+$("#menuApp").click( function(){
+		
+	var x = document.getElementById("jmmenu");
+	
+	if(x.style.width == "80%"){
+		x.style.width = "0%";
+		}else{
+	    	x.style.width = "80%";
+	
+}
+	});			
+	
+	var date = new Date();
+	
+
+	
+	//********************************************************************************************************************
+
+
+		$.getJSON(yeahBaby()+"mobile/"+thePath()+"/feed.json", function(info){
+			
+		
+		for(var i=0; i<info.length; i++){
+				this.info = info;
+				
+				var li = document.createElement("li");
+				var a  = document.createElement("a");
+					a.innerHTML = info[i].linkName;
+					a.setAttribute("href", "#page4");
+					a.setAttribute("id", i);
+					//a.setAttribute(""
+					li.appendChild(a);
+					$("#mylistB").append(li);
+					
+					
+					//for(var i=0; i<url.length; i++){
+					if(info[i].linkName){
+								//console.log("pirmin Tv line 130 fix");
+								
+								var fullurl = '';
+								var fullurl = info[i].url;
+								a.onclick = function(){
+										//alert(this.id);
+										//alert(info[this.id].url);
+										clearTheList();
+										//console.log(fullurl);
+										$.getJSON(info[this.id].url, function(data){
+											console.log(data.pageInfo.totalResults);
+												for(var i=0; i<data.items.length; i++){
+													//if(data.pageInfo.totalResults<50){
+														if(data.items[i].snippet.title){
+														console.log(data.items[i].snippet.title);
+														createList(data.items[i].snippet.resourceId.videoId, data.items[i].snippet.title, data.items[i].snippet.description);
+														//}
+													}
+												}
+													$("#videos").listview("refresh");
+											});
+									}
+		
+							}
+					
+							
+							
+				};
+				
+				$("#mylistB").listview("refresh");		
+		
+			
+		});
+		
+
+		function createList(videoId, title, description){
+						
+					var li = document.createElement("li");
+						li.setAttribute("id", videoId);
+					var a = document.createElement("a");
+						a.innerHTML = title;
+						a.setAttribute("id", videoId);
+						a.setAttribute("href", "#page5");
+						a.onclick = showTheVideo;
+						li.appendChild(a);
+						$("#videos").append(li);
+			}
+			
+		function clearTheList(){
+			$("#videos").empty();
+			}
+			
+		function showTheVideo(){
+			
+		
+					console.log(this.id);
+					$("#myVideo").empty();
+					//$("#myVideo").append(
+					//$("#myVideo").append($(this).text());
+					console.log("fix this bug on the video on go back from full screen");
+					var video = '<iframe width="100%" src="http://www.youtube.com/embed/'+this.id+'?fs=1" frameborder="0" allowfullscreen></iframe>';
+					//var video = '<iframe width="100%" src="http://www.youtube.com/embed/'+this.id+'" frameborder="0" allowfullscreen> </iframe>';
+					$("#myVideo").append(video);	
+			}
+		
+		//});
+		
+	/*
+		
+	function moduleType(type, textToDisplay, number, image){
+		
+		switch(type){
+		case "call":
+			callModule();
+			break;
+		case "text":
+			textModule();
+			break;
+		}
+	}
+		*/
+		
+		
+		
+	function appSettings(){
+			$.getJSON(yeahBaby()+"mobile/"+thePath()+"/appSettings.json", function(data){
+				 //alert(data[0].phoneOnAllPages);
+				if(data[0].phoneOnAllPages == 1) {
+					setTimeout('$("#phoneStuff").clone().appendTo("#phoneStuffB")', 2000);
+					}
+				})
+		}
+		// run phones on all app !
+				
+	//********************************************************************************************************************starts in line 53
+
+	//****************************************************************************************************
+	//gets the numbers
+	//numbers.php
+	function phones(){
+	$.getJSON(yeahBaby()+"mobile/assets/numbers.php?iduser="+thePath(), function(info){
+		//$.getJSON("http://m.josue45.com/mobile/assets/numbers.php?iduser="+thePath(), function(info){
+	//alert("ok");
+		
+	setFooter(info.companyName); //line 250
+
+	console.warn("Call")
+		$("#xyz").empty().append("CALL");
+		$("#call").attr("href","tel:"+info.workPhone);
+		
+		$("#xyzz").empty().append("TEXT");
+		$("#text").attr("href", "sms:"+info.cellPhone);
+		
+		//$('title').append(info.companyName+ " Mobile");
+		
+		});
+	}
+	
+//setFooter()
+function setFooter(company){
+		if(company){
+			console.log("seting footer company")
+		$("h4").empty().append(company +" "+ date.getFullYear());
+		}else{
+			$("h4").empty().append("fixxxxxxxxxxxxxxxxxxx");
+			}
+	}
+	//****************************************************************************************************
+	
+	
+	//will load the links for mobile site generated dinamically
+	$.getJSON(yeahBaby()+"mobile/listofpages.php?iduser="+thePath(), function(info){
+	//$("#mylist").empty();
+		for(var i=0; i<info.length; i++){
+			
+			console.log(info[i].name);
+			$("#mylist").append("<li><a id="+ info[i].id+" href=\"#page2\">"+info[i].name+"</a></li>");
+			
+			}
+			$("#mylist").listview('refresh');
+			
+			
+							$("#mylist > li > div > div > a").click( function(){
+							//$("div > a").click( function(){ //original needs to be fixed
+							console.log("fix this line 164");
+								$("#titlebaby").text($(this).text());
+								console.log($(this).text());
+								console.log($(this).attr("id"));
+							
+								$.ajax({
+									url: "http://m.josue45.com/class/JosueMunoz.php?getInfo="+$(this).attr("id")+"&type=ready",
+									})
+									.done( function (data){
+										$(".b").empty().append(data);
+										})	
+							})
+		});
+	////////////////////////////////////////////////////////////////////////////////////////////
+	//look and fix
+	////////////////////////////////////////////////////////////////////////////////////////////
+	//var f = "http://m.josue45.com/";
+	$.getJSON(yeahBaby()+"mobile/logoandbackground.php?iduser="+thePath(), function(data){
+		//$.getJSON("http://m.josue45.com/mobile/logoandbackground.php?iduser="+thePath(), function(data){
+	
+	if(data.logo){
+		console.log(thePath()+'/'+ data.BackgroundImage);
+		$('#logo').attr("src", data.logo);
+		
+	}
+		//$("#page, #page2").css("background-color", data.backgroundColor);
+		if(data.BackgroundImage != 'http://www.m.josue45.com/mobile/assets/replace_background.png' ){
+		$("#page, #page2").css("background-image", "url("+data.BackgroundImage+")");
+		console.log("Fix line 186:");
+		}
+		
+		//$("#page, #page2").css("background-position", "top center");
+		//$("#page, #page2").css("background-size", "100%");
+		//$("#slogan").css("color", data.linksFontColor);
+		$("#call >span").first().addClass('t2m-phone-'+data.iconClass);
+		$("#text >span").first().addClass('t2m-sms-'+data.iconClass);
+		
+		//$("li a").css("color", data.linksFontColor);	
+		//$(".b").css("background",  "linear-gradient("+data.b+")");
+		//$(".b").css("background-color", data.b);
+		//$("#a").css("margin-top",data.HeaderMarginTop+" !important");
+		});	
+		
+ 
+	
+	//************************************************************************************************************************** revise and fix
+	//mainPoints 
+	//will use these on sample.html
+	/*
+	$.getJSON(yeahBaby()+"mobile/"+thePath()+"/main.json", function(data){
+		//$.getJSON("http://m.josue45.com/mobile/"+thePath()+"/main.json", function(data){
+		//main points from json file
+	if(data){
+			for(var i = 0; i<data.length; i++){
+					//console.log(data[i].a);
+					var li = document.createElement("li");
+						li.innerHTML = data[i].a;
+						$("#mainPoints").append(li);
+				}
+			}
+			//	$("#mylist").listview('refresh');
+			$("#mainPoints").innerfade({ speed: 'slow', timeout: 3000, type: 'sequence', containerheight: '' });
+		});
+		
+	*/	
+	//mainPoints end
+	//**************************************************************************************************************************
+		
+		
+	//**************************************************************************************************************************
+	//socialMedia
+	$.getJSON(yeahBaby()+"mobile/"+thePath()+"/socialMedia.json").success(function(data){
+		//$.getJSON("http://m.josue45.com/mobile/"+thePath()+"/socialMedia.json", function(data){
+			//create image and link to site
+			//create copyrights for each icon
+			
+			if(data){
+				for(var i = 0; i<data.length; i++){
+					var a 	= document.createElement("a");
+						a.setAttribute("href", data[i].url);
+						
+					var img = document.createElement("img");
+						img.setAttribute("alt", data[i].name);
+						img.setAttribute("src", "http://m.josue45.com/mobile/assets/socialMediaIcons/"+data[i].name+".png");
+						a.appendChild(img);
+						$("#sm").append(a);
+				}
+				
+			}
+			
+			
+		}).error(function(){
+			
+			$("#sm").css("display", "none");
+			});	
+	//socialMedia end
+	//**************************************************************************************************************************
+/*
+		if(thePath() == 11){
+			
+			
+			var img = document.createElement("img");
+			var a = document.createElement("a");
+				img.setAttribute("src", "http://www.mrcheckpoint.com/wp-content/uploads/2014/04/iphoneandroid21.png");
+				a.setAttribute("href", "http://manageapps.net/apps/mrcheckpoint");
+				img.setAttribute("width", "100%");
+				a.appendChild(img);
+				$("#aa").append(a);
+				
+				$(".mainPoints").css("height", "30px");
+				$("#call, #text").css("display", "none");
+				//$("#call").css("display", "none");
+				
+				textModule("Download the app below for nationwide   DUI Checkpoint alerts in real-time");
+				moduleCreate();
+				
+				createListItem("Recent Tweets", "rt", "#tweets");
+				$("#rt").click(function(){
+						console.log("it works");
+						
+						
+						$.ajax({
+						url: "tweets_json.php?callback=hi",
+						dataType: "jsonp",
+						success: function(data){
+								//console.log(data);
+								//https://twitter.com/daanielwest24/status/526232837079314432
+								for(item in data){
+									//$("#bbbb").append('<li><a href="https://twitter.com/'+data[item]["retweeted_status"]["user"]["screen_name"]+'/status/'+data[item]["retweeted_status"]["id_str"]+'">'+ data[item]["user"]["url"]+'</a>' + '<img name="" src="' + data[item]["user"]["profile_image_url"] +'" width="32" height="32" alt="">' +" "+ data[item]['user']['name'] +"<br/>"+ data[item]['text']+"</li>");
+									if(data[item]["retweeted"] == true){
+										//<a href="https://twitter.com/'+data[item]["retweeted_status"]["user"]["screen_name"]+'/status/'+data[item]["retweeted_status"]["id_str"]+'">'+ data[item]["user"]["url"]+'</a>' + '
+										$("#bbbb").append('<li><img name="" src="' + data[item]["user"]["profile_image_url"] +'" width="32" height="32" alt="">' +" "+ data[item]['user']['name'] +"<br/>"+ data[item]['text']+'<br/>'+'<a href="https://twitter.com/'+data[item]["retweeted_status"]["user"]["screen_name"]+'/status/'+data[item]["retweeted_status"]["id_str"]+'">'+ data[item]["retweeted_status"]["user"]["screen_name"]+'</a>'+'</li>');
+									
+									}else{
+										$("#bbbb").append('<li><img name="" src="' + data[item]["user"]["profile_image_url"] +'" width="32" height="32" alt="">' +" "+ data[item]['user']['name'] +"<br/>"+ data[item]['text']+'<br/>'+'<a href="https://twitter.com/'+data[item]["user"]["screen_name"]+'/status/'+ data[item]["id_str"]+'">'+ data[item]["user"]["screen_name"]+'</a>'+'</li>');
+										}
+								}
+							}
+						})
+					})
+				}
+*/
+	function createListItem(name, id, href){
+			
+			var a = document.createElement("a");
+			var li = document.createElement("li");
+				li.appendChild(a);
+				a.innerHTML = name;
+				a.setAttribute("href", href);
+				a.setAttribute("id", id);
+				$("#mylistB").append(li);
+				//refrsh the listview
+				$("#mylistB").listview("refresh");
+		}
+		
+	function textModule(displayText){
+			//will display text
+			var text = document.createTextNode(displayText);
+			var div = document.createElement("div");
+			var xy = document.getElementById("aa");
+			var page = document.getElementById("page");
+				div.appendChild(text);
+				div.setAttribute("class", "center");
+				
+			page.insertBefore(div, xy);
+		}
+	
+	/*
+	function moduleCreate(){
+		var a = document.createElement("a");
+			var span = document.createElement("span");
+			var h1 = document.createElement("h1");
+			var address = document.createElement("address");
+			//a.setAttribute("id", "call");
+			a.setAttribute("href", "mailto:info@mrcheckpoint.com?subject=Hello%20Mr.%20Checkpoint");
+			a.innerHTML = "See a checkpoint? Tell us where?";
+			address.setAttribute("class", "center");
+			
+			address.appendChild(a);
+			$("#phoneStuff").append(address);
+		}
+	*/
+	
+		
+
+
+	//  logme.logIn();
+	
+	var doc_css = document.createElement("link");
+	doc_css.setAttribute("type", "text/css");
+	doc_css.setAttribute("rel", "stylesheet");
+	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
+	document.getElementsByTagName('head')[0].appendChild(doc_css);
+	
+			
+	});
+
+
+</script>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+</head> 
+<body> 
+<!--***************************************************************page start********************************************************** -->
+
+<div data-role="page" id="page">
+<div id="takePictureC">TAKE PIC</div>
+<div id="testing"></div>
+<!-- menu icon for app-->
+<div id="menuApp">
+
+	<ul>
+	  <li></li>
+      <li></li>      
+      <li></li>
+    </ul>
+
+</div>
+<!-- menu icon end-->
+
+<div id="jmmenu">
+    <ul id="jmmenuul">
+    	<li>My Account</li>
+        <li onClick="logMe.Testing()" id="test">Test Apps</li>
+        <li onClick="logMe.logIn()" id="blahhh">Log In</li>   
+    </ul>
+</div>
+
+
+  <!--<div id="phoneNumberHeader">---------</div>-->
+ 
+	<div id="a" class="a">
+        <img id="logo" name="" src="" alt="">
+            <!-- <div id="slogan"> -->
+        <!-- </div> --><!--<ul id="list">--------------------</ul>-->
+    </div>
+  	<!--<div id="aa">---</div>-->
+  	
+  	<div class="mainPoints">
+    	<ul id="mainPoints"></ul>
+    </div>
+  
+<div id="phoneStuff">
+    <div class="phoneStuffWrap">
+        <a class="t2m-boton" id="call">
+        	<span></span>
+       		<span id="xyz"></span>
+        </a>
+        <a class="t2m-boton" id="text">
+        	<span></span>
+            <span id="xyzz"></span>
+        </a>
+    </div>
+</div> 
+    
+     
+	<div data-role="content">
+    	
+        <ul id="mylistB" data-role="listview" data-inset="true"></ul>
+        
+        <ul id="mylistC" data-role="listview" data-inset="true">
+        <li style="display:none;">GALLERY</li>
+         <li><a href="contact-page.html">Contact</a></li>
+        </ul>
+        
+        <ul id="mylist" data-role="listview" data-inset="true"></ul>
+        
+    </div>
+    <!-- ************************************************************************************************************************** -->
+	<!-- footer start -->
+    <div data-role="footer" id="c">
+   	
+        <!-- social media start -->
+            <div id="sm" class="sm"></div>
+        <!-- social media end -->
+    
+        <h4>Page Footer</h4>
+ 
+	</div>
+    <!-- footer end -->    
+	<!-- ************************************************************************************************************************** -->
+    
+</div>
+<!--***************************************************************page end********************************************************** -->
+<style>
+#takePictureB{ font-size:1em; border:1px solid #FFF; width:auto; padding:5px;
+ -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Safari */
+    transform:rotate(90deg); right:-20px;
+	z-index:5; text-align:center; line-height:auto; border-radius:20px; position:fixed; bottom:5%; height:auto;
+	background:#333; color:#FFF;}
+</style>
+
+<div data-role="page" id="page2" data-add-back-btn="true">
+<div id="takePictureB">TAKE PIC</div>
+	<div data-role="header">
+    	
+		<h1 id="titlebaby">Page Two</h1>
+	</div>
+    
+    <div id="phoneStuffB"></div>
+    
+	<div class="b" id="here">	
+		Content		
+	</div>
+	    
+	<div id="c" data-role="footer">
+		<h4>Page Footer</h4>
+	</div>
+</div>
+
+<div data-role="page" id="carPage" data-add-back-btn="true">
+	<div data-role="header">
+    	
+		<h1 id="titlebaby">Page Two</h1>
+	</div>
+    
+    <div id="phoneStuffB"></div>
+    
+	<div class="b" id="b">	
+		Content		
+	</div>
+	    
+	<div id="c" data-role="footer">
+		<h4>Page Footer</h4>
+	</div>
+</div>
+<!-- this page is reserved for wordpress postings-->
+<div data-role="page" id="page3">
+	<div data-role="header">
+		<h1>Page Three</h1>
+	</div>
+	<div data-role="content">	
+		Content		
+	</div>
+	<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div>
+</div>
+
+<!-- this space is for youtube videos if have any-->
+<div data-role="page" id="page4" data-add-back-btn="true">
+	<div data-role="header">
+		<h1>Videos</h1>
+	</div>
+	<div data-role="content">	
+				<ul id="videos" data-role="listview"></ul>
+	</div>
+	<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div>
+</div>
+
+<div data-role="page" id="page5" data-add-back-btn="true">
+	<div data-role="header">
+		<h1>Videos</h1>
+	</div>
+	<div data-role="content">	
+				<div id="myVideo"></div>
+	</div>
+	<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div>
+</div>
+<div data-role="page" id="tweets">
+  <div data-role="header">
+    <h1>Tweets</h1>
+  </div>
+  <ul data-role="listview" class="tweets" id="bbbb"></ul>
+  <div data-role="footer">
+    <h4>Footer</h4>
+  </div>
+</div>
+
+<div data-role="page" id="products" data-add-back-btn="true">
+  <div data-role="header">
+    <h1>Insert Product</h1>
+  </div>
+  <div data-role="content" style="background:#FFF;">
+  
+  
+  
+   
+      <label for="selectmenu" class="select">Category:</label>
+      <select name="selectmenuProducts" id="selectmenuProducts" onChange="setCategory()">
+      	<option value="createCategory">Create Category</option>
+        
+        <option value="option2">Option 2</option>
+        
+      </select>
+    
+  <input name="imageFilename" type="hidden" value="1">
+  <script>
+  		var selectedMenu = document.getElementById("selectmenuProducts");
+		function setCategory(){
+				if(selectedMenu.value == "createCategory"){
+					var x = prompt("New Category", "");
+					if(x){
+							var opt = document.createElement("option");
+								opt.value = x;
+								opt.text = x;
+								selectedMenu.appendChild(opt);
+						}else{
+							alert("No New Category");
+							}			
+				}
+			}
+  		localStorage.setItem("catSelected", "option2");
+	  	selectedMenu.value =  localStorage.getItem("catSelected");
+  </script>
+    
+      <label for="textinput">Product Name:</label>
+      <input type="text" name="textinput" id="Name" value=""  />
+     
+        <label for="textinput">Price:</label>
+        <input type="number" name="textinput" id="Price" value=""  />
+       
+          <label for="textinput">Short Description:</label>
+          <input type="text" name="textinput" id="shortDescription" value=""  />
+        
+          <label for="textarea">Long Description</label>
+          <textarea cols="40" rows="8" name="textarea" id="LongDescription"></textarea>
+          
+          <input name="" id="sellProducts" value="Submit" type="submit">
+          
+  </div>
+  <div data-role="footer">
+    <h4>Insert Product</h4>
+  </div>
+</div>
+
+<script src="functions-jm-01.js" type="text/javascript"></script>
+<script src="assets/camera.js"></script>
+<script type="text/javascript">
+app.initialize();
+</script>
+<script src="cordova.js"></script>
+</body>
+</html>
