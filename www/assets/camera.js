@@ -612,12 +612,12 @@ var app = {
 	logMe.checkIfLoggedIn();
 	logMe.displayFolders();
 	//navigator.vibrate(1000);
-	app.checkConnection();
+	//app.checkConnection();
 	
 	//cordova.addDocumentEventHandler('menubutton');
 	//navigator.app.overrideButton("menubutton", true)
-	document.addEventListener('menubutton', this.Menu, false);
-//alert(navigator.connection.type);
+	//document.addEventListener('menubutton', this.Menu, false);
+alert(navigator.connection.type);
 
 	},
 	//does not work on phones
