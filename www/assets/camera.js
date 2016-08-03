@@ -1,6 +1,18 @@
 // JavaScript Document
-
 //logMe.clearTheList("mylistC");
+
+console.log(localStorage.getItem("userId"));
+if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
+	var id = localStorage.getItem("userId");
+	}else{
+		var id=1;
+	}
+	
+ 	function yeahBaby(){ return "http://m.josue45.com/"; }		
+	
+	function thePath(){ //this will return the path of current user
+		return id;
+			}
 
 var logMe = 
 
@@ -16,10 +28,8 @@ var logMe =
 				logMe.products();
 				logMe.setYourIdLink();
 				logMe.putTakeAPictureLink();
-				//logMe.clearTheList("mylistC");
 			}
 		},
-	
 	
 	clearTheList: function(mylist){
 		var ul = logMe._(mylist);
@@ -40,8 +50,6 @@ var logMe =
 		},
 		
 	goToProducts: function(){
-			//alert("working on it");
-			//app.takeApicture();
 			location.assign("#products");
 		},
 	
@@ -63,18 +71,14 @@ var logMe =
 		},
 	
 	imIn:function(){
-		
 		var x = document.getElementById("blahhh");
 			x.innerHTML = "Log Out";
 			x.setAttribute("onClick", "logMe.logOut()");
 			x.style.color = "red";
 			
-		
-		
 		},
 	putTakeAPictureLink: function(){
-		
-			var ul = document.getElementById("jmmenuul");
+		var ul = document.getElementById("jmmenuul");
 			var li = document.createElement("li");
 				li.style.color = "orange";
 				li.setAttribute("id", "logOutButton");
@@ -86,17 +90,15 @@ var logMe =
 				ul.appendChild(li);
 		
 		},
-	deleteTakeAPictureLink: function(){
 		
-			var y = document.getElementById("jmmenuul");
+	deleteTakeAPictureLink: function(){
+		var y = document.getElementById("jmmenuul");
 			var x = document.getElementById("logOutButton");
 				y.removeChild(x);
 			
 		},
-	
-	
+		
 	logIn: function(){
-
 			var error = "";
 			var email = prompt("Provide email", "");
 			var password = prompt("Provide password", "");
@@ -121,7 +123,7 @@ var logMe =
 		},
 		
 	logOut: function(){
-			var x = document.getElementById("blahhh");
+		var x = document.getElementById("blahhh");
 				localStorage.removeItem("userId");
 				x.setAttribute("onClick", "logMe.logIn()");
 				x.innerHTML = "Log In";
@@ -279,8 +281,6 @@ var logMe =
 
 //************************************************************************************************************************************
 
-
-
 var app = {
     // Application Constructor
 	
@@ -290,19 +290,21 @@ var app = {
 		},
 	
 	addPictureEvent: function(){
+		//x = document.getElementById("myLI").parentNode.nodeName;
 		app._("takePictureB").onclick = this.addPicture;
 		},
 		
-	addPicture: function(){
+	addPicture: function(e){
 		//alert("this is working");
-		//app.folder = this.id;
+		//x = document.getElementById(this.id);
+		//alert(e.target.id);
+		//alert(x);
 		app.takeApicture();
 		
 		},
-		
 	
 	setEventForSellData: function(){
-		var btn = document.getElementById("sellProducts");
+			var btn = document.getElementById("sellProducts");
 		
 			btn.onclick = app.sendData;
 		},
@@ -337,9 +339,11 @@ var app = {
 					
 		
 		},
+		
 	returnHomeMsg: function(){
 		window.location.href = "#page";
 		},
+		
 	collectData: function(currentImage){ //collects data for products data entry
 		var url = "";
 		
@@ -359,21 +363,20 @@ var app = {
 	
     initialize: function() {
         this.bindEvents();
+		//this.doSomethingMenu;
     },
+	
     // Bind Event Listeners
-    //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-		
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+		document.addEventListener('deviceready', this.onDeviceReady, false);
 		this.setEventForSellData();
-		this.addPictureEvent();
-		
-	
+		this.addPictureEvent(); //line 292
+			//app.checkConnection();
     },
 	 
-	 takeApictureProducts: function(){
+	takeApictureProducts: function(){
 		//alert("somewhere");
 							this.folder = "Products";
 							app.makeFolder();
@@ -385,7 +388,6 @@ var app = {
  								targetHeight: 600,
 	 })
 	 },
-	 
 	 
 	takeApicture: function(){
 		//alert("somewhere");
@@ -408,7 +410,7 @@ var app = {
 	 },
 	 
 	createFolder: function(){			
-			//if(this.folder == "Products"){
+		//if(this.folder == "Products"){
 			if(!this.folder){
 				console.warn("fix this line 408");
 					//}else{
@@ -437,7 +439,7 @@ var app = {
 	},
 	
 	makeFolder: function(){
-				var data = "";
+		var data = "";
 					data = "userId="+localStorage.getItem("userId");
 					data += "&dir="+this.folder;
 					console.warn(this.folder+":"+app.folder+" line 438");
@@ -459,7 +461,7 @@ var app = {
 			},
 			
 	getImageFilename: function(imageURI){ //*************************************************************************************
-		
+				
 			
 			//this is the original image taken
 			localStorage.setItem("myimage", imageURI.substr(imageURI.lastIndexOf('/')+1));
@@ -478,8 +480,9 @@ var app = {
 				app.onSuccess(imageURI);		 		
        	*/
 },
-imageUploadApp: function(image, imageurl){
-				var options = new FileUploadOptions();
+
+	imageUploadApp: function(image, imageurl){
+		var options = new FileUploadOptions();
 				options.fileKey="file";
 				options.fileName=image;
 				options.mimeType="image/jpeg";
@@ -492,7 +495,7 @@ imageUploadApp: function(image, imageurl){
 	},
 		
 	yeah: function(imageURI){ //*************************************************************************************
-		
+				
 			
 			
 			localStorage.setItem("myimage", imageURI.substr(imageURI.lastIndexOf('/')+1));
@@ -520,11 +523,13 @@ imageUploadApp: function(image, imageurl){
         //window.location.href = "#Products";
 							//*************************************************************************************		
 },
-win:function(r){
-	     console.log("Code = " + r.responseCode);
+
+	win:function(r){
+		     console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
 	},
+	
 	fail:function(error){
 		 console.log("An error has occurred: Code = " + error.code);
             console.log("upload error source " + error.source);
@@ -534,9 +539,9 @@ win:function(r){
 		console.warn("the folder is: "+this.folder+" line 529");
 			
 		},
-	onSuccess: function(imageURI) {
 		
-		//this.imageFilename = imageURI;
+	onSuccess: function(imageURI) {
+			//this.imageFilename = imageURI;
 		//alert("Image Uploaded for user "+localStorage.getItem("userId"));
 		console.warn("line 536. image uploaded "+imageURI);
 		
@@ -551,30 +556,274 @@ win:function(r){
 		//logMe.displayFolders();
 								
 											},
+											
 	onFail: function(message) {
-							alert('Failed because: ' + message);
+		alert('Failed because: ' + message);
 							app.folder = "";
 						},
     // deviceready Event Handler
-    //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-       // app.receivedEvent('deviceready');
-	   		//document.addEventListener("menubutton", app.doSomethingMenu(), false);
-			document.addEventListener("menubutton", this.doSomethingMenu, false);
-		   console.log(navigator.camera);
-    		
 	
+    //alert("device is ready");
+	//navigator.vibrate(1000);
+	app.checkConnection();
+	
+	//cordova.addDocumentEventHandler('menubutton');
+	//navigator.app.overrideButton("menubutton", true)
+	document.addEventListener('menubutton', this.Menu, false);
+alert(navigator.connection.type);
+
 	},
-	doSomethingMenu: function(){
-		alert("it works");
-		}
+	//does not work on phones
+	parallax: function(){
+		//var x = document.getElementById("page");
+			//x.style.position = "fixed";
+			//x.style.backgroundPosition = "center "+ -(window.pageYOffset+2)+"px";
+		//console.log("moving"+window.pageYOffset);
+		},
+	Menu: function(){
+	alert("not working yet");
+		},
+		
+	checkConnection: function(){
+    var networkState = navigator.connection.type;
+
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection';
+
+
+    navigator.alert('Connection type: ' + states[networkState]);
+},
+
+
 	
-};
+
+
+
+  		
+		setCategory: function (){
+			var selectedMenu = document.getElementById("selectmenuProducts");
+				if(selectedMenu.value == "createCategory"){
+					var x = prompt("New Category", "");
+					if(x){
+							var opt = document.createElement("option");
+								opt.value = x;
+								opt.text = x;
+								//selectedMenu.appendChild(opt);
+								selectedMenu.add(opt);
+						}else{
+							alert("No New Category");
+							}			
+				}
+			//localStorage.setItem("catSelected", "option2");
+			}
+  	};	
+	  	//selectedMenu.value =  localStorage.getItem("catSelected");
+
+var doc_css = document.createElement("link");
+	doc_css.setAttribute("type", "text/css");
+	doc_css.setAttribute("rel", "stylesheet");
+	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
+	document.getElementsByTagName('head')[0].appendChild(doc_css);
+	
 
 
 app.type = "POST";
 app.userId = localStorage.getItem("userId");
 app.url = "http://m.josue45.com/class/createFolder.php";
 //http://m.josue45.com/class/createFolder.php
+
+var myApp =
+{
+	x: function(y){
+		return xyc = document.getElementById(y); 
+		},
+		
+	setTextNode: function(node, insert){
+		this.node	= node
+		this.insert = insert;
+		},
+	textNode: function(){
+		var node = document.createTextNode(this.node);
+			x(this.insert).appendChild(node);
+		}
+}
+	
+var x = function(y){ return xyc = document.getElementById(y); }
+
+function image(imageFilename, node, insert)
+	{
+		this.imageFilename = imageFilename;
+		this.node = node;
+		this.insert = insert;
+	}
+
+image.prototype.create = function create()
+	{
+		
+		var img = document.createElement("img");
+			console.warn(this.imageFilename+this.node);
+			img.setAttribute("alt", this.node);
+			img.setAttribute("src", this.imageFilename);
+			x(this.insert).appendChild(img);
+	}
+
+function phoneNumber(number, node)
+	{
+		this.number = number;
+		this.node = node;
+	}
+
+phoneNumber.prototype.call = function call()
+	{
+		//alert(this.node +" "+ this.number);
+		textnode = document.createTextNode(this.node +" "+ this.number);  
+		createLink(this.number, this.node);	
+	}
+
+phoneNumber.prototype.sms = function sms()
+	{
+		//alert(this.node +" "+ this.number);
+			
+	}
+	 
+function createLink(number, node)
+	{
+		var a = document.createElement("a");
+		a.setAttribute("src", "sms:"+number);
+		a.innerHTML = node;
+		//x("status").appendChild(a);
+
+	}
+
+getUrl.prototype.clearPage = function clearPage(){
+		x("b").innerHTML = "";
+	}
+
+function getUrl(url, type, id, node, page)
+	{
+		this.url  = url;
+		this.type = type;
+		this.id = id;
+		this.node = node;
+		this.page = page;
+	}
+	
+getUrl.prototype.linkCreate = function linkCreate(){
+		
+		
+		var a = document.createElement("a");
+			a.setAttribute("href", this.page);
+			a.setAttribute("id", this.id);
+			a.setAttribute("url2", this.url);
+		var li = document.createElement("li");
+			li.appendChild(a);
+			a.innerHTML = this.node;
+			x("mylistB").appendChild(li);
+			$("#mylistB").listview('refresh');
+			
+			
+			
+	}
+
+
+
+getUrl.prototype.car = function car(){
+	
+				
+				//alert(this.url);
+				var url = this.url;
+				
+				//a.onclick = function(){
+					x("car").onclick = function(){
+				//alert(url);
+				x('b').innerHTML = "";
+				var ajax = new XMLHttpRequest();
+				ajax.open("POST", url ,true);
+				ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				ajax.onreadystatechange = function(){
+						if(ajax.readyState == 4 & ajax.status == 200){
+							//alert(ajax.responseText.lenght);
+							var a = JSON.parse(ajax.responseText);
+								
+								for(var i=0; i<a.length; i++){
+								console.log(a[i].model);
+								createImage(a[i].image, a[i].userid, a[i].model, a[i].year);
+						}
+					}
+				}
+				//ajax.send("appSettings=true&phoneOnAllPages="+y.value+"&id="+getUserId());
+				ajax.send();
+			}
+				
+		}
+
+function createImage(image, userid, model, year){
+	
+	var img = document.createElement('img'); var span = document.createElement("span");
+	//alert(model.length)
+		if(model.length > 10){
+			var m = model.substring(0,9)+"...";
+			}else{
+				var m = model;
+				}
+	var textNode = document.createTextNode(year+ " "+ m.toUpperCase());
+		span.setAttribute("id", "title");
+		span.appendChild(textNode);
+	var li = document.createElement('li');
+		img.setAttribute("src", "http://www.salecarro.com/assets/cars_for_sale/"+userid+"/_small"+image);
+		li.appendChild(img);
+		li.appendChild(span);
+		x("b").appendChild(li);
+}
+
+	function module(){
+			$.getJSON(yeahBaby()+"mobile/"+thePath()+"/module.json", function(data){
+					var a = ["call", "sms", "image", "textNode", "car", "LINK"];
+					console.log(data.length+"**************************************");
+					for(var i=0; i<data.length; i++){
+ 
+						switch (data[i].module) {
+						
+						//fix
+							case "call":
+							var phone = new phoneNumber(data[i].number, data[i].node);
+								phone.call();
+								break;
+						//fix
+							case "sms":
+							var phone = new phoneNumber("619-316-9904", "text us");
+								phone.sms();
+								break;
+						
+							case "image":
+							var img = new image(data[i].imageFilename, data[i].node, data[i].insert);
+							  	img.create();
+								break;
+								
+							case "textNode":
+								myApp.setTextNode(data[i].node, data[i].insert);
+								myApp.textNode();
+								break;
+								
+						//fix
+							case "car":
+							var Url = new getUrl('http://www.salecarro.com/api/index.php', 'car', "car", data[i].node , "#carPage");
+								Url.linkCreate();
+								Url.car();
+								break;
+							} 
+						}
+					
+				});
+				
+		}

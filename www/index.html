@@ -8,34 +8,19 @@
 <link href="http://m.josue45.com/jquery-mobile/jquery.mobile.theme-1.0.min.css" rel="stylesheet" type="text/css"/>
 <link href="http://m.josue45.com/jquery-mobile/jquery.mobile.structure-1.0.min.css" rel="stylesheet" type="text/css"/>
 
-
 <!-- external files already-->
 <script src="http://m.josue45.com/jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
 <!-- <script src="http://m.josue45.com/mobile/mobileTest/js/jquery.innerfade.js" type="text/javascript"></script> -->
 <script src="http://m.josue45.com/jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
-
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <script>
-	
 //**************************************
 //place user id here to make it an app
-//*******************************************id here for app
-//*********************************************
-console.log(localStorage.getItem("userId"));
-if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
-	var id = localStorage.getItem("userId");
-	}else{
-		var id=1;
-	}
-//}
-	
- 	function yeahBaby(){ return "http://m.josue45.com/"; }		
-	
-	function thePath(){ //this will return the path of current user
-		return id;
-			}	
+//localStorage.setItem("userId", 2);
+//id here for app
+//**************************************
 //**************************************
 //**********josue45.com baby********
 //**************************************
@@ -78,7 +63,7 @@ $(document).ready( function(){
 			phones();	
 			logMe.checkIfLoggedIn();
 			logMe.displayFolders();
-			
+		
 	var data = '';
 
 $("#menuApp").click( function(){
@@ -94,9 +79,6 @@ $("#menuApp").click( function(){
 	});			
 	
 	var date = new Date();
-	
-
-	
 	//********************************************************************************************************************
 
 
@@ -185,23 +167,6 @@ $("#menuApp").click( function(){
 		
 		//});
 		
-	/*
-		
-	function moduleType(type, textToDisplay, number, image){
-		
-		switch(type){
-		case "call":
-			callModule();
-			break;
-		case "text":
-			textModule();
-			break;
-		}
-	}
-		*/
-		
-		
-		
 	function appSettings(){
 			$.getJSON(yeahBaby()+"mobile/"+thePath()+"/appSettings.json", function(data){
 				 //alert(data[0].phoneOnAllPages);
@@ -236,15 +201,7 @@ $("#menuApp").click( function(){
 		});
 	}
 	
-//setFooter()
-function setFooter(company){
-		if(company){
-			console.log("seting footer company")
-		$("h4").empty().append(company +" "+ date.getFullYear());
-		}else{
-			$("h4").empty().append("fixxxxxxxxxxxxxxxxxxx");
-			}
-	}
+
 	//****************************************************************************************************
 	
 	
@@ -330,7 +287,6 @@ function setFooter(company){
 	//mainPoints end
 	//**************************************************************************************************************************
 		
-		
 	//**************************************************************************************************************************
 	//socialMedia
 	$.getJSON(yeahBaby()+"mobile/"+thePath()+"/socialMedia.json").success(function(data){
@@ -359,106 +315,17 @@ function setFooter(company){
 			});	
 	//socialMedia end
 	//**************************************************************************************************************************
-/*
-		if(thePath() == 11){
-			
-			
-			var img = document.createElement("img");
-			var a = document.createElement("a");
-				img.setAttribute("src", "http://www.mrcheckpoint.com/wp-content/uploads/2014/04/iphoneandroid21.png");
-				a.setAttribute("href", "http://manageapps.net/apps/mrcheckpoint");
-				img.setAttribute("width", "100%");
-				a.appendChild(img);
-				$("#aa").append(a);
-				
-				$(".mainPoints").css("height", "30px");
-				$("#call, #text").css("display", "none");
-				//$("#call").css("display", "none");
-				
-				textModule("Download the app below for nationwide   DUI Checkpoint alerts in real-time");
-				moduleCreate();
-				
-				createListItem("Recent Tweets", "rt", "#tweets");
-				$("#rt").click(function(){
-						console.log("it works");
-						
-						
-						$.ajax({
-						url: "tweets_json.php?callback=hi",
-						dataType: "jsonp",
-						success: function(data){
-								//console.log(data);
-								//https://twitter.com/daanielwest24/status/526232837079314432
-								for(item in data){
-									//$("#bbbb").append('<li><a href="https://twitter.com/'+data[item]["retweeted_status"]["user"]["screen_name"]+'/status/'+data[item]["retweeted_status"]["id_str"]+'">'+ data[item]["user"]["url"]+'</a>' + '<img name="" src="' + data[item]["user"]["profile_image_url"] +'" width="32" height="32" alt="">' +" "+ data[item]['user']['name'] +"<br/>"+ data[item]['text']+"</li>");
-									if(data[item]["retweeted"] == true){
-										//<a href="https://twitter.com/'+data[item]["retweeted_status"]["user"]["screen_name"]+'/status/'+data[item]["retweeted_status"]["id_str"]+'">'+ data[item]["user"]["url"]+'</a>' + '
-										$("#bbbb").append('<li><img name="" src="' + data[item]["user"]["profile_image_url"] +'" width="32" height="32" alt="">' +" "+ data[item]['user']['name'] +"<br/>"+ data[item]['text']+'<br/>'+'<a href="https://twitter.com/'+data[item]["retweeted_status"]["user"]["screen_name"]+'/status/'+data[item]["retweeted_status"]["id_str"]+'">'+ data[item]["retweeted_status"]["user"]["screen_name"]+'</a>'+'</li>');
-									
-									}else{
-										$("#bbbb").append('<li><img name="" src="' + data[item]["user"]["profile_image_url"] +'" width="32" height="32" alt="">' +" "+ data[item]['user']['name'] +"<br/>"+ data[item]['text']+'<br/>'+'<a href="https://twitter.com/'+data[item]["user"]["screen_name"]+'/status/'+ data[item]["id_str"]+'">'+ data[item]["user"]["screen_name"]+'</a>'+'</li>');
-										}
-								}
-							}
-						})
-					})
-				}
-*/
-	function createListItem(name, id, href){
-			
-			var a = document.createElement("a");
-			var li = document.createElement("li");
-				li.appendChild(a);
-				a.innerHTML = name;
-				a.setAttribute("href", href);
-				a.setAttribute("id", id);
-				$("#mylistB").append(li);
-				//refrsh the listview
-				$("#mylistB").listview("refresh");
-		}
-		
-	function textModule(displayText){
-			//will display text
-			var text = document.createTextNode(displayText);
-			var div = document.createElement("div");
-			var xy = document.getElementById("aa");
-			var page = document.getElementById("page");
-				div.appendChild(text);
-				div.setAttribute("class", "center");
-				
-			page.insertBefore(div, xy);
-		}
 	
-	/*
-	function moduleCreate(){
-		var a = document.createElement("a");
-			var span = document.createElement("span");
-			var h1 = document.createElement("h1");
-			var address = document.createElement("address");
-			//a.setAttribute("id", "call");
-			a.setAttribute("href", "mailto:info@mrcheckpoint.com?subject=Hello%20Mr.%20Checkpoint");
-			a.innerHTML = "See a checkpoint? Tell us where?";
-			address.setAttribute("class", "center");
-			
-			address.appendChild(a);
-			$("#phoneStuff").append(address);
-		}
-	*/
-	
-		
-
-
-	//  logme.logIn();
-	
-	var doc_css = document.createElement("link");
-	doc_css.setAttribute("type", "text/css");
-	doc_css.setAttribute("rel", "stylesheet");
-	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
-	document.getElementsByTagName('head')[0].appendChild(doc_css);
-	
-			
+		//setFooter()
+function setFooter(company){
+		if(company){
+			console.log("seting footer company")
+		$("h4").empty().append(company +" "+ date.getFullYear());
+		}else{
+			$("h4").empty().append("fixxxxxxxxxxxxxxxxxxx");
+			}
+	}		
 	});
-
 
 </script>
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
@@ -470,7 +337,7 @@ function setFooter(company){
 <!--***************************************************************page start********************************************************** -->
 
 <div data-role="page" id="page">
-<div id="takePictureC">TAKE PIC</div>
+
 <div id="testing"></div>
 <!-- menu icon for app-->
 <div id="menuApp">
@@ -523,13 +390,8 @@ function setFooter(company){
 	<div data-role="content">
     	
         <ul id="mylistB" data-role="listview" data-inset="true"></ul>
-        
-        <ul id="mylistC" data-role="listview" data-inset="true">
-        <li style="display:none;">GALLERY</li>
-         <li><a href="contact-page.html">Contact</a></li>
-        </ul>
-        
-        <ul id="mylist" data-role="listview" data-inset="true"></ul>
+        <ul id="mylistC" data-role="listview" data-inset="true"></ul>
+        <ul id="mylist" data-role="listview" data-inset="true"><li><a href="contact-page.html">Contact</a></li></ul>
         
     </div>
     <!-- ************************************************************************************************************************** -->
@@ -648,32 +510,13 @@ function setFooter(company){
   
    
       <label for="selectmenu" class="select">Category:</label>
-      <select name="selectmenuProducts" id="selectmenuProducts" onChange="setCategory()">
+      <select name="selectmenuProducts" id="selectmenuProducts" onChange="app.setCategory();">
       	<option value="createCategory">Create Category</option>
-        
-        <option value="option2">Option 2</option>
-        
+        <option value="option2" selected>Option 2</option>
       </select>
     
   <input name="imageFilename" type="hidden" value="1">
-  <script>
-  		var selectedMenu = document.getElementById("selectmenuProducts");
-		function setCategory(){
-				if(selectedMenu.value == "createCategory"){
-					var x = prompt("New Category", "");
-					if(x){
-							var opt = document.createElement("option");
-								opt.value = x;
-								opt.text = x;
-								selectedMenu.appendChild(opt);
-						}else{
-							alert("No New Category");
-							}			
-				}
-			}
-  		localStorage.setItem("catSelected", "option2");
-	  	selectedMenu.value =  localStorage.getItem("catSelected");
-  </script>
+  
     
       <label for="textinput">Product Name:</label>
       <input type="text" name="textinput" id="Name" value=""  />
@@ -695,11 +538,10 @@ function setFooter(company){
   </div>
 </div>
 
-<script src="functions-jm-01.js" type="text/javascript"></script>
 <script src="assets/camera.js"></script>
-<script type="text/javascript">
-app.initialize();
-</script>
-<script src="cordova.js"></script>
+ <script type="text/javascript">
+			app.initialize();
+        </script>
+      <script type="text/javascript" src="cordova.js"></script>
 </body>
 </html>
