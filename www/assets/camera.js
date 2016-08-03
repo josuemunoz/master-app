@@ -21,6 +21,19 @@ var logMe =
 	jmMenu: function(){
 			return document.getElementById("jmmenuul");
 		},
+
+	toggleMenu: function(menuApp){
+	
+	logMe._(menuApp).onclick = function(){	
+	var x = logMe._("jmmenu");
+	if(x.style.width == "80%"){
+		x.style.width = "0%";
+		}else{
+	    	x.style.width = "80%";
+		}
+	}
+},
+	
 	
 	checkIfLoggedIn: function(){
 		if(localStorage.getItem("userId")){
@@ -28,6 +41,14 @@ var logMe =
 				logMe.products();
 				logMe.setYourIdLink();
 				logMe.putTakeAPictureLink();
+			}
+		},
+		
+	userIsValid: function(){
+		if(localStorage.getItem("userId")){
+		return true;	
+		}else{
+			return false;
 			}
 		},
 	
@@ -50,10 +71,12 @@ var logMe =
 		},
 		
 	goToProducts: function(){
-			location.assign("#products");
+		location.assign("#products");
 		},
 	
 	products: function(){
+			
+		if(logMe.userIsValid()){
 			var menu = document.getElementById("jmmenuul");
 			var li = document.createElement("li");
 				li.setAttribute("id", "productLinks"); //////////////////////////////////
@@ -61,8 +84,10 @@ var logMe =
 				li.innerHTML = "Sell Products ******";
 				li.style.color = "blue";
 				menu.appendChild(li);
+		}
 		
 		},
+		
 	removeTheLinks: function(){
 		//alert("removing this link");
 		var y = "";
@@ -77,6 +102,7 @@ var logMe =
 			x.style.color = "red";
 			
 		},
+		
 	putTakeAPictureLink: function(){
 		var ul = document.getElementById("jmmenuul");
 			var li = document.createElement("li");
@@ -99,7 +125,7 @@ var logMe =
 		},
 		
 	logIn: function(){
-			var error = "";
+		var error = "";
 			var email = prompt("Provide email", "");
 			var password = prompt("Provide password", "");
 			
@@ -123,6 +149,7 @@ var logMe =
 		},
 		
 	logOut: function(){
+		logMe._("jmmenu").style.width = "0%";
 		var x = document.getElementById("blahhh");
 				localStorage.removeItem("userId");
 				x.setAttribute("onClick", "logMe.logIn()");
@@ -134,6 +161,7 @@ var logMe =
 				logMe.deleteTakeAPictureLink();
 				logMe.removeYourIdLink();
 				logMe.testingOnly();
+				
 								
 		},
 		
@@ -171,13 +199,14 @@ var logMe =
 		
 		},
 	setYourIdLink: function(){
-			var ul = document.getElementById("jmmenuul");
+		var ul = document.getElementById("jmmenuul");
 			var x = document.createElement("li");
 				x.setAttribute("id", "yourid");
 				x.style.color = 'green';
 				x.innerHTML = "Your Id "+localStorage.getItem("userId");
 				ul.appendChild(x);
 		},
+		
 	removeYourIdLink: function(){
 			var y = document.getElementById("jmmenuul");
 			var x = document.getElementById("yourid");
@@ -185,7 +214,7 @@ var logMe =
 		},
 	
 	logMeIn: function(){
-			var x = document.getElementById("blahhh");
+				var x = document.getElementById("blahhh");
 				x.setAttribute("onClick", "logMe.logOut()");
 				x.style.color = "red";
 				x.innerHTML = "Log Out";
@@ -269,6 +298,8 @@ var logMe =
 		},
 		
 	Testing: function(){
+		
+		
 			var x = document.getElementById("test");
 				var id = prompt("testing Account", "");
 				localStorage.setItem("userId", id);
@@ -291,13 +322,23 @@ var app = {
 	
 	addPictureEvent: function(){
 		//x = document.getElementById("myLI").parentNode.nodeName;
+		//alert(event);
 		app._("takePictureB").onclick = this.addPicture;
 		},
+		
+	togglePictureLink: function(){
+		var x = app._("takePictureB");
+			if(logMe.userIsValid()){
+				x.style.display = "block";
+			}else{
+				x.style.display = "none"
+			}
+		},	
 		
 	addPicture: function(e){
 		//alert("this is working");
 		//x = document.getElementById(this.id);
-		//alert(e.target.id);
+		//alert(e.target.parentNode.id);
 		//alert(x);
 		app.takeApicture();
 		
@@ -363,7 +404,7 @@ var app = {
 	
     initialize: function() {
         this.bindEvents();
-		//this.doSomethingMenu;
+		//this.Menu();
     },
 	
     // Bind Event Listeners
@@ -565,15 +606,18 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-	
+		logMe.toggleMenu("menuApp");
+		app.togglePictureLink();
     //alert("device is ready");
+	logMe.checkIfLoggedIn();
+	logMe.displayFolders();
 	//navigator.vibrate(1000);
 	app.checkConnection();
 	
 	//cordova.addDocumentEventHandler('menubutton');
 	//navigator.app.overrideButton("menubutton", true)
 	document.addEventListener('menubutton', this.Menu, false);
-alert(navigator.connection.type);
+//alert(navigator.connection.type);
 
 	},
 	//does not work on phones
@@ -599,7 +643,6 @@ alert(navigator.connection.type);
     states[Connection.CELL_4G]  = 'Cell 4G connection';
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
-
 
     navigator.alert('Connection type: ' + states[networkState]);
 },
