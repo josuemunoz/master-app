@@ -71,7 +71,7 @@ var logMe =
 		},
 		
 	goToProducts: function(){
-		location.assign("#products");
+			location.assign("#products");
 		},
 	
 	products: function(){
@@ -403,7 +403,7 @@ var app = {
 		},
 	
     initialize: function() {
-        this.bindEvents();
+      	 this.bindEvents();
 		//this.Menu();
     },
 	
@@ -606,18 +606,20 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+		app.checkConnection();
 		logMe.toggleMenu("menuApp");
 		app.togglePictureLink();
     //alert("device is ready");
 	logMe.checkIfLoggedIn();
 	logMe.displayFolders();
-	//navigator.vibrate(1000);
-	//app.checkConnection();
+	navigator.vibrate(1000);
+	
 	
 	//cordova.addDocumentEventHandler('menubutton');
 	//navigator.app.overrideButton("menubutton", true)
-	//document.addEventListener('menubutton', this.Menu, false);
-alert(navigator.connection.type);
+	//document.addEventListener('menubutton', app.Menu, false);
+
+//alert(navigator.connection.type);
 
 	},
 	//does not work on phones
@@ -644,15 +646,17 @@ alert(navigator.connection.type);
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
 
-    navigator.alert('Connection type: ' + states[networkState]);
+    alert('Connection type: ' + states[networkState]);
+	if(states[networkState] == "wifi"){
+		// 
+		//location.assign("#noConnection");
+		//window.location.href = "contact-page.html";
+		}
 },
-
-
+noNetWork: function(){
 	
-
-
-
-  		
+	},
+	
 		setCategory: function (){
 			var selectedMenu = document.getElementById("selectmenuProducts");
 				if(selectedMenu.value == "createCategory"){

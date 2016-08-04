@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-src 'self' https://www.youtube.com">
 <title>Master App</title>
 <link href="http://m.josue45.com/mobile/mobileTest/css.css" rel="stylesheet" type="text/css">
 <link href="http://m.josue45.com/jquery-mobile/jquery.mobile.theme-1.0.min.css" rel="stylesheet" type="text/css"/>
@@ -150,7 +151,7 @@ $(document).ready( function(){
 					//$("#myVideo").append(
 					//$("#myVideo").append($(this).text());
 					console.log("fix this bug on the video on go back from full screen");
-					var video = '<iframe width="100%" src="http://www.youtube.com/embed/'+this.id+'?fs=1" frameborder="0" allowfullscreen></iframe>';
+					var video = '<iframe width="100%" src="https://www.youtube.com/embed/'+this.id+'?fs=1" frameborder="0" allowfullscreen></iframe>';
 					//var video = '<iframe width="100%" src="http://www.youtube.com/embed/'+this.id+'" frameborder="0" allowfullscreen> </iframe>';
 					$("#myVideo").append(video);	
 			}
@@ -527,7 +528,15 @@ function setFooter(company){
     <h4>Insert Product</h4>
   </div>
 </div>
-
+<div data-role="page" id="noConnection">
+  <div data-role="header">
+    <h1>Opps</h1>
+  </div>
+  <div data-role="content">This app requieres a internet connection to work!</div>
+  <div data-role="footer">
+    <h4>Opps</h4>
+  </div>
+</div>
 <script src="assets/camera.js"></script>
  <script type="text/javascript">
 			app.initialize();
