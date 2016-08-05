@@ -1,7 +1,6 @@
 // JavaScript Document
 //logMe.clearTheList("mylistC");
-
-console.log(localStorage.getItem("userId"));
+//console.log(localStorage.getItem("userId"));
 if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
 	var id = localStorage.getItem("userId");
 	}else{
@@ -13,17 +12,29 @@ if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != "
 	function thePath(){ //this will return the path of current user
 		return id;
 			}
-
+			
+			function fixBackground(){
+				var w = window.innerHeight;
+				var w2 = window.pageYOffset;
+				//alert("window inner height: "+w+" pageoffset: "+w2);
+				//alert(w+w2);
+				var b = document.getElementById("page");
+				//var b = document.getElementsByTagName("BODY")[0];
+					//b.style.minHeight = (w+w2)+"px !important";
+					b.style.backgroundColor = "red !important";
+				}
+//setTimeout("fixBackground()", 5000);
 var logMe = 
 
 {
 	_: function(x){ return document.getElementById(x); },
+	
 	jmMenu: function(){
-			return document.getElementById("jmmenuul");
+		return document.getElementById("jmmenuul");
 		},
 
 	toggleMenu: function(menuApp){
-	
+		
 	logMe._(menuApp).onclick = function(){	
 	var x = logMe._("jmmenu");
 	if(x.style.width == "80%"){
@@ -34,13 +45,13 @@ var logMe =
 	}
 },
 	
-	
 	checkIfLoggedIn: function(){
 		if(localStorage.getItem("userId")){
 				logMe.imIn();
 				logMe.products();
 				logMe.setYourIdLink();
 				logMe.putTakeAPictureLink();
+				app.createAGallery(); 
 			}
 		},
 		
@@ -62,11 +73,13 @@ var logMe =
 			}
 			//alert(li.length);
 			
-			logMe.displayFolders();
+			setTimeout("logMe.displayFolders()", 3000);
 			var url = document.URL;
 				var newurl = url.indexOf("#");
-				if(url.substring(newurl) == "#page2"){
+				if(url.substring(newurl) == "#appGallery"){
+					console.log("running appGallery to go home after picture");
 					window.history.back();
+					
 				}
 		},
 		
@@ -93,7 +106,8 @@ var logMe =
 		var y = "";
 		y = document.getElementById("jmmenuul");	
 		y.removeChild(logMe._("productLinks"));////////////////////////////////////////////
-		},
+		y.removeChild(logMe._("createAGallery"));
+				},
 	
 	imIn:function(){
 		var x = document.getElementById("blahhh");
@@ -142,6 +156,7 @@ var logMe =
 					this.email = email;
 					this.password = password;
 					logMe.getUserId();
+					//app.createAGallery();
 					
 					}
 			
@@ -166,7 +181,7 @@ var logMe =
 		},
 		
 	getUserId: function(){
-			console.log();
+		console.log();
 			var x = "";
 				sendData = "?email="+this.email+"&password="+this.password;
 					console.log(sendData);
@@ -189,7 +204,8 @@ var logMe =
 									  logMe.logMeIn();
 									  logMe.products();
 									  logMe.setYourIdLink();
-									   logMe.putTakeAPictureLink();
+									  logMe.putTakeAPictureLink();
+									  app.createAGallery(); 
 									  }
 								
 							}
@@ -198,6 +214,7 @@ var logMe =
 				x.send();
 		
 		},
+		
 	setYourIdLink: function(){
 		var ul = document.getElementById("jmmenuul");
 			var x = document.createElement("li");
@@ -269,7 +286,7 @@ var logMe =
 		var li = document.createElement("li");
 		var d = document.getElementById("mylistC");
 			a.setAttribute("id", nameA);
-			a.setAttribute("href", "#page2");
+			a.setAttribute("href", "#appGallery");
 			
 			a.appendChild(TextNode);
 			li.appendChild(a);
@@ -277,7 +294,7 @@ var logMe =
 			a.onclick = function(){
 				///////////////////////////////////////////////////////////////
 				//alert(this.id);
-				logMe._("titlebaby").innerHTML = this.id;
+				logMe._("appGalleryTitle").innerHTML = this.id;
 				app.folder = this.id;
 				console.log("fix line 238");
 				
@@ -299,7 +316,7 @@ var logMe =
 		
 	Testing: function(){
 		
-		
+			
 			var x = document.getElementById("test");
 				var id = prompt("testing Account", "");
 				localStorage.setItem("userId", id);
@@ -311,7 +328,7 @@ var logMe =
 
 
 //************************************************************************************************************************************
-
+//app.isChildOfthis();
 var app = {
     // Application Constructor
 	
@@ -321,9 +338,16 @@ var app = {
 		},
 	
 	addPictureEvent: function(){
-		//x = document.getElementById("myLI").parentNode.nodeName;
-		//alert(event);
-		app._("takePictureB").onclick = this.addPicture;
+		app._("takePictureB").onclick = this.addPicture; //line 346
+		},
+		
+	isChildOfThis: function(){
+		var li = "";
+		var listC = app._("mylistC");
+			li = listC.getElementsByTagName("a");
+		for(var i=0; li.length; i++){
+			console.warn(li[i].id);
+			}
 		},
 		
 	togglePictureLink: function(){
@@ -335,7 +359,7 @@ var app = {
 			}
 		},	
 		
-	addPicture: function(e){
+	addPicture: function(){
 		//alert("this is working");
 		//x = document.getElementById(this.id);
 		//alert(e.target.parentNode.id);
@@ -351,13 +375,35 @@ var app = {
 		},
 	
 	sendData: function(){
+		app.folder = "Products";
+		app.makeFolder();
 		app.takeApictureProducts();
-		
-		//alert(localStorage.getItem("myimage"));
-		var image = localStorage.getItem("myimage");
-		var imageurl = localStorage.getItem("myimageurl");
-		var data = "";
-			data = app.collectData(image);
+		},
+
+	takeApictureProducts: function(){
+			navigator.camera.getPicture(this.imageUploadApp, this.onFail, {
+			quality: 100, 
+			destinationType: Camera.DestinationType.FILE_URI,
+			targetWidth: 360,  correctOrientation: true, targetHeight: 600,
+	 	})
+	 },
+
+	imageUploadApp: function(imageURI){
+		app.imageFilenameProduct = imageURI.substr(imageURI.lastIndexOf('/')+1); 
+		var options = new FileUploadOptions();
+				options.fileKey="file";
+				options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+				options.mimeType="image/jpeg";
+				options.chunkedMode = false;
+				var ft = new FileTransfer();
+				//var imageURI = imageurl;
+				var c = localStorage.getItem("userId");
+				
+				
+					
+				
+				var data = "";
+			data = app.collectData(app.imageFilenameProduct);
 
 				var ajax = new XMLHttpRequest();
 					ajax.open("POST", "http://www.josue45.com/api/jm.php", true);
@@ -366,21 +412,18 @@ var app = {
 						
 							if(ajax.readyState == 4 && ajax.status == 200){
 									//test image upload ****************
-									
-									//if(ajax.responseText){
-									app.imageUploadApp(image, imageurl);
-									app.returnHomeMsg();
-									//}
-									
+									//app.imageUploadApp(image, imageurl);
+									//app.returnHomeMsg();
+				
 								}
 						}
-					
-					
 					ajax.send(data);
-					
-		
-		},
-		
+				ft.upload(imageURI, "http://m.josue45.com/class/upload_pictures_to_user.php?user="+c+"&folder="+app.folder, this.win, this.fail, options, true);
+				app.onSuccess(imageURI);
+				app.returnHomeMsg();
+				
+	},
+	
 	returnHomeMsg: function(){
 		window.location.href = "#page";
 		},
@@ -393,6 +436,7 @@ var app = {
 		url += "dataEntry=true";
 		//url += "&imageFilename=" + escape(localStorage.getItem("myimage"));
 		url += "&imageFilename=" + escape(currentImage);
+		
 		url += "&userid=" + escape(localStorage.getItem("userId"));
 		url += "&cat=" + escape(theOption[selected].value);
 		url += "&name=" + escape(app._("Name").value);
@@ -413,25 +457,12 @@ var app = {
     bindEvents: function() {
 		document.addEventListener('deviceready', this.onDeviceReady, false);
 		this.setEventForSellData();
-		this.addPictureEvent(); //line 292
+		this.addPictureEvent(); //line 324
 			//app.checkConnection();
     },
 	 
-	takeApictureProducts: function(){
-		//alert("somewhere");
-							this.folder = "Products";
-							app.makeFolder();
-							
-							navigator.camera.getPicture(this.getImageFilename, this.onFail, {
-								quality: 100, 
-								destinationType: Camera.DestinationType.FILE_URI,
-								targetWidth: 360,  correctOrientation: true,
- 								targetHeight: 600,
-	 })
-	 },
-	 
 	takeApicture: function(){
-		//alert("somewhere");
+			//alert("somewhere");
 		//if(this.folder){
 		console.warn("This id was clicked line 388"+ event.target.id);
 		if(event.target.id == "logOutButton"){
@@ -479,6 +510,24 @@ var app = {
 			app.makeFolder();
 	},
 	
+	createAGallery: function(){
+			var x = app._("jmmenuul");
+		var li = document.createElement("li");
+			li.setAttribute("id", "createAGallery");
+			li.innerHTML = "Create Gallery";
+			x.appendChild(li);
+			
+			li.onclick = function(){
+				app.askForFolderName();
+				app.takeApicture();
+				}
+		},
+		
+	askForFolderName: function(){
+			var x = prompt("Name of gallery", "");
+			app.folder = x.replace(/\s+/g, '-');
+		},
+	
 	makeFolder: function(){
 		var data = "";
 					data = "userId="+localStorage.getItem("userId");
@@ -501,45 +550,12 @@ var app = {
 				
 			},
 			
-	getImageFilename: function(imageURI){ //*************************************************************************************
-				
-			
-			//this is the original image taken
-			localStorage.setItem("myimage", imageURI.substr(imageURI.lastIndexOf('/')+1));
-			localStorage.setItem("myimageurl", imageURI);
-			//return imageURI.substr(imageURI.lastIndexOf('/')+1);
-			
-			/*
-	           	var options = new FileUploadOptions();
-				options.fileKey="file";
-				options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);//+'.jpg';
-				options.mimeType="image/jpeg";
-				options.chunkedMode = false;
-				var ft = new FileTransfer();
-				var c = localStorage.getItem("userId");
-				ft.upload(imageURI, "http://m.josue45.com/class/upload_pictures_to_user.php?user="+c+"&folder="+app.folder, this.win, this.fail, options, true);
-				app.onSuccess(imageURI);		 		
-       	*/
-},
-
-	imageUploadApp: function(image, imageurl){
-		var options = new FileUploadOptions();
-				options.fileKey="file";
-				options.fileName=image;
-				options.mimeType="image/jpeg";
-				options.chunkedMode = false;
-				var ft = new FileTransfer();
-				var imageURI = imageurl;
-				var c = localStorage.getItem("userId");
-				ft.upload(imageURI, "http://m.josue45.com/class/upload_pictures_to_user.php?user="+c+"&folder="+this.folder, this.win, this.fail, options, true);
-				app.onSuccess(imageURI);
-	},
 		
 	yeah: function(imageURI){ //*************************************************************************************
 				
 			
 			
-			localStorage.setItem("myimage", imageURI.substr(imageURI.lastIndexOf('/')+1));
+			//localStorage.setItem("myimage", imageURI.substr(imageURI.lastIndexOf('/')+1));
 			this.imageFilename = imageURI;
 			//app.imageToUpload = imageURI;
 			//window.location.href = "#Products";
@@ -584,7 +600,7 @@ var app = {
 	onSuccess: function(imageURI) {
 			//this.imageFilename = imageURI;
 		//alert("Image Uploaded for user "+localStorage.getItem("userId"));
-		console.warn("line 536. image uploaded "+imageURI);
+		alert("line 536. image uploaded "+imageURI);
 		
 		this.folder = "";
 		console.warn("the folder is: "+this.folder+" line 539");
@@ -605,23 +621,23 @@ var app = {
     // deviceready Event Handler
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
+	//****************************************************************************************************************************************
     onDeviceReady: function() {
+		//document.addEventListener("backbutton", app.videoBackfromIframe, false);
 		app.checkConnection();
 		logMe.toggleMenu("menuApp");
 		app.togglePictureLink();
     //alert("device is ready");
 	logMe.checkIfLoggedIn();
 	logMe.displayFolders();
-	navigator.vibrate(1000);
-	
-	
-	//cordova.addDocumentEventHandler('menubutton');
-	//navigator.app.overrideButton("menubutton", true)
-	//document.addEventListener('menubutton', app.Menu, false);
-
+	//navigator.vibrate(1000);	
+	//document.addEventListener('menubutton', app.Menu, true);
 //alert(navigator.connection.type);
-
+app.checkIfListIsLoaded();
 	},
+	checkIfListIsLoaded: function(){
+		setTimeout("app.isChildOfThis()",1000);
+		},
 	//does not work on phones
 	parallax: function(){
 		//var x = document.getElementById("page");
@@ -629,8 +645,8 @@ var app = {
 			//x.style.backgroundPosition = "center "+ -(window.pageYOffset+2)+"px";
 		//console.log("moving"+window.pageYOffset);
 		},
-	Menu: function(){
-	alert("not working yet");
+	videoBackfromIframe: function(){
+	//alert(document.URL);
 		},
 		
 	checkConnection: function(){
@@ -646,7 +662,8 @@ var app = {
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
 
-    alert('Connection type: ' + states[networkState]);
+    console.warn('Connection type: ' + states[networkState]+"*****************************************************");
+	
 	if(states[networkState] == "wifi"){
 		// 
 		//location.assign("#noConnection");
@@ -675,12 +692,6 @@ noNetWork: function(){
 			}
   	};	
 	  	//selectedMenu.value =  localStorage.getItem("catSelected");
-
-var doc_css = document.createElement("link");
-	doc_css.setAttribute("type", "text/css");
-	doc_css.setAttribute("rel", "stylesheet");
-	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
-	document.getElementsByTagName('head')[0].appendChild(doc_css);
 	
 
 
@@ -695,13 +706,24 @@ var myApp =
 		return xyc = document.getElementById(y); 
 		},
 		
-	setTextNode: function(node, insert){
+	setTextNode: function(node, insert, align, tagName){
 		this.node	= node
 		this.insert = insert;
+		this.align = align;
+		this.tagName = tagName;
 		},
+		
 	textNode: function(){
-		var node = document.createTextNode(this.node);
-			x(this.insert).appendChild(node);
+		var tag, node = "";
+			node = document.createTextNode(this.node);
+		
+		this.tagName ? tag = document.createElement(this.tagName) : tag = document.createElement("b");
+		tag.className = "moduleB";
+		tag.appendChild(node);
+		
+		
+		this.insert ? x(this.insert).appendChild(tag): x("c").appendChild(tag);
+		
 		}
 }
 	
@@ -856,7 +878,7 @@ function createImage(image, userid, model, year){
 							var img = new image(data[i].imageFilename, data[i].node, data[i].insert);
 							  	img.create();
 								break;
-								
+						// fix the appendChild have notes on folder		
 							case "textNode":
 								myApp.setTextNode(data[i].node, data[i].insert);
 								myApp.textNode();
@@ -874,3 +896,10 @@ function createImage(image, userid, model, year){
 				});
 				
 		}
+		
+		
+		var doc_css = document.createElement("link");
+	doc_css.setAttribute("type", "text/css");
+	doc_css.setAttribute("rel", "stylesheet");
+	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
+	document.getElementsByTagName('head')[0].appendChild(doc_css);

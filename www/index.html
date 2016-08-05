@@ -61,9 +61,8 @@ $(document).ready( function(){
 
 			appSettings();
 			module();
-			phones();	
-			//logMe.checkIfLoggedIn();
-			//logMe.displayFolders();
+			phones();
+			
 		
 	var data = '';
 
@@ -150,8 +149,11 @@ $(document).ready( function(){
 					$("#myVideo").empty();
 					//$("#myVideo").append(
 					//$("#myVideo").append($(this).text());
-					console.log("fix this bug on the video on go back from full screen");
-					var video = '<iframe width="100%" src="https://www.youtube.com/embed/'+this.id+'?fs=1" frameborder="0" allowfullscreen></iframe>';
+					console.warn("fix this bug on the video on go back from full screen*****************************************************");
+		
+					var video = '<iframe width="100%" src="https://www.youtube.com/embed/'+this.id+'?fs=0" frameborder="0" allowfullscreen></iframe>';
+					//var video = '<video controls><source src="http://www.youtube.com/embed/'+this.id+'" type="video/mp4"></video>';
+					
 					//var video = '<iframe width="100%" src="http://www.youtube.com/embed/'+this.id+'" frameborder="0" allowfullscreen> </iframe>';
 					$("#myVideo").append(video);	
 			}
@@ -326,7 +328,6 @@ function setFooter(company){
 </head> 
 <body> 
 <!--***************************************************************page start********************************************************** -->
-
 <div data-role="page" id="page">
 
 <div id="testing"></div>
@@ -335,7 +336,7 @@ function setFooter(company){
 
 	<ul>
 	  <li></li>
-      <li></li>      
+      <li></li>
       <li></li>
     </ul>
 
@@ -360,9 +361,11 @@ function setFooter(company){
     </div>
   	<!--<div id="aa">---</div>-->
   	
+    <!--
   	<div class="mainPoints">
     	<ul id="mainPoints"></ul>
     </div>
+  -->
   
 <div id="phoneStuff">
     <div class="phoneStuffWrap">
@@ -382,7 +385,9 @@ function setFooter(company){
     	
         <ul id="mylistB" data-role="listview" data-inset="true"></ul>
         <ul id="mylistC" data-role="listview" data-inset="true"></ul>
-        <ul id="mylist" data-role="listview" data-inset="true"><li><a href="contact-page.html">Contact</a></li></ul>
+        <ul id="mylist" data-role="listview" data-inset="true">
+        	<!--<li><a href="contact-page.html">Contact</a></li>-->
+            </ul>
         
     </div>
     <!-- ************************************************************************************************************************** -->
@@ -390,7 +395,7 @@ function setFooter(company){
     <div data-role="footer" id="c">
    	
         <!-- social media start -->
-            <div id="sm" class="sm"></div>
+           <div id="sm" class="sm"></div>
         <!-- social media end -->
     
         <h4>Page Footer</h4>
@@ -408,10 +413,12 @@ function setFooter(company){
     transform:rotate(90deg); right:-20px;
 	z-index:5; text-align:center; line-height:auto; border-radius:20px; position:fixed; bottom:5%; height:auto;
 	background:#333; color:#FFF;}
+	
+.moduleB{ background-color:#FFF; padding:8px 0; text-align:center; width:90%; border-radius:5px; display:block; margin:auto;}
 </style>
 
 <div data-role="page" id="page2" data-add-back-btn="true">
-<div id="takePictureB">TAKE PIC</div>
+
 	<div data-role="header">
     	
 		<h1 id="titlebaby">Page Two</h1>
@@ -419,7 +426,7 @@ function setFooter(company){
     
     <div id="phoneStuffB"></div>
     
-	<div class="b" id="here">	
+	<div class="b">	
 		Content		
 	</div>
 	    
@@ -470,17 +477,20 @@ function setFooter(company){
 	</div>
 </div>
 
+<!-- video -->
 <div data-role="page" id="page5" data-add-back-btn="true">
 	<div data-role="header">
 		<h1>Videos</h1>
 	</div>
-	<div data-role="content">	
+		
 				<div id="myVideo"></div>
-	</div>
+	
 	<div data-role="footer">
 		<h4>Page Footer</h4>
 	</div>
 </div>
+<!-- video end -->
+
 <div data-role="page" id="tweets">
   <div data-role="header">
     <h1>Tweets</h1>
@@ -490,6 +500,24 @@ function setFooter(company){
     <h4>Footer</h4>
   </div>
 </div>
+
+
+<div data-role="page" id="appGallery" data-add-back-btn="true">
+<div id="takePictureB">TAKE PIC</div>
+  <div data-role="header">
+    <h1 id="appGalleryTitle">Header</h1>
+  </div>
+  
+  <div class="b" id="here">	
+		Content		
+	</div>
+  
+  <div data-role="footer">
+    <h4>Footer</h4>
+  </div>
+</div>
+
+
 
 <div data-role="page" id="products" data-add-back-btn="true">
   <div data-role="header">
