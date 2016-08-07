@@ -1,20 +1,13 @@
 // JavaScript Document
 //logMe.clearTheList("mylistC");
 //console.log(localStorage.getItem("userId"));
-if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
-	var id = localStorage.getItem("userId");
-	}else{
-		var id=1;
-	}
 	
  	function yeahBaby(){ return "http://m.josue45.com/"; }		
 	
-	function thePath(){ //this will return the path of current user
-		return id;
-			}
+	
 			
-			function fixBackground(){
-				var w = window.innerHeight;
+	function fixBackground(){ // not using
+			var w = window.innerHeight;
 				var w2 = window.pageYOffset;
 				//alert("window inner height: "+w+" pageoffset: "+w2);
 				//alert(w+w2);
@@ -23,7 +16,7 @@ if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != "
 					//b.style.minHeight = (w+w2)+"px !important";
 					b.style.backgroundColor = "red !important";
 				}
-//setTimeout("fixBackground()", 5000);
+
 var logMe = 
 
 {
@@ -34,7 +27,7 @@ var logMe =
 		},
 
 	toggleMenu: function(menuApp){
-		
+			
 	logMe._(menuApp).onclick = function(){	
 	var x = logMe._("jmmenu");
 	if(x.style.width == "80%"){
@@ -51,10 +44,15 @@ var logMe =
 				logMe.products();
 				logMe.setYourIdLink();
 				logMe.putTakeAPictureLink();
-				app.createAGallery(); 
+				app.createAGallery();		
 			}
 		},
 		
+	removePictureButton: function(){ //removes the
+		var x = logMe._("takePictureB");
+			x.style.display = "none";
+		},
+	
 	userIsValid: function(){
 		if(localStorage.getItem("userId")){
 		return true;	
@@ -102,12 +100,15 @@ var logMe =
 		},
 		
 	removeTheLinks: function(){
-		//alert("removing this link");
 		var y = "";
 		y = document.getElementById("jmmenuul");	
 		y.removeChild(logMe._("productLinks"));////////////////////////////////////////////
 		y.removeChild(logMe._("createAGallery"));
-				},
+		y.removeChild(logMe._("logOutButton"));
+		y.removeChild(logMe._("yourid"));
+		logMe._("test") ? y.removeChild(logMe._("test")) : "";
+		logMe.removePictureButton();
+		},
 	
 	imIn:function(){
 		var x = document.getElementById("blahhh");
@@ -119,24 +120,17 @@ var logMe =
 		
 	putTakeAPictureLink: function(){
 		var ul = document.getElementById("jmmenuul");
-			var li = document.createElement("li");
-				li.style.color = "orange";
-				li.setAttribute("id", "logOutButton");
-				li.setAttribute("onClick", "app.takeApicture()");
-				li.innerHTML = "Take a picture";
-		//this.folder = folder;
-		//app.folder = "gallery";
-		console.log("****************************************************************");
-				ul.appendChild(li);
-		
-		},
-		
-	deleteTakeAPictureLink: function(){
-		var y = document.getElementById("jmmenuul");
-			var x = document.getElementById("logOutButton");
-				y.removeChild(x);
+				var li = document.createElement("li");
+					li.style.color = "orange";
+					li.setAttribute("id", "logOutButton");
+					li.setAttribute("onClick", "app.takeApicture()");
+					li.innerHTML = "Take a picture";
+			//this.folder = folder;
+			//app.folder = "gallery";
+			console.log("****************************************************************");
+					ul.appendChild(li);
 			
-		},
+			},
 		
 	logIn: function(){
 		var error = "";
@@ -156,11 +150,11 @@ var logMe =
 					this.email = email;
 					this.password = password;
 					logMe.getUserId();
+					//logMe.displayFolders();
 					//app.createAGallery();
+					//logMe.Testing();
 					
 					}
-			
-			
 		},
 		
 	logOut: function(){
@@ -170,14 +164,8 @@ var logMe =
 				x.setAttribute("onClick", "logMe.logIn()");
 				x.innerHTML = "Log In";
 				x.style.color = "";
-				
-				
-				logMe.removeTheLinks();
-				logMe.deleteTakeAPictureLink();
-				logMe.removeYourIdLink();
-				logMe.testingOnly();
-				
-								
+				logMe.removeTheLinks(); //remove the links when logged out
+				//logMe.displayFolders();
 		},
 		
 	getUserId: function(){
@@ -190,10 +178,8 @@ var logMe =
 				x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				x.onreadystatechange = function(){
 						if(x.readyState == 4 && x.status == 200){
-							//////////
 							//$data = array("userid" => $row_users['iduser'], "name" => $row_users['firstname'], "last" => $row_users['lastname']);
 							//$data = array("error" => "Incorrect Login Information", "solution" => "Recover Password");
-							//////////
 							  var r = JSON.parse(x.responseText);
 							  if(r.error){
 								  alert(r.error);
@@ -223,27 +209,23 @@ var logMe =
 				x.innerHTML = "Your Id "+localStorage.getItem("userId");
 				ul.appendChild(x);
 		},
-		
-	removeYourIdLink: function(){
-			var y = document.getElementById("jmmenuul");
-			var x = document.getElementById("yourid");
-				y.removeChild(x);
-		},
 	
 	logMeIn: function(){
-				var x = document.getElementById("blahhh");
+		var x = document.getElementById("blahhh");
 				x.setAttribute("onClick", "logMe.logOut()");
 				x.style.color = "red";
 				x.innerHTML = "Log Out";
-				//logMe.getUserId();
+				logMe.Testing();
 		},
 		
-	displayFolders: function(){
+	displayFolders: function(){ //8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 		
 				//logMe.clearTheList("mylistC");
+				var sendData = "";
 				var x = "";
 				x = new XMLHttpRequest();
-				var sendData = "?userid="+localStorage.getItem("userId");
+				localStorage.getItem("userId") ? sendData = "?userid="+localStorage.getItem("userId") : sendData = "?userid="+thePath();
+				//var sendData = "?userid="+localStorage.getItem("userId");
 				//http://josue45.com/api/jm.php
 				x.open("GET", "http://josue45.com/api/jm.php"+sendData, true);
 				x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -258,19 +240,10 @@ var logMe =
 										//console.log(r[i].directory);
 										//result = ;
 										if(r[i].image_count > 0){
-										//alert(r[i].images.lenght);
-										//create a array
-										//var img = [];
-										//for(var i=0; i < r[i].image_count; i++){
-										//img = r[i].images[i];
-										//}
-										
-										logMe.createFolderLinks(r[i].directory, r[i].image_count, r[i].images);
+											logMe.createFolderLinks(r[i].directory, r[i].image_count, r[i].images);
 										}
-										
 									}
-								//alert(result);
-						}
+							}
 				$("#mylistC").listview('refresh');
 				}
 				}
@@ -278,9 +251,7 @@ var logMe =
 		x.send();
 		},
 		
-
 	createFolderLinks: function(nameA, num, images){
-		
 		var TextNode = document.createTextNode(nameA+ " "+ num);
 		var a = document.createElement("a");
 		var li = document.createElement("li");
@@ -297,43 +268,102 @@ var logMe =
 				logMe._("appGalleryTitle").innerHTML = this.id;
 				app.folder = this.id;
 				console.log("fix line 238");
-				
-				
 				/////////////////////////////////////////////////////////////////will add the title to the page two
 				//var arr = new Array[images];
 				logMe._("here").innerHTML = "";
 				for(var i=0; i<num; i++){
 					
 					var img = document.createElement("img");
+						img.setAttribute("id", images[i]);
+						localStorage.getItem("userId") ?
+						img.onclick = function(){
+							app.i = this.id;
+							app.nameA = nameA;
+							navigator.notification.confirm(
+							 'Delete '+this.id+'!',  // message
+    						logMe.deleteImage,         // callback
+    						'Warning',            // title
+    						['Yes', "No"]                  // buttonName
+							);
+							} : "";
 						img.setAttribute("width", "100%");
-						img.setAttribute("src", "http://m.josue45.com/mobile/"+localStorage.getItem("userId")+"/pics/"+nameA+"/"+images[i]);
+						localStorage.getItem("userId") ?
+							img.setAttribute("src", "http://m.josue45.com/mobile/"+localStorage.getItem("userId")+"/pics/"+nameA+"/"+images[i]) :
+							img.setAttribute("src", "http://m.josue45.com/mobile/"+thePath()+"/pics/"+nameA+"/"+images[i])
+							;
 					logMe._("here").appendChild(img);
 					}
 				
 				};
+				
 			
 		},
 		
-	Testing: function(){
+	deleteImage: function(buttonIndex){
 		
+		 
+		if(buttonIndex == 1){
+				//navigator.notification.alert("ok then"+buttonIndex);
+				//alert(app.i+" "+ localStorage.getItem("userId"));
+				
+				x = new XMLHttpRequest();
+				var sendData = "?userid="+localStorage.getItem("userId")+"&image="+app.i+"&folder="+app.nameA;
+				x.open("GET", "http://m.josue45.com/mobile/mobileTest/deleteImage.php"+sendData, true);
+				x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				x.onreadystatechange = function(){
+						if(x.readyState == 4 && x.status == 200){
+							var r = JSON.parse(x.responseText);
+							//var r = x.responseText;
+							alert(r.status);
+							app._(r.image).style.display = "none";
+							logMe.countImages(r.image);
+						}
+						
+				
+				}
+				}
+				
+		x.send();
+		
+			},
 			
-			var x = document.getElementById("test");
+	countImages: function(image){
+		var x = logMe._("here");
+		x.removeChild(logMe._(image));
+		var img = x.getElementsByTagName("img");
+			
+			if(img.length == 0){
+				console.log("fix this line");
+				logMe.clearTheList("mylistC");
+				window.history.back();
+				}
+		
+		},
+		
+	Testing: function(){
+		//<li onClick="logMe.Testing()" id="test">Test Apps</li>
+			if(localStorage.getItem("userId") == 1){
+				var ul = document.getElementById("jmmenuul");
+				var li = document.createElement("li");
+					li.setAttribute("onclick", "logMe.Testing()");
+					li.setAttribute("id", "test");
+					li.innerHTML = "Test Apps";
+				ul.appendChild(li);
+				var x = document.getElementById("test");
 				var id = prompt("testing Account", "");
 				localStorage.setItem("userId", id);
 				location.reload();
+			}
 		}
-	
+		
 	}
 
-
-
 //************************************************************************************************************************************
-//app.isChildOfthis();
+//app starts
 var app = {
     // Application Constructor
-	
 	_:function(y){
-		var x = document.getElementById(y);
+			var x = document.getElementById(y);
 		return x;
 		},
 	
@@ -360,12 +390,8 @@ var app = {
 		},	
 		
 	addPicture: function(){
-		//alert("this is working");
-		//x = document.getElementById(this.id);
 		//alert(e.target.parentNode.id);
-		//alert(x);
 		app.takeApicture();
-		
 		},
 	
 	setEventForSellData: function(){
@@ -381,7 +407,7 @@ var app = {
 		},
 
 	takeApictureProducts: function(){
-			navigator.camera.getPicture(this.imageUploadApp, this.onFail, {
+		navigator.camera.getPicture(this.imageUploadApp, this.onFail, {
 			quality: 100, 
 			destinationType: Camera.DestinationType.FILE_URI,
 			targetWidth: 360,  correctOrientation: true, targetHeight: 600,
@@ -398,13 +424,8 @@ var app = {
 				var ft = new FileTransfer();
 				//var imageURI = imageurl;
 				var c = localStorage.getItem("userId");
-				
-				
-					
-				
 				var data = "";
-			data = app.collectData(app.imageFilenameProduct);
-
+				data = app.collectData(app.imageFilenameProduct);
 				var ajax = new XMLHttpRequest();
 					ajax.open("POST", "http://www.josue45.com/api/jm.php", true);
 					ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -414,10 +435,9 @@ var app = {
 									//test image upload ****************
 									//app.imageUploadApp(image, imageurl);
 									//app.returnHomeMsg();
-				
 								}
 						}
-					ajax.send(data);
+				ajax.send(data);
 				ft.upload(imageURI, "http://m.josue45.com/class/upload_pictures_to_user.php?user="+c+"&folder="+app.folder, this.win, this.fail, options, true);
 				app.onSuccess(imageURI);
 				app.returnHomeMsg();
@@ -455,7 +475,7 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-		document.addEventListener('deviceready', this.onDeviceReady, false);
+			document.addEventListener('deviceready', this.onDeviceReady, false);
 		this.setEventForSellData();
 		this.addPictureEvent(); //line 324
 			//app.checkConnection();
@@ -500,7 +520,7 @@ var app = {
 					alert("Items will be inserted in the default folder. no folder name");
 					break;
 					case folder:
-					this.folder = folde.replace(/\s+/g, '-');
+					this.folder = folder.replace(/\s+/g, '-');
 					break;
 					case "undefined":
 					this.folder = "gallery";
@@ -511,21 +531,28 @@ var app = {
 	},
 	
 	createAGallery: function(){
-			var x = app._("jmmenuul");
+		var x = app._("jmmenuul");
 		var li = document.createElement("li");
 			li.setAttribute("id", "createAGallery");
 			li.innerHTML = "Create Gallery";
 			x.appendChild(li);
 			
 			li.onclick = function(){
-				app.askForFolderName();
-				app.takeApicture();
+				//app.askForFolderName();
+				navigator.notification.prompt("Name of gallery", app.askForFolderName, "Create a new gallery", ["Create", "Cancel"]);
+				
 				}
 		},
 		
-	askForFolderName: function(){
-			var x = prompt("Name of gallery", "");
+	askForFolderName: function(results){
+		//alert(results.buttonIndex);
+			if(results.buttonIndex == 1){
+			//alert(results.input1);
+			var x = results.input1;
 			app.folder = x.replace(/\s+/g, '-');
+			 app.takeApicture();
+			}
+			
 		},
 	
 	makeFolder: function(){
@@ -550,34 +577,19 @@ var app = {
 				
 			},
 			
-		
 	yeah: function(imageURI){ //*************************************************************************************
-				
 			
-			
-			//localStorage.setItem("myimage", imageURI.substr(imageURI.lastIndexOf('/')+1));
 			this.imageFilename = imageURI;
-			//app.imageToUpload = imageURI;
-			//window.location.href = "#Products";
-	           var options = new FileUploadOptions();
-	
+			    var options = new FileUploadOptions();
 				options.fileKey="file";
 				options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);//+'.jpg';
-				
-				
-				
 				options.mimeType="image/jpeg";
 				options.chunkedMode = false;
 				var ft = new FileTransfer();
 				//var c = localStorage.getItem('userId');
 				var c = localStorage.getItem("userId");
-			
 				ft.upload(imageURI, "http://m.josue45.com/class/upload_pictures_to_user.php?user="+c+"&folder="+app.folder, this.win, this.fail, options, true);
-				//window.location.href = "#Products";
-				
 				app.onSuccess(imageURI);
-				 		
-        //window.location.href = "#Products";
 							//*************************************************************************************		
 },
 
@@ -588,36 +600,26 @@ var app = {
 	},
 	
 	fail:function(error){
-		 console.log("An error has occurred: Code = " + error.code);
-            console.log("upload error source " + error.source);
-            console.log("upload error target " + error.target);
-			
-			this.folder = "";
-		console.warn("the folder is: "+this.folder+" line 529");
-			
+		console.log("An error has occurred: Code = " + error.code);
+        console.log("upload error source " + error.source);
+        console.log("upload error target " + error.target);
+		app.folder = "";
+		console.warn("the folder is: "+this.folder+" line 529");	
 		},
 		
 	onSuccess: function(imageURI) {
-			//this.imageFilename = imageURI;
-		//alert("Image Uploaded for user "+localStorage.getItem("userId"));
-		alert("line 536. image uploaded "+imageURI);
-		
-		this.folder = "";
+		console.log("Image Uploaded for user "+localStorage.getItem("userId"));
+		app.folder = "";
 		console.warn("the folder is: "+this.folder+" line 539");
-		//alert(localStorage.getItem("myimage"));
-		//window.location.href = "#Products";
-		//get imagefilename from server
-		
 		//alert("Image Uploaded with name " + imageURI);
-		logMe.clearTheList("mylistC");	
-		//logMe.displayFolders();
-								
-											},
+		logMe.clearTheList("mylistC");							
+		},
 											
 	onFail: function(message) {
 		alert('Failed because: ' + message);
 							app.folder = "";
 						},
+						
     // deviceready Event Handler
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
@@ -627,30 +629,33 @@ var app = {
 		app.checkConnection();
 		logMe.toggleMenu("menuApp");
 		app.togglePictureLink();
-    //alert("device is ready");
-	logMe.checkIfLoggedIn();
-	logMe.displayFolders();
-	//navigator.vibrate(1000);	
-	//document.addEventListener('menubutton', app.Menu, true);
-//alert(navigator.connection.type);
-app.checkIfListIsLoaded();
+		//alert("device is ready");
+		logMe.checkIfLoggedIn();
+		logMe.displayFolders();
+		//navigator.vibrate(1000);	
+		//document.addEventListener('menubutton', app.Menu, true);
+		//alert(navigator.connection.type);
+		app.checkIfListIsLoaded();
 	},
+	
 	checkIfListIsLoaded: function(){
-		setTimeout("app.isChildOfThis()",1000);
+			setTimeout("app.isChildOfThis()",1000);
 		},
 	//does not work on phones
-	parallax: function(){
+	
+	parallax: function(){ // does not work on phones
 		//var x = document.getElementById("page");
 			//x.style.position = "fixed";
 			//x.style.backgroundPosition = "center "+ -(window.pageYOffset+2)+"px";
 		//console.log("moving"+window.pageYOffset);
 		},
-	videoBackfromIframe: function(){
-	//alert(document.URL);
+		
+	videoBackfromIframe: function(){ // needs work
+		//alert(document.URL);
 		},
 		
-	checkConnection: function(){
-    var networkState = navigator.connection.type;
+	checkConnection: function(){ // check to see what type of connection there is
+   		var networkState = navigator.connection.type;
 
     var states = {};
     states[Connection.UNKNOWN]  = 'Unknown connection';
@@ -670,11 +675,11 @@ app.checkIfListIsLoaded();
 		//window.location.href = "contact-page.html";
 		}
 },
-noNetWork: function(){
+
+	noNetWork: function(){ // fix or do for the iphone
+		},
 	
-	},
-	
-		setCategory: function (){
+	setCategory: function (){
 			var selectedMenu = document.getElementById("selectmenuProducts");
 				if(selectedMenu.value == "createCategory"){
 					var x = prompt("New Category", "");
@@ -690,11 +695,10 @@ noNetWork: function(){
 				}
 			//localStorage.setItem("catSelected", "option2");
 			}
-  	};	
-	  	//selectedMenu.value =  localStorage.getItem("catSelected");
+			
+  	};//ends app ends
+	  	
 	
-
-
 app.type = "POST";
 app.userId = localStorage.getItem("userId");
 app.url = "http://m.josue45.com/class/createFolder.php";
@@ -716,24 +720,21 @@ var myApp =
 	textNode: function(){
 		var tag, node = "";
 			node = document.createTextNode(this.node);
-		
-		this.tagName ? tag = document.createElement(this.tagName) : tag = document.createElement("b");
-		tag.className = "moduleB";
-		tag.appendChild(node);
-		
-		
-		this.insert ? x(this.insert).appendChild(tag): x("c").appendChild(tag);
-		
+			this.tagName ? tag = document.createElement(this.tagName) : tag = document.createElement("b");
+			tag.className = "moduleB";
+			tag.appendChild(node);
+			this.insert ? x(this.insert).appendChild(tag): x("c").appendChild(tag);
 		}
 }
 	
 var x = function(y){ return xyc = document.getElementById(y); }
 
-function image(imageFilename, node, insert)
+function image(imageFilename, node, insert, width)
 	{
 		this.imageFilename = imageFilename;
 		this.node = node;
 		this.insert = insert;
+		this.width = width;
 	}
 
 image.prototype.create = function create()
@@ -743,6 +744,10 @@ image.prototype.create = function create()
 			console.warn(this.imageFilename+this.node);
 			img.setAttribute("alt", this.node);
 			img.setAttribute("src", this.imageFilename);
+			img.style.display = "block";
+			//img.style.textAlign = "center";
+			//img.style.backgroundColor = "red";
+			this.width ? img.style.width = this.width : img.style.width = "100%";
 			x(this.insert).appendChild(img);
 	}
 
@@ -788,8 +793,6 @@ function getUrl(url, type, id, node, page)
 	}
 	
 getUrl.prototype.linkCreate = function linkCreate(){
-		
-		
 		var a = document.createElement("a");
 			a.setAttribute("href", this.page);
 			a.setAttribute("id", this.id);
@@ -798,13 +801,8 @@ getUrl.prototype.linkCreate = function linkCreate(){
 			li.appendChild(a);
 			a.innerHTML = this.node;
 			x("mylistB").appendChild(li);
-			$("#mylistB").listview('refresh');
-			
-			
-			
+			$("#mylistB").listview('refresh');			
 	}
-
-
 
 getUrl.prototype.car = function car(){
 	
@@ -875,7 +873,7 @@ function createImage(image, userid, model, year){
 								break;
 						
 							case "image":
-							var img = new image(data[i].imageFilename, data[i].node, data[i].insert);
+							var img = new image(data[i].imageFilename, data[i].node, data[i].insert, data[i].width);
 							  	img.create();
 								break;
 						// fix the appendChild have notes on folder		
@@ -898,7 +896,7 @@ function createImage(image, userid, model, year){
 		}
 		
 		
-		var doc_css = document.createElement("link");
+	var doc_css = document.createElement("link");
 	doc_css.setAttribute("type", "text/css");
 	doc_css.setAttribute("rel", "stylesheet");
 	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());

@@ -1,4 +1,4 @@
- <!DOCTYPE html> 
+  <!DOCTYPE html> 
 <html>
 <head>
 <meta charset="utf-8">
@@ -16,10 +16,19 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
 <script>
 //**************************************
 //place user id here to make it an app
-//localStorage.setItem("userId", 2);
+if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
+	var id = localStorage.getItem("userId");
+	}else{
+		var id=3;
+	}
+	
+function thePath(){ //this will return the path of current user
+		return id;
+			}
 //id here for app
 //**************************************
 //**************************************
@@ -65,9 +74,6 @@ $(document).ready( function(){
 			
 		
 	var data = '';
-
-		
-	
 	var date = new Date();
 	//********************************************************************************************************************
 
@@ -125,8 +131,8 @@ $(document).ready( function(){
 		});
 		
 
-		function createList(videoId, title, description){
-						
+	function createList(videoId, title, description){
+			
 					var li = document.createElement("li");
 						li.setAttribute("id", videoId);
 					var a = document.createElement("a");
@@ -138,7 +144,7 @@ $(document).ready( function(){
 						$("#videos").append(li);
 			}
 			
-		function clearTheList(){
+	function clearTheList(){
 			$("#videos").empty();
 			}
 			
@@ -237,9 +243,10 @@ $(document).ready( function(){
 		$('#logo').attr("src", data.logo);
 		
 	}
+	
 		//$("#page, #page2").css("background-color", data.backgroundColor);
 		if(data.BackgroundImage != 'http://www.m.josue45.com/mobile/assets/replace_background.png' ){
-		$("#page, #page2").css("background-image", "url("+data.BackgroundImage+")");
+		$("#page, #page2, #appGallery, #products").css("background-image", "url("+data.BackgroundImage+")");
 		console.log("Fix line 186:");
 		}
 		
@@ -346,7 +353,6 @@ function setFooter(company){
 <div id="jmmenu">
     <ul id="jmmenuul">
     	<li>My Account</li>
-        <li onClick="logMe.Testing()" id="test">Test Apps</li>
         <li onClick="logMe.logIn()" id="blahhh">Log In</li>   
     </ul>
 </div>
@@ -406,16 +412,7 @@ function setFooter(company){
     
 </div>
 <!--***************************************************************page end********************************************************** -->
-<style>
-#takePictureB{ font-size:1em; border:1px solid #FFF; width:auto; padding:5px;
- -ms-transform: rotate(90deg); /* IE 9 */
-    -webkit-transform: rotate(90deg); /* Safari */
-    transform:rotate(90deg); right:-20px;
-	z-index:5; text-align:center; line-height:auto; border-radius:20px; position:fixed; bottom:5%; height:auto;
-	background:#333; color:#FFF;}
-	
-.moduleB{ background-color:#FFF; padding:8px 0; text-align:center; width:90%; border-radius:5px; display:block; margin:auto;}
-</style>
+
 
 <div data-role="page" id="page2" data-add-back-btn="true">
 
@@ -562,10 +559,11 @@ function setFooter(company){
   </div>
   <div data-role="content">This app requieres a internet connection to work!</div>
   <div data-role="footer">
+  
     <h4>Opps</h4>
   </div>
 </div>
-<script src="assets/camera.js"></script>
+<script src="http://m.josue45.com/mobile/mobileTest/camera.js"></script>
  <script type="text/javascript">
 			app.initialize();
         </script>
