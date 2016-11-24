@@ -1,22 +1,12 @@
-// JavaScript Document
+//JavaScript Document
 //logMe.clearTheList("mylistC");
 //console.log(localStorage.getItem("userId"));
-function yeahBaby(){ return "http://m.josue45.com/"; }		
-	
-	
-	
-			
-	function fixBackground(){ // not using
-			var w = window.innerHeight;
-				var w2 = window.pageYOffset;
-				//alert("window inner height: "+w+" pageoffset: "+w2);
-				//alert(w+w2);
-				var b = document.getElementById("page");
-				//var b = document.getElementsByTagName("BODY")[0];
-					//b.style.minHeight = (w+w2)+"px !important";
-					b.style.backgroundColor = "red !important";
-				}
+//module()
+function yeahBaby(){ return "http://m.josue45.com/"; }
 
+function userPath(){
+return yeahBaby()+"mobile/"+thePath()+"/";
+}
 var logMe = 
 
 {
@@ -27,7 +17,7 @@ var logMe =
 		},
 
 	toggleMenu: function(menuApp){
-				
+					
 	logMe._(menuApp).onclick = function(){	
 	var x = logMe._("jmmenu");
 	if(x.style.width == "80%"){
@@ -48,7 +38,6 @@ var logMe =
 			}
 		},
 		
-	
 	userIsValid: function(){
 		if(localStorage.getItem("userId")){
 		return true;	
@@ -102,10 +91,9 @@ var logMe =
 		y.removeChild(logMe._("createAGallery"));
 		y.removeChild(logMe._("logOutButton"));
 		y.removeChild(logMe._("yourid"));
-		logMe._("takePictureB").style.display = "none ";
+		logMe._("takePictureB").style.display = "none";
 		logMe._("test") ? y.removeChild(logMe._("test")) : "";
-		
-		
+		console.log("removeTheLinks");
 		},
 	
 	imIn:function(){
@@ -150,7 +138,7 @@ var logMe =
 					logMe.getUserId();
 					//logMe.displayFolders();
 					//app.createAGallery();
-					//logMe.Testing();
+					
 					
 					}
 		},
@@ -170,7 +158,7 @@ var logMe =
 		console.log();
 			var x = "";
 			var sendData = "";
-				sendData = "?email="+this.email+"&password="+this.password;
+				sendData = "?email="+escape(this.email)+"&password="+escape(this.password);
 					console.log(sendData);
 				x = new XMLHttpRequest();
 				x.open("GET", "http://www.josue45.com/api/index.php"+sendData, true);
@@ -210,7 +198,7 @@ var logMe =
 		},
 	
 	logMeIn: function(){
-		var x = document.getElementById("blahhh");
+			var x = document.getElementById("blahhh");
 				x.setAttribute("onClick", "logMe.logOut()");
 				x.style.color = "red";
 				x.innerHTML = "Log Out";
@@ -218,8 +206,7 @@ var logMe =
 		},
 		
 	displayFolders: function(){ //8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
-		
-				//logMe.clearTheList("mylistC");
+		//logMe.clearTheList("mylistC");
 				var sendData = "";
 				var x = "";
 				x = new XMLHttpRequest();
@@ -267,7 +254,8 @@ var logMe =
 			d.appendChild(li);
 			//this.width = width;
 			//this.height = height;
-			
+		
+	
 			a.onclick = function(){
 				///////////////////////////////////////////////////////////////
 				//alert(this.id);
@@ -333,7 +321,7 @@ var logMe =
 			
 		},
 	getWindowSize: function(){
-							var here = logMe._("here");
+		var here = logMe._("here");
 							var imagesAll = here.getElementsByTagName("img");
 							logMe.d = 0;
 				logMe.onwhatnumber = 0;
@@ -358,15 +346,13 @@ var logMe =
 		//var x = window.innerHeight;
 		//return x;
 		},
+		
 	getWindowPageYoffset: function(){
-		var x = window.innerHeight;
-		return x;
+		return  window.innerHeight;
 		},
 	
-		
 	deleteImage: function(buttonIndex){
 		
-		 
 		if(buttonIndex == 1){
 				//navigator.notification.alert("ok then"+buttonIndex);
 				//alert(app.i+" "+ localStorage.getItem("userId"));
@@ -383,14 +369,12 @@ var logMe =
 							app._(r.image).style.display = "none";
 							logMe.countImages(r.image);
 						}
-						
-				
 				}
-				}
+		}
 				
 		x.send();
 		
-			},
+	},
 			
 	countImages: function(image){
 		var x = logMe._("here");
@@ -407,6 +391,10 @@ var logMe =
 		
 	Testing: function(){
 		//<li onClick="logMe.Testing()" id="test">Test Apps</li>
+			if(localStorage.getItem("userId") == 6){
+				location.reload();
+				}
+				
 			if(localStorage.getItem("userId") == 1){
 				var ul = document.getElementById("jmmenuul");
 				var li = document.createElement("li");
@@ -428,11 +416,12 @@ var logMe =
 var app = {
     // Application Constructor
 	_:function(y){
-			var x = document.getElementById(y);
-		return x;
+			return document.getElementById(y);
+		
 		},
 	
 	addPictureEvent: function(){
+		console.log("addPictureEvent()............");
 		app._("takePictureB").onclick = this.addPicture; //line 346
 		},
 		
@@ -540,21 +529,21 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-			document.addEventListener('deviceready', this.onDeviceReady, false);
+		document.addEventListener('deviceready', this.onDeviceReady, false);
 		this.setEventForSellData();
 		this.addPictureEvent(); //line 324
 			//app.checkConnection();
     },
 	 
 	takeApicture: function(){
-			//alert("somewhere");
+		//alert("somewhere");
 		//if(this.folder){
-		console.warn("This id was clicked line 388"+ event.target.id);
+		console.warn("This id was clicked line 533"+ event.target.id);
 		if(event.target.id == "logOutButton"){
 			this.folder = "gallery";
 			}
 		
-		console.warn(this.folder+" line 395");
+		console.warn(this.folder+" line 538");
 		//}
 		
 		app.createFolder();
@@ -690,7 +679,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
 	//****************************************************************************************************************************************
     onDeviceReady: function() {
-		//document.addEventListener("backbutton", app.videoBackfromIframe, false);
+			//document.addEventListener("backbutton", app.videoBackfromIframe, false);
 		app.checkConnection();
 		logMe.toggleMenu("menuApp");
 		app.togglePictureLink();
@@ -701,6 +690,9 @@ var app = {
 		//document.addEventListener('menubutton', app.Menu, true);
 		//alert(navigator.connection.type);
 		app.checkIfListIsLoaded();
+		
+		//app.localNotice();
+		
 	},
 	
 	checkIfListIsLoaded: function(){
@@ -745,7 +737,32 @@ var app = {
 		},
 	
 	setCategory: function (){
-			var selectedMenu = document.getElementById("selectmenuProducts");
+			var selectedMenu  = document.getElementById("selectmenuProducts");
+			var createCategory = document.getElementById("createCategory");
+				createCategory.onclick = function(){
+					
+					var x = prompt("New Category", "");
+						if(x){
+							var opt = document.createElement("option");
+								opt.value = x;
+								opt.text = x;
+								opt.setAttribute("id", opt.value);
+								//selectedMenu.appendChild(opt);
+								selectedMenu.add(opt);
+								
+								var index = document.getElementById(opt.value).index;
+								
+								//selectedMenu.selectedIndex = 1;
+								
+								app.changeMenuOption(index, opt.value);
+								
+								
+						}else{
+							alert("No New Category");
+							}
+								
+					}
+				
 				if(selectedMenu.value == "createCategory"){
 					var x = prompt("New Category", "");
 					if(x){
@@ -759,9 +776,22 @@ var app = {
 							}			
 				}
 			//localStorage.setItem("catSelected", "option2");
+		
+			//selectedMenu.selectedIndex = index;
+			
+			},
+		changeMenuOption: function(index, opt){
+			alert(index +" "+ opt);
+			document.getElementById("selectmenuProducts").selectedIndex = index;
+			var x = document.getElementById(opt);
+				x.option = opt  ;
+			
 			}
+		
 			
   	};//ends app ends
+	  app.setCategory();
+	  
 	  	
 	
 app.type = "POST";
@@ -791,8 +821,9 @@ var myApp =
 			this.insert ? x(this.insert).appendChild(tag): x("c").appendChild(tag);
 		}
 }
+
 	
-var x = function(y){ return xyc = document.getElementById(y); }
+var x = function(y){ return ans = document.getElementById(y); }
 
 function image(imageFilename, node, insert, width)
 	{
@@ -811,7 +842,7 @@ image.prototype.create = function create()
 			img.setAttribute("src", this.imageFilename);
 			img.style.display = "block";
 			//img.style.textAlign = "center";
-			//img.style.backgroundColor = "red";
+			img.style.backgroundColor = "red";
 			this.width ? img.style.width = this.width : img.style.width = "100%";
 			x(this.insert).appendChild(img);
 	}
@@ -845,7 +876,7 @@ function createLink(number, node)
 	}
 
 getUrl.prototype.clearPage = function clearPage(){
-		x("b").innerHTML = "";
+	x("b").innerHTML = "";
 	}
 
 function getUrl(url, type, id, node, page)
@@ -855,75 +886,231 @@ function getUrl(url, type, id, node, page)
 		this.id = id;
 		this.node = node;
 		this.page = page;
+		
+		
 	}
 	
+//plugIns.prototype.linkCreate();
+
 getUrl.prototype.linkCreate = function linkCreate(){
-		var a = document.createElement("a");
+	var a = document.createElement("a");
 			a.setAttribute("href", this.page);
 			a.setAttribute("id", this.id);
-			a.setAttribute("url2", this.url);
+			//a.setAttribute("url2", this.url);
+			//alert(this.url);
 		var li = document.createElement("li");
 			li.appendChild(a);
+			li.setAttribute("alt", this.node);
 			a.innerHTML = this.node;
 			x("mylistB").appendChild(li);
-			$("#mylistB").listview('refresh');			
+			$("#mylistB").listview('refresh');
+			
+			a.setAttribute("url2", this.url);		
 	}
 
 getUrl.prototype.car = function car(){
-	
-				
-				//alert(this.url);
+	//alert(linkCreate.this.NEWurl);
 				var url = this.url;
 				
 				//a.onclick = function(){
-					x("car").onclick = function(){
-				//alert(url);
+				x(this.id).onclick = function(){
+				//alert(this.id+"-"+url);
+				
+				
+				//data[i].make ? newurl += "&make="+data[i].make : "";
+				if(event.target.id == "browseByMake"){
+				//alert(event.target.id);
+				c = prompt("What make are you looking for?", "");
+					c ? url += "&make="+escape(c)  : url;
+				}
+				
+				if(event.target.id == "browseByPrice"){
+					c = Number(prompt("What price car are you looking for?", ""));
+					if(isNaN(c) || typeof c !== "number"){
+						alert("Please only numbers");
+						
+						c ? url += "&price=1000"  : url;
+					}else{
+						c ? url += "&price="+escape(c)  : url;
+						}
+					}
+				
+				
+				if(event.target.id == "browseByColor"){
+				//alert(event.target.id);
+				c = prompt("Please give us a color of car?", "");
+					c ? url += "&color="+escape(c)  : url;
+				}
+				
+				var t= x(event.target.id).firstChild.nodeValue;				
+				 alert(x(event.target.id).firstChild.nodeValue + "line 943");
+				var tt = document.createTextNode(t);
+				x('carTitle').innerHTML = tt.nodeValue;
 				x('b').innerHTML = "";
 				var ajax = new XMLHttpRequest();
-				ajax.open("POST", url ,true);
+				ajax.open("GET", url ,true);
 				ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				ajax.onreadystatechange = function(){
 						if(ajax.readyState == 4 & ajax.status == 200){
-							//alert(ajax.responseText.lenght);
+							//alert(ajax.responseText);
+							
+							
 							var a = JSON.parse(ajax.responseText);
-								
+							
+								if(a[0].error){
+									//alert(a[0].error);
+									$("#b").append(a[0].error);
+									
+									setTimeout('document.location.href= "#page"', 3000);
+									
+									}else{
 								for(var i=0; i<a.length; i++){
-								console.log(a[i].model);
-								createImage(a[i].image, a[i].userid, a[i].model, a[i].year);
+								console.log(a[i].model +"| object Number = "+i);
+								//createImage(a[i].image, a[i].userid, a[i].model, a[i].year, a[i].id_car, a[i].miles, a[i].color, a[i].vin_number, a[i].description);
+								createImage(a, i);
+								}
+							}
 						}
 					}
-				}
 				//ajax.send("appSettings=true&phoneOnAllPages="+y.value+"&id="+getUserId());
 				ajax.send();
+			/////////////////////
+								
 			}
 				
 		}
-
-function createImage(image, userid, model, year){
+//var arrayA ='';
+var jsonFile = "";
+function createImage(a, i){
+	//function createImage(image, userid, model, year, carid){
+	//alert(a[i].image);
 	
-	var img = document.createElement('img'); var span = document.createElement("span");
+	var img = document.createElement('img');
+	var br = document.createElement("br");
+	var span = document.createElement("span");
+	var spanPrice = document.createElement("span");
+	var spanMake = document.createElement("span");
+	var spanModel = document.createElement("span");
+	var spanYear = 	document.createElement("span");
+	
 	//alert(model.length)
-		if(model.length > 10){
-			var m = model.substring(0,9)+"...";
+		if(a[i].model.length > 10){
+			var m = a[i].model.substring(0,8)+"...";
 			}else{
-				var m = model;
+				var m = a[i].model;
 				}
-	var textNode = document.createTextNode(year+ " "+ m.toUpperCase());
+		if(a[i].make.length > 9){
+			var make = a[i].make.substring(0,8)+"...";
+			}else{
+				var make = a[i].make;
+				}
+	var make = document.createTextNode("Make: "+make.toUpperCase());
+	var price = document.createTextNode("Price: "+a[i].price);
+	var model = document.createTextNode("Model: "+ m.toUpperCase());
+	var year = document.createTextNode("Year: "+ a[i].year);
+
+	
 		span.setAttribute("id", "title");
-		span.appendChild(textNode);
+		span.setAttribute("class", "price");
+		
+		//css for span is on ccs.css line 82
+		//br.appendChild(textNode);
+		spanMake.appendChild(make);
+		spanModel.appendChild(model);
+		spanPrice.appendChild(price);
+		spanYear.appendChild(year);
+		
 	var li = document.createElement('li');
-		img.setAttribute("src", "http://www.salecarro.com/assets/cars_for_sale/"+userid+"/_small"+image);
-		li.appendChild(img);
-		li.appendChild(span);
+	var aa = document.createElement('a');
+		//a.setAttribute("href", "#viewItemPlease");
+		img.setAttribute("src", "http://www.salecarro.com/assets/cars_for_sale/"+a[i].userid+"/_small"+a[i].image);
+		img.setAttribute("title", a[i].image);
+		img.setAttribute("alt", a[i].image);
+		aa.appendChild(img);
+		li.appendChild(aa);
+		li.setAttribute("id", i);
+		
+		li.appendChild(spanPrice);
+		li.appendChild(spanMake);
+		li.appendChild(spanModel);
+		li.appendChild(spanYear);
+		this.jsonFile = a;
 		x("b").appendChild(li);
+		li.addEventListener("click", gothere, false);
 }
 
+
+
+function gothere(){
+	
+						var place = x("viewItemContent");
+							place.innerHTML = "";
+						var img = document.createElement("img");
+						var ul = document.createElement("ul");
+							ul.setAttribute("class", "car");
+							img.setAttribute("src", 'http://www.salecarro.com/assets/cars_for_sale/'+jsonFile[this.id].userid+"/"+jsonFile[this.id].image);
+							img.setAttribute("width", "100%");
+							
+							
+							
+							place.appendChild(img);
+							
+						var items = ["phone", "name", "dealer_name", "make",  "model", "year", "price", "miles", "color", "interior_color", "vin_number", "description", "dateInsert"];
+						var title = ["Call Today", "Seller name", "Dealer", "Make", "Model", "Year", "Price", "Miles", "Exterior color", "Interior color", "Vin number", "Description", "Date entered"];
+						//alert(items.length);
+						/*
+						var PersonalInfo = ["name", "dealer_name", "area", "phone"];
+						var personalInfoNode = ["Sellers name", "Dealer", "Area", "Phone"];
+						for(var j=0; j<PersonalInfo.length; j++){	
+							
+							}
+						*/
+						var p = "";
+						for(var i=0; i<items.length; i++){
+							
+							if(items[i] == "phone"){
+									p = document.createElement("a");
+									p.innerHTML = title[i];
+									p.setAttribute("class", "callToday");
+									alert(jsonFile[this.id].area+""+jsonFile[this.id][items[i]]);
+									p.setAttribute("href", "tel:+"+jsonFile[this.id].area+""+jsonFile[this.id][items[i]]);
+									place.appendChild(p);
+								}else{
+							//alert(jsonFile[this.id][items[i]]);
+							var li = document.createElement("li");
+								li.setAttribute("class", "car");
+								if(jsonFile[this.id][items[i]] != null){
+								//alert(jsonFile[this.id].items[i]);
+								var s = jsonFile[this.id][items[i]];
+								li.innerHTML =  title[i] + ": "+s.charAt(0).toUpperCase()+ s.toLowerCase().slice(1);
+								//li.innerHTML =  title[i] + ": "+jsonFile[this.id][items[i]];
+								
+								ul.appendChild(li);
+							}
+						}
+						}
+						place.appendChild(ul);
+						
+					
+						
+						
+						//alert(jsonFile[this.id].model);
+				window.location.href = '#viewItemPlease';
+	
+	}
+	
+	//var plugIns = {
+		
+		
+		
+	
+	
 	function module(){
 			$.getJSON(yeahBaby()+"mobile/"+thePath()+"/module.json", function(data){
-					var a = ["call", "sms", "image", "textNode", "car", "LINK"];
+				   	var a = ["call", "sms", "image", "textNode", "car", "LINK", "moduleGallery"];
 					console.log(data.length+"**************************************");
 					for(var i=0; i<data.length; i++){
- 
+ 		//				alert(data[i].module);
 						switch (data[i].module) {
 						
 						//fix
@@ -947,21 +1134,113 @@ function createImage(image, userid, model, year){
 								myApp.textNode();
 								break;
 								
-						//fix
+						//done on this 11-15-2016
 							case "car":
-							var Url = new getUrl('http://www.salecarro.com/api/index.php', 'car', "car", data[i].node , "#carPage");
+							var moduletype, color, Url, newurl = "";
+								data[i].moduleType ? newurl += "&moduleType="+data[i].moduleType : "" ;
+								Url = new getUrl('http://www.salecarro.com/api/api1.php?module=cars'+newurl, 'car', data[i].moduleType, data[i].node , "#carPage");
 								Url.linkCreate();
+								// work on
 								Url.car();
 								break;
+								
+							case 'moduleGallery': //mG variable extension
+									var p = "";
+									p = new moduleGallery(data[i].folder_name, data[i].url, data[i].web, data[i].startAt, data[i].imageAttributeName);						
+									p.CreateALink("a", "#viewGallery", data[i].folder_name, data[i].node);
+									//p.url();
+								break;
+								
 							} 
+							
+						 
 						}
 					
 				});
 				
 		}
-			var doc_css = document.createElement("link");
-	doc_css.setAttribute("type", "text/css");
-	doc_css.setAttribute("rel", "stylesheet");
-	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
-	document.getElementsByTagName('head')[0].appendChild(doc_css);
-	
+			
+
+function ClearTheArea(id){
+	x(id).innerHTML = "";
+	}
+
+function lookAtImagesPosition(){
+			
+			var d, img, yOffset, newy, posImage ="";
+		d = document.getElementById("viewGalleryItems");
+		img = d.getElementsByTagName("img");
+		yOffset = window.pageYOffset;
+	newy = yOffset + window.innerHeight;
+			for(var i=0; i<img.length; i++){
+				posImage = img[i].offsetTop;
+				//console.log(posImage+" "+img[i].src);
+				
+				if(img[i].src == "http://www.45graphics.net/45GraphicsApp/assets/default.gif"){
+					if(posImage+45 <= newy){
+					img[i].src = img[i].title;
+					
+					}
+				}	
+			}
+	}
+
+	function moduleGallery(folderNameg, urlg, webg, startAtg, imageAttributeNameg){
+			this.folderNameg = folderNameg;
+			this.urlg = urlg;
+			this.webg = webg;  
+			this.startAtg = startAtg;
+			this.imageAttributeNameg = imageAttributeNameg;
+			
+		}
+		
+		
+		
+		moduleGallery.prototype.CreateALink = function(element, pagetogo, id, node){
+	var a = document.createElement(element);
+			a.setAttribute("href", pagetogo);
+			a.setAttribute("id", id);
+		var li = document.createElement("li");
+			li.appendChild(a);
+			li.setAttribute("alt", node);
+			a.innerHTML = node;
+			x("mylistB").appendChild(li);
+			$("#mylistB").listview('refresh');
+			
+			a.addEventListener("click", function(){
+					var newurl = "";  //this.urlg;
+					ClearTheArea("viewGalleryItems");
+					alert(this.id);
+					newurl += this.id+".json";			
+						$.getJSON(userPath()+newurl, function(data){
+							
+							
+							//var x = JSON.parse(data);
+							//alert(x);
+							var view = myApp.x("viewGalleryItems");
+							//var images = array();
+							for(var i=0; i<data.length; i++){
+								
+					
+								
+								//startImageCount++;
+								var details = document.createElement("article");
+									details.innerHTML = data[i].description;
+									var li  = document.createElement("li");
+								console.log(data[i].image);
+								var img = document.createElement("img");
+									img.setAttribute("title", data[i].image);
+									img.setAttribute("src", "http://www.45graphics.net/45GraphicsApp/assets/default.gif");
+									li.appendChild(img);
+									li.appendChild(details);
+									
+								view.appendChild(li);
+								
+								
+								}
+							
+							
+						});	
+					}) 
+			}
+			

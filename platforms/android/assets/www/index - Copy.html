@@ -17,14 +17,11 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <script type="text/javascript" language="javascript">
 
-//http://m.josue45.com/
-//http://www.m.josue45.com/
    if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
 	var id = localStorage.getItem("userId");
 	}else{
-		//id 6 is for app tester
-		var id=2;
-		// logMe.logIn();
+		var id=17;
+		
 	}
 	
 function thePath(){ //this will return the path of current user
@@ -150,7 +147,7 @@ $(document).ready( function(){
 			
 		});
 		
- 
+
 	function createList(videoId, title, description){
 			
 					var li = document.createElement("li");
@@ -168,7 +165,7 @@ $(document).ready( function(){
 			$("#videos").empty();
 			}
 			
-	function showTheVideo(){
+		function showTheVideo(){
 			
 		
 					console.log(this.id);
@@ -185,8 +182,10 @@ $(document).ready( function(){
 					$("#myVideo").append(video);	
 			}
 		
+		//});
+		
 	function appSettings(){
-		$.getJSON(yeahBaby()+"mobile/"+thePath()+"/appSettings.json", function(data){
+			$.getJSON(yeahBaby()+"mobile/"+thePath()+"/appSettings.json", function(data){
 				 //alert(data[0].phoneOnAllPages);
 				if(data[0].phoneOnAllPages == 1) {
 					setTimeout('$("#phoneStuff").clone().appendTo("#phoneStuffB")', 2000);
@@ -201,7 +200,10 @@ $(document).ready( function(){
 	//gets the numbers
 	//numbers.php
 	function phones(){
-		$.getJSON(yeahBaby()+"mobile/assets/numbers.php?iduser="+thePath(), function(info){
+	$.getJSON(yeahBaby()+"mobile/assets/numbers.php?iduser="+thePath(), function(info){
+		//$.getJSON("http://m.josue45.com/mobile/assets/numbers.php?iduser="+thePath(), function(info){
+	//alert("ok");
+		
 	setFooter(info.companyName); //line 250
 
 	console.warn("Call")
@@ -211,10 +213,14 @@ $(document).ready( function(){
 		$("#xyzz").empty().append("TEXT");
 		$("#text").attr("href", "sms:"+info.cellPhone);
 		
+		//$('title').append(info.companyName+ " Mobile");
+		
 		});
 	}
 	
+
 	//****************************************************************************************************
+	
 	
 	//will load the links for mobile site generated dinamically
 	$.getJSON(yeahBaby()+"mobile/listofpages.php?iduser="+thePath(), function(info){
@@ -400,18 +406,7 @@ function setFooter(company){
     
      
 	<div data-role="content">
-    	<!--
-        <div class="r">
-        
-        <input name="" type="text">
-        
-        </div>
-        
-        <ul id="test">
-        	<li>hi there</li>
-            <li>whats up</li>
-        </ul>
-        --> 
+    	
         <ul id="mylistB" data-role="listview" data-inset="true"></ul>
         <ul id="mylistC" data-role="listview" data-inset="true"></ul>
         <ul id="mylist" data-role="listview" data-inset="true">
@@ -441,7 +436,7 @@ function setFooter(company){
 
 	<div data-role="header">
     	
-		<h1 id="titlebaby">this page</h1>
+		<h1 id="titlebaby">Page Two</h1>
 	</div>
     
     <div id="phoneStuffB"></div>
@@ -449,17 +444,16 @@ function setFooter(company){
 	<div class="b">	
 		Content		
 	</div>
-	     
+	    
 	<div id="c" data-role="footer">
 		<h4>Page Footer</h4>
 	</div>
 </div>
 
-<!-- All cars view page-->
 <div data-role="page" id="carPage" data-add-back-btn="true">
 	<div data-role="header">
     	
-		<h1 id="carTitle">test</h1>
+		<h1 id="titlebaby">Page Two</h1>
 	</div>
     
     <div id="phoneStuffB"></div>
@@ -472,39 +466,9 @@ function setFooter(company){
 		<h4>Page Footer</h4>
 	</div>
 </div>
-
-<div data-role="page" id="viewGallery" data-add-back-btn="true">
-    <div data-role="header">
-      <h1 id="viewItemTitle">Gallery test</h1>
-    </div>
-  
-  
-    	<ul id="viewGalleryItems" class="viewGalleryItems"> </ul>
-
-
-  
-    <div data-role="footer">
-      <h4 id="viewItemFooter">Footer</h4>
-    </div>
-  </div>
-
-<!-- viewItemPlease-->
-<div data-role="page" id="viewItemPlease" data-add-back-btn="true">
-    <div data-role="header">
-      <h1 id="viewItemTitle">Header</h1>
-    </div>
-    <div data-role="content" class="b">
-    	<ul id="viewItemContent" class="viewItems">hello</ul>
-    </div>
-    <div data-role="footer">
-      <h4 id="viewItemFooter">Footer</h4>
-    </div>
-  </div>
-
-
-
+<!-- this page is reserved for wordpress postings-->
 <div data-role="page" id="page3">
-<div data-role="header">
+	<div data-role="header">
 		<h1>Page Three</h1>
 	</div>
 	<div data-role="content">	
@@ -529,7 +493,7 @@ function setFooter(company){
 </div>
 
 <!-- video -->
-<div data-role="page" id="page5" data-add-back-btn="true">
+	<div data-role="page" id="page5" data-add-back-btn="true">
 	<div data-role="header">
 		<h1>Videos</h1>
 	</div>
@@ -540,9 +504,8 @@ function setFooter(company){
 		<h4>Page Footer</h4>
 	</div>
 </div>
+<!-- video end -->
 
-
-<!-- tweets end -->
 <div data-role="page" id="tweets">
   <div data-role="header">
     <h1>Tweets</h1>
@@ -552,7 +515,6 @@ function setFooter(company){
     <h4>Footer</h4>
   </div>
 </div>
-
 
 
 <div data-role="page" id="appGallery" data-add-back-btn="true">
@@ -578,69 +540,9 @@ function setFooter(company){
   </div>
   
   <style type="text/css">
-  
-  
-  a.callToday{ width:auto; text-shadow: 1px 1px 1px #FFF; border-radius:5px; text-align:center; font-family:Verdana, Geneva, sans-serif; font-size:20px; font-weight:bold; text-decoration:none; height:auto; display:block; margin:auto; padding:20px;
-  color:black !important; background:-webkit-linear-gradient(#CCC, #999);}
-  ul.viewGalleryItems{ padding:0px; margin:0px auto; width:auto;
-	height:auto; min-height:600px; overflow:hidden;
- background:-webkit-linear-gradient(45deg, #fff, #999, #FFF); border-radius:2px;}
-
-.viewGalleryItems li{ font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif; font-size:12px;
-	width:auto; margin:10px 5px; padding:20px;
-	height:auto; background:-webkit-linear-gradient(45deg, #ccc 50%,#888); list-style:none;
-	}
-.viewGalleryItems li:first-child{ margin-top:0px;}
-.viewGalleryItems li:last-child{ margin-bottom:0px;}
-.viewGalleryItems span{
-	font-size:16px; color:#000;}
-.viewGalleryItems article{ font-family:Verdana, Geneva, sans-serif; font-size:14px;}
-.viewGalleryItems img{ border:2px solid #333; display:block; margin:auto; border-radius:5px;}
-  
-  
-  
-  #myForm{ width: auto; min-height:590px;
-height: auto; box-shadow:2px 2px 5px #000;
-background: -webkit-linear-gradient(45deg, #CCC 50%, #FFF 50%, #CCC);
-padding: 10px;
-display: block;
-margin: 20px;
-border-radius: 5px;}
-
-#myForm input, #myForm select, #myForm textarea, #myForm button{color:#333;
-width:90%; padding:10px; display:block; font-family:Verdana, Geneva, sans-serif; font-size:16px; margin:20px auto;
-border-radius:3px; background:#FFF;}
-  
  ui-input-text{ color:#F00;}
-
+ #customCss  .ui-btn{ background:#000; width:100%; color:#fff; text-shadow:none !important;}
 .dui-btn{ background:white; width:100%; color:#666; border-radius:10px; overflow:hidden;}
-
-
-.r{ background:#FFF; border:1px solid #CCC; border-radius:8px; padding:20px; margin:10px 0;}
- .r > input{ padding:4%; width:92%;}
-
-ul#test{ padding:0px; margin:0px;}
-ul#test > li{ background:#CCC; color:#000; padding:10px; list-style:none; font-family:Verdana, Geneva, sans-serif; font-size:1.2em; text-shadow:1px 1px 2px #FFFFFF;}
-ul#test >li:first-child{ border-radius:10px 10px 0 0; border:3px solid red, 1px solid #999;}
-ul#test >li:last-child{ border-radius:0 0 10px 10px;}
-
-ul.car{padding:0px; margin:0px; list-style:none;}
-
-li.car:nth-child(even){background: #CCC;}
-
-li.car{  
-background: rgba(0, 0, 0, 0) -webkit-linear-gradient(#cccd, #ccc) repeat scroll 0 0;
-    border-radius: 2px;
-    color: black; line-height:30px;
-    font-family: Verdana;
-    font-size: 20px;
-    margin:  8px;
-    padding: 8px;
-    text-shadow: 1px 2px 2px #CCC;
-    width: auto;
-}
-
-
 /*
  #customCss{ width:40%; float:left; color:#FFF;}
  #customCss2{ width:60%; float:left; color:#FFF;}
@@ -648,32 +550,25 @@ background: rgba(0, 0, 0, 0) -webkit-linear-gradient(#cccd, #ccc) repeat scroll 
 	
   </style>
   
-  <div id="myForm">
-  
-  <summary>Create a category if you havent. Products or serveices for sale will display only if you have it set up with paypal.</summary>
-  
-  	<input type="button" id="createCategory" value="Create Category" onClick="app.setCategory()"/>
-    
- 	 <select name="selectmenuProducts" id="selectmenuProducts" onChange="app.setCategory()">
+  <div data-role="content" style="background:#FFF;">
+ 	 <p id="customCss"><select name="selectmenuProducts" id="selectmenuProducts" onChange="app.setCategory()">
       	<option value="createCategory">Create Category</option>
-        <option value="option2" id="option2" selected>test</option>
+        <option value="option2" selected>Option 2</option>
       	</select>
-      
-        
+        </p>
+        <p id="customCss"><input type="button" id="createCatergory" value="Create category"/></p>
   		<input name="imageFilename"  type="hidden" value="1">
-        
-      	<input type="text" name="textinput" placeholder="Product name" id="Name" value="" required />
+      	<p><input type="text" name="textinput" placeholder="Product name" id="Name" value="" required /></p>
      
-        <input type="number" name="Price"  placeholder="Price" id="Price" value="" required />
+        <p><input type="number" name="textinput" placeholder="Price" required id="Price" value=""  /></p>
          
-        <input type="text" name="textinput" id="shortDescription" placeholder="Short description" value="" required />
+        <p><input type="text" name="textinput" id="shortDescription" placeholder="Short description" value="" required /></p>
         
-        <textarea rows="8" name="textarea" id="LongDescription" placeholder="Long description"></textarea>
+        <p><textarea cols="40" rows="8" name="textarea" id="LongDescription" placeholder="Long description"></textarea></p>
           
-        <input name="" id="sellProducts" value="Submit" type="submit">
+        <p id="customCss"><input name="" id="sellProducts" value="Submit" type="submit"></p>
           
   </div>
-  
   
   
   
@@ -681,8 +576,6 @@ background: rgba(0, 0, 0, 0) -webkit-linear-gradient(#cccd, #ccc) repeat scroll 
     <h4>Insert Product</h4>
   </div>
 </div>
-
-
 <div data-role="page" id="noConnection">
   <div data-role="header">
     <h1>Opps</h1>
@@ -700,11 +593,6 @@ background: rgba(0, 0, 0, 0) -webkit-linear-gradient(#cccd, #ccc) repeat scroll 
 <script type="text/javascript" language="javascript" src="assets/camera.js"></script> 
  <script type="text/javascript">
 			app.initialize();
-			window.onload = function(){
-				//getJsonFile();
-				setTimeout("lookAtImagesPosition()",500);
-				document.addEventListener("scroll", lookAtImagesPosition, false);
-		}
         </script>  
  
 </body>
