@@ -239,7 +239,9 @@ $(document).ready( function(){
 									url: "http://m.josue45.com/class/JosueMunoz.php?getInfo="+$(this).attr("id")+"&type=ready",
 									})
 									.done( function (data){
+										
 										$(".b").empty().append(data);
+										
 										})	
 							})
 		});
@@ -493,7 +495,7 @@ function setFooter(company){
     <div data-role="header">
       <h1 id="viewItemTitle">Header</h1>
     </div>
-    <div data-role="content" class="b">
+    <div data-role="content" class="newViewItems">
     	<ul id="viewItemContent" class="viewItems">hello</ul>
     </div>
     <div data-role="footer">
@@ -590,12 +592,16 @@ function setFooter(company){
 	width:auto; margin:10px 5px; padding:20px;
 	height:auto; background:-webkit-linear-gradient(45deg, #ccc 50%,#888); list-style:none;
 	}
+.newViewItems{ background:#FFF;}
+<!-- Targets the image of the car-->
+.viewItems img{ border-radius:2px !important; border:5px solid #999;}
+
 .viewGalleryItems li:first-child{ margin-top:0px;}
 .viewGalleryItems li:last-child{ margin-bottom:0px;}
 .viewGalleryItems span{
 	font-size:16px; color:#000;}
 .viewGalleryItems article{ font-family:Verdana, Geneva, sans-serif; font-size:14px;}
-.viewGalleryItems img{ border:2px solid #333; display:block; margin:auto; border-radius:5px;}
+.viewGalleryItems img{ border:2px solid #333; display:block; margin:auto; border-radius:5px; overflow:hidden;}
   
   
   
@@ -682,7 +688,7 @@ background: rgba(0, 0, 0, 0) -webkit-linear-gradient(#cccd, #ccc) repeat scroll 
   </div>
 </div>
 
-
+<!-- no internet page -->
 <div data-role="page" id="noConnection">
   <div data-role="header">
     <h1>Opps</h1>

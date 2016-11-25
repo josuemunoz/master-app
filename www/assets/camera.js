@@ -2,6 +2,10 @@
 //logMe.clearTheList("mylistC");
 //console.log(localStorage.getItem("userId"));
 //module()
+
+//content
+
+//b
 function yeahBaby(){ return "http://m.josue45.com/"; }
 
 function userPath(){
@@ -1026,6 +1030,7 @@ function createImage(a, i){
 		img.setAttribute("src", "http://www.salecarro.com/assets/cars_for_sale/"+a[i].userid+"/_small"+a[i].image);
 		img.setAttribute("title", a[i].image);
 		img.setAttribute("alt", a[i].image);
+	
 		aa.appendChild(img);
 		li.appendChild(aa);
 		li.setAttribute("id", i);
