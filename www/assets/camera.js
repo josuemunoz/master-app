@@ -751,7 +751,7 @@ var app = {
 								opt.value = x;
 								opt.text = x;
 								opt.setAttribute("id", opt.value);
-								//selectedMenu.appendChild(opt);
+								selectedMenu.appendChild(opt);
 								selectedMenu.add(opt);
 								
 								var index = document.getElementById(opt.value).index;
@@ -788,7 +788,9 @@ var app = {
 			alert(index +" "+ opt);
 			document.getElementById("selectmenuProducts").selectedIndex = index;
 			var x = document.getElementById(opt);
-				x.option = opt  ;
+				//alert(x);
+				//x.innerHTML = opt;
+				x.selectedIndex = index;
 			
 			}
 		
@@ -1145,26 +1147,47 @@ function gothere(){
 								data[i].moduleType ? newurl += "&moduleType="+data[i].moduleType : "" ;
 								Url = new getUrl('http://www.salecarro.com/api/api1.php?module=cars'+newurl, 'car', data[i].moduleType, data[i].node , "#carPage");
 								Url.linkCreate();
-								// work on
+								//work on
 								Url.car();
 								break;
 								
-							case 'moduleGallery': //mG variable extension
+							case "moduleGallery": //mG variable extension
 									var p = "";
 									p = new moduleGallery(data[i].folder_name, data[i].url, data[i].web, data[i].startAt, data[i].imageAttributeName);						
 									p.CreateALink("a", "#viewGallery", data[i].folder_name, data[i].node);
 									//p.url();
 								break;
 								
-							} 
-							
-						 
-						}
-					
-				});
-				
+							case "donate":
+								var d = "";
+									d = new donate(data[i].node, data[i].url);
+									//d();
+								break;
+	
+					} 
+				}
+			});
 		}
-			
+
+
+function donate(text, url){
+	if(url == ""){
+		alert("url needed");
+		}
+	//window.open('http://www.myurl.nl', '_system');
+	var x = document.createElement("button");
+		x.setAttribute("id", text);
+		x.setAttribute("class", "donateToday");
+		x.innerHTML = text;
+		var f = myApp.x("mylistB");
+		
+		x.addEventListener("click", function(){
+			//alert("donate how much");
+			//x.style.width = "20px";
+			window.open(url, "_system");
+			}, false);
+	f.appendChild(x);
+	}
 
 function ClearTheArea(id){
 	x(id).innerHTML = "";
@@ -1189,6 +1212,66 @@ function lookAtImagesPosition(){
 				}	
 			}
 	}
+	
+	function writeReview(){
+		var reviewIcon = myApp.x('reviewIcon');
+		var r = myApp.x("write-review-icon");
+		var s = myApp.x("closeReview");
+			
+			
+			s.addEventListener("click", function(){x = myApp.x("writeReviewWrap"); x.style.display = "none"; }, false);
+			r.addEventListener("click", function(){x = myApp.x("writeReviewWrap"); x.style.display = "block"; }, false);
+			reviewIcon.addEventListener("click", function(){
+				getReviewData();
+				
+				}
+				, false);
+		}
+	function getReviewData(){
+		var error = false;
+		var name = myApp.x("reviewName");
+		var textarea = myApp.x("reviewTextArea");
+		//check to see if fileds are not empty
+		if(name.value == "" || textarea.value == ""){
+			alert("Fields cannot be empty");
+			error = true;
+			}
+			if(error == false){
+		//alert(name.value+" "+"your comment will be posted.");
+		//clear fields
+		sendDataToServer(name.value, textarea.value);
+		name.value = ""; textarea.value = "";
+			var x = myApp.x("writeReviewWrap");
+				x.style.display = "none";
+			}
+	}
+	function sendDataToServer(n, t){
+		
+		//send data to server
+		
+		
+		url = "http://josue45.com/api/jm.php";
+		var ajax = new XMLHttpRequest();
+			ajax.open("POST", url ,true);
+			ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			ajax.onreadystatechange = function(){
+				if(ajax.readyState == 4 & ajax.status == 200){
+				//alert(ajax.responseText.lenght);
+					var a = JSON.parse(ajax.responseText);
+					alert(a);
+					}
+				}
+				
+			
+				ajax.send("postReview=true&name="+n+"&textarea="+t+"&userid="+thePath());
+				
+				//ajax.send("");
+			
+	
+		
+		
+		
+		}
 
 	function moduleGallery(folderNameg, urlg, webg, startAtg, imageAttributeNameg){
 			this.folderNameg = folderNameg;
@@ -1215,7 +1298,7 @@ function lookAtImagesPosition(){
 			a.addEventListener("click", function(){
 					var newurl = "";  //this.urlg;
 					ClearTheArea("viewGalleryItems");
-					alert(this.id);
+					//alert(this.id);
 					newurl += this.id+".json";			
 						$.getJSON(userPath()+newurl, function(data){
 							
@@ -1248,4 +1331,4 @@ function lookAtImagesPosition(){
 						});	
 					}) 
 			}
-			
+			writeReview();

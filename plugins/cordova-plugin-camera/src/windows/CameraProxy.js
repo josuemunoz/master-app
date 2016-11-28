@@ -79,14 +79,10 @@ var HIGHEST_POSSIBLE_Z_INDEX = 2147483647;
 // Resize method
 function resizeImage(successCallback, errorCallback, file, targetWidth, targetHeight, encodingType) {
     var tempPhotoFileName = "";
-    var targetContentType = "";
-
     if (encodingType == Camera.EncodingType.PNG) {
         tempPhotoFileName = "camera_cordova_temp_return.png";
-        targetContentType = "image/png";
     } else {
         tempPhotoFileName = "camera_cordova_temp_return.jpg";
-        targetContentType = "image/jpeg";
     }
 
     var storageFolder = getAppData().localFolder;
@@ -112,7 +108,7 @@ function resizeImage(successCallback, errorCallback, file, targetWidth, targetHe
 
                 canvas.getContext("2d").drawImage(this, 0, 0, imageWidth, imageHeight);
 
-                var fileContent = canvas.toDataURL(targetContentType).split(',')[1];
+                var fileContent = canvas.toDataURL(file.contentType).split(',')[1];
 
                 var storageFolder = getAppData().localFolder;
 
@@ -749,9 +745,8 @@ function takePictureFromCameraWindows(successCallback, errorCallback, args) {
     cameraCaptureUI.photoSettings.maxResolution = maxRes;
 
     var cameraPicture;
+    var savePhotoOnFocus = function() {
 
-    // define focus handler for windows phone 10.0
-    var savePhotoOnFocus = function () {
         window.removeEventListener("focus", savePhotoOnFocus);
         // call only when the app is in focus again
         savePhoto(cameraPicture, {
@@ -763,31 +758,16 @@ function takePictureFromCameraWindows(successCallback, errorCallback, args) {
         }, successCallback, errorCallback);
     };
 
-    // if windows phone 10, add and delete focus eventHandler to capture the focus back from cameraUI to app
-    if (navigator.appVersion.indexOf('Windows Phone 10.0') >= 0) {
-        window.addEventListener("focus", savePhotoOnFocus);
-    }
-
-    cameraCaptureUI.captureFileAsync(WMCapture.CameraCaptureUIMode.photo).done(function (picture) {
+    // add and delete focus eventHandler to capture the focus back from cameraUI to app 
+    window.addEventListener("focus", savePhotoOnFocus);
+    cameraCaptureUI.captureFileAsync(WMCapture.CameraCaptureUIMode.photo).done(function(picture) {
         if (!picture) {
             errorCallback("User didn't capture a photo.");
-            // Remove the focus handler if present
             window.removeEventListener("focus", savePhotoOnFocus);
             return;
         }
         cameraPicture = picture;
-
-        // If not windows 10, call savePhoto() now. If windows 10, wait for the app to be in focus again
-        if (navigator.appVersion.indexOf('Windows Phone 10.0') < 0) {
-            savePhoto(cameraPicture, {
-                destinationType: destinationType,
-                targetHeight: targetHeight,
-                targetWidth: targetWidth,
-                encodingType: encodingType,
-                saveToPhotoAlbum: saveToPhotoAlbum
-            }, successCallback, errorCallback);
-        }
-    }, function () {
+    }, function() {
         errorCallback("Fail to capture a photo.");
         window.removeEventListener("focus", savePhotoOnFocus);
     });
