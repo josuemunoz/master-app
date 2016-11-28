@@ -949,7 +949,7 @@ getUrl.prototype.car = function car(){
 				}
 				
 				var t= x(event.target.id).firstChild.nodeValue;				
-				 alert(x(event.target.id).firstChild.nodeValue + "line 943");
+				//alert(x(event.target.id).firstChild.nodeValue + "line 943");
 				var tt = document.createTextNode(t);
 				x('carTitle').innerHTML = tt.nodeValue;
 				x('b').innerHTML = "";
@@ -1079,7 +1079,7 @@ function gothere(){
 									p = document.createElement("a");
 									p.innerHTML = title[i];
 									p.setAttribute("class", "callToday");
-									alert(jsonFile[this.id].area+""+jsonFile[this.id][items[i]]);
+					//				alert(jsonFile[this.id].area+""+jsonFile[this.id][items[i]]);
 									p.setAttribute("href", "tel:+"+jsonFile[this.id].area+""+jsonFile[this.id][items[i]]);
 									place.appendChild(p);
 								}else{
@@ -1229,18 +1229,18 @@ function lookAtImagesPosition(){
 		}
 	function getReviewData(){
 		var error = false;
-		var name = myApp.x("reviewName");
-		var textarea = myApp.x("reviewTextArea");
+		var rname = myApp.x("reviewName");
+		var rtextarea = myApp.x("reviewTextArea");
 		//check to see if fileds are not empty
-		if(name.value == "" || textarea.value == ""){
+		if(rname.value == "" || rtextarea.value == ""){
 			alert("Fields cannot be empty");
 			error = true;
 			}
 			if(error == false){
 		//alert(name.value+" "+"your comment will be posted.");
 		//clear fields
-		sendDataToServer(name.value, textarea.value);
-		name.value = ""; textarea.value = "";
+		sendDataToServer(rname.value, rtextarea.value);
+		rname.value = ""; rtextarea.value = "";
 			var x = myApp.x("writeReviewWrap");
 				x.style.display = "none";
 			}
@@ -1249,8 +1249,8 @@ function lookAtImagesPosition(){
 		
 		//send data to server
 		
-		
-		url = "http://josue45.com/api/jm.php";
+		var url="";
+			url = "http://josue45.com/api/jm.php";
 		var ajax = new XMLHttpRequest();
 			ajax.open("POST", url ,true);
 			ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
