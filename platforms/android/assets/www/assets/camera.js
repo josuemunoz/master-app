@@ -882,7 +882,7 @@ function createLink(number, node)
 	}
 
 getUrl.prototype.clearPage = function clearPage(){
-	x("b").innerHTML = "";
+	//x("b").innerHTML = "";
 	}
 
 function getUrl(url, type, id, node, page)
@@ -893,10 +893,9 @@ function getUrl(url, type, id, node, page)
 		this.node = node;
 		this.page = page;
 		
-		
 	}
 	
-//plugIns.prototype.linkCreate();
+
 
 getUrl.prototype.linkCreate = function linkCreate(){
 	var a = document.createElement("a");
@@ -919,8 +918,9 @@ getUrl.prototype.car = function car(){
 				var url = this.url;
 				
 				//a.onclick = function(){
-				x(this.id).onclick = function(){
-				//alert(this.id+"-"+url);
+					
+				x(this.id).addEventListener("click", function(){
+				alert(this.id+"-"+url);
 				
 				
 				//data[i].make ? newurl += "&make="+data[i].make : "";
@@ -949,11 +949,12 @@ getUrl.prototype.car = function car(){
 				}
 				
 				var t= x(event.target.id).firstChild.nodeValue;				
-				 alert(x(event.target.id).firstChild.nodeValue + "line 943");
+				//alert(x(event.target.id).firstChild.nodeValue + "line 943");
 				var tt = document.createTextNode(t);
 				x('carTitle').innerHTML = tt.nodeValue;
 				x('b').innerHTML = "";
-				var ajax = new XMLHttpRequest();
+				var ajax = "";
+				ajax = new XMLHttpRequest();
 				ajax.open("GET", url ,true);
 				ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				ajax.onreadystatechange = function(){
@@ -975,6 +976,8 @@ getUrl.prototype.car = function car(){
 								//createImage(a[i].image, a[i].userid, a[i].model, a[i].year, a[i].id_car, a[i].miles, a[i].color, a[i].vin_number, a[i].description);
 								createImage(a, i);
 								}
+								
+								//create eventlistener for updated
 							}
 						}
 					}
@@ -982,10 +985,14 @@ getUrl.prototype.car = function car(){
 				ajax.send();
 			/////////////////////
 								
-			}
+			}, false);
+				
 				
 		}
 //var arrayA ='';
+
+
+
 var jsonFile = "";
 function createImage(a, i){
 	//function createImage(image, userid, model, year, carid){
@@ -1008,7 +1015,7 @@ function createImage(a, i){
 		if(a[i].make.length > 9){
 			var make = a[i].make.substring(0,8)+"...";
 			}else{
-				var make = a[i].make;
+				 var make = a[i].make;
 				}
 	var make = document.createTextNode("Make: "+make.toUpperCase());
 	var price = document.createTextNode("Price: "+a[i].price);
@@ -1026,12 +1033,15 @@ function createImage(a, i){
 		spanPrice.appendChild(price);
 		spanYear.appendChild(year);
 		
-	var li = document.createElement('li');
+		var li = "";
+		
+		li = document.createElement('li');
 	var aa = document.createElement('a');
 		//a.setAttribute("href", "#viewItemPlease");
 		img.setAttribute("src", "http://www.salecarro.com/assets/cars_for_sale/"+a[i].userid+"/_small"+a[i].image);
 		img.setAttribute("title", a[i].image);
 		img.setAttribute("alt", a[i].image);
+	
 	
 		aa.appendChild(img);
 		li.appendChild(aa);
@@ -1041,9 +1051,17 @@ function createImage(a, i){
 		li.appendChild(spanMake);
 		li.appendChild(spanModel);
 		li.appendChild(spanYear);
-		this.jsonFile = a;
+		this.jsonFile = a; 
+		
+		
 		x("b").appendChild(li);
-		li.addEventListener("click", gothere, false);
+		////////////////////////////
+		////////////////////////////
+		
+		li.addEventListener("click", gothere, true);
+		//console.log("link was clicked-----------------------------");
+		////////////////////////////
+		////////////////////////////
 }
 
 
@@ -1079,7 +1097,7 @@ function gothere(){
 									p = document.createElement("a");
 									p.innerHTML = title[i];
 									p.setAttribute("class", "callToday");
-									alert(jsonFile[this.id].area+""+jsonFile[this.id][items[i]]);
+					//				alert(jsonFile[this.id].area+""+jsonFile[this.id][items[i]]);
 									p.setAttribute("href", "tel:+"+jsonFile[this.id].area+""+jsonFile[this.id][items[i]]);
 									place.appendChild(p);
 								}else{
@@ -1101,7 +1119,7 @@ function gothere(){
 					
 						
 						
-						//alert(jsonFile[this.id].model);
+						alert(jsonFile[this.id].model);
 				window.location.href = '#viewItemPlease';
 	
 	}
@@ -1170,12 +1188,13 @@ function gothere(){
 		}
 
 
-function donate(text, url){
-	if(url == ""){
+function donate(text, urlDonate){
+	if(urlDonate == ""){
 		alert("url needed");
 		}
 	//window.open('http://www.myurl.nl', '_system');
-	var x = document.createElement("button");
+	var x="";
+		x = document.createElement("button");
 		x.setAttribute("id", text);
 		x.setAttribute("class", "donateToday");
 		x.innerHTML = text;
@@ -1184,7 +1203,7 @@ function donate(text, url){
 		x.addEventListener("click", function(){
 			//alert("donate how much");
 			//x.style.width = "20px";
-			window.open(url, "_system");
+			window.open(urlDonate, "_system");
 			}, false);
 	f.appendChild(x);
 	}
@@ -1212,66 +1231,74 @@ function lookAtImagesPosition(){
 				}	
 			}
 	}
-	
-	function writeReview(){
-		var reviewIcon = myApp.x('reviewIcon');
+
+
+
+
+var reviewFunction =
+	{	
+
+	writeReview: function(){
+		
 		var r = myApp.x("write-review-icon");
-		var s = myApp.x("closeReview");
+		var closeReview = myApp.x("closeReview");
+		var reviewIcon = myApp.x("reviewIcon");
+		
+			r.addEventListener("click", function(){var wr = myApp.x("writeReviewWrap"); wr.style.display = "block"; }, false);
+			closeReview.addEventListener("click", function(){var closeReviewWrap = myApp.x("writeReviewWrap"); closeReviewWrap.style.display = "none"; }, false);
 			
-			
-			s.addEventListener("click", function(){x = myApp.x("writeReviewWrap"); x.style.display = "none"; }, false);
-			r.addEventListener("click", function(){x = myApp.x("writeReviewWrap"); x.style.display = "block"; }, false);
-			reviewIcon.addEventListener("click", function(){
-				getReviewData();
+   reviewIcon.addEventListener("click", function(){
+				//alert("click works");
+				reviewFunction.getReviewData();
 				
 				}
 				, false);
-		}
-	function getReviewData(){
-		var error = false;
-		var name = myApp.x("reviewName");
-		var textarea = myApp.x("reviewTextArea");
+		},
+		
+	getReviewData: function(){
+		var errorR = false;
+		var rname = myApp.x("reviewName");
+		var rtextarea = myApp.x("reviewTextArea");
 		//check to see if fileds are not empty
-		if(name.value == "" || textarea.value == ""){
+		if(rname.value == "" || rtextarea.value == ""){
 			alert("Fields cannot be empty");
-			error = true;
+			errorR = true;
 			}
-			if(error == false){
+			if(errorR == false){
 		//alert(name.value+" "+"your comment will be posted.");
 		//clear fields
-		sendDataToServer(name.value, textarea.value);
-		name.value = ""; textarea.value = "";
+		reviewFunction.sendDataToServer(rname.value, rtextarea.value);
+		rname.value = ""; rtextarea.value = "";
 			var x = myApp.x("writeReviewWrap");
 				x.style.display = "none";
 			}
-	}
-	function sendDataToServer(n, t){
+	},
+	
+	sendDataToServer: function(name, textarea){
 		
 		//send data to server
 		
-		
-		url = "http://josue45.com/api/jm.php";
-		var ajax = new XMLHttpRequest();
-			ajax.open("POST", url ,true);
-			ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			ajax.onreadystatechange = function(){
-				if(ajax.readyState == 4 & ajax.status == 200){
+		var urlReview="";
+			urlReview = "http://josue45.com/api/jm.php";
+		var ajaxReview = new XMLHttpRequest();
+			ajaxReview.open("POST", urlReview ,true);
+			ajaxReview.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			ajaxReview.onreadystatechange = function(){
+				if(ajaxReview.readyState == 4 & ajaxReview.status == 200){
 				//alert(ajax.responseText.lenght);
-					var a = JSON.parse(ajax.responseText);
-					alert(a);
+					var aReview = JSON.parse(ajaxReview.responseText);
+					alert(aReview);
 					}
 				}
 				
 			
-				ajax.send("postReview=true&name="+n+"&textarea="+t+"&userid="+thePath());
+				ajaxReview.send("postReview=true&name="+name+"&textarea="+textarea+"&userid="+thePath());
 				
 				//ajax.send("");
-			
-	
-		
-		
 		
 		}
+
+}
 
 	function moduleGallery(folderNameg, urlg, webg, startAtg, imageAttributeNameg){
 			this.folderNameg = folderNameg;
@@ -1331,4 +1358,4 @@ function lookAtImagesPosition(){
 						});	
 					}) 
 			}
-			writeReview();
+	reviewFunction.writeReview();		

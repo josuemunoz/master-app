@@ -23,9 +23,8 @@
 	var id = localStorage.getItem("userId");
 	}else{
 		//id 6 is for app tester
-		var id=65;
+		var id=2;
 		
-		// logMe.logIn();
 	}
 	
 function thePath(){ //this will return the path of current user
@@ -222,6 +221,7 @@ $(document).ready( function(){
 	//$("#mylist").empty();
 		for(var i=0; i<info.length; i++){
 			
+			//alert(info[i].name);
 			console.log(info[i].name);
 			$("#mylist").append("<li><a id="+ info[i].id+" href=\"#page2\">"+info[i].name+"</a></li>");
 			
@@ -428,9 +428,7 @@ function setFooter(company){
         --> 
         <ul id="mylistB" data-role="listview" data-inset="true"></ul>
         <ul id="mylistC" data-role="listview" data-inset="true"></ul>
-        <ul id="mylist" data-role="listview" data-inset="true">
-        	<!--<li><a href="contact-page.html">Contact</a></li>-->
-            </ul>
+        <ul id="mylist" data-role="listview" data-inset="true"></ul>
         
     </div>
     <!-- ************************************************************************************************************************** -->
@@ -473,19 +471,22 @@ function setFooter(company){
 <div data-role="page" id="carPage" data-add-back-btn="true">
 	<div data-role="header">
     	
-		<h1 id="carTitle">test</h1>
+	<h1 id="carTitle">test carssssssss</h1>
 	</div>
     
     <div id="phoneStuffB"></div>
     
-	<div class="b" id="b">	
-		Content		
-	</div>
+	<ul class="b" id="b">	
+		Content	car	
+	</ul>
+    
 	    
 	<div id="c" data-role="footer">
 		<h4>Page Footer</h4>
 	</div>
 </div>
+
+
 
 <div data-role="page" id="viewGallery" data-add-back-btn="true">
     <div data-role="header">
@@ -604,10 +605,11 @@ function setFooter(company){
 .reviewIcon{width:auto; text-shadow: 1px 1px 1px #FFF; border-radius:5px; text-align:center; font-family:Verdana, Geneva, sans-serif; font-size:1.2em; font-weight:bold; text-decoration:none; height:auto; display:block; margin:auto; padding:20px;
   color:black !important; background:-webkit-linear-gradient(#CCC, #999, #ccc); z-index:2; }
 
+/*
 li:hover{ background:white !important; color:#666;}
 li:visited{ background:white;}
 li:active{ background:white;}
-  
+ */
   
   .donateToday{width:auto; text-shadow: 1px 1px 1px #FFF; border-radius:5px; text-align:center; font-family:Verdana, Geneva, sans-serif; font-size:15px; font-weight:bold; text-decoration:none; height:auto; display:block; margin:auto; padding:20px;
   color:black !important; background:-webkit-linear-gradient(#CCC, #999); position:fixed; z-index:2; bottom:20px; right:20px; }
@@ -743,6 +745,7 @@ customCss{ width:40%; float:left; color:#FFF;}
 				//getJsonFile();
 				setTimeout("lookAtImagesPosition()",500);
 				document.addEventListener("scroll", lookAtImagesPosition, false);
+				
 		}
         </script>  
  
