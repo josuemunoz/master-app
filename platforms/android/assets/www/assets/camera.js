@@ -4,6 +4,7 @@
 //module()
 
 //content
+//lookAtImagesPosition()
 
 //b
 function yeahBaby(){ return "http://m.josue45.com/"; }
@@ -1315,14 +1316,21 @@ var reviewFunction =
 	var a = document.createElement(element);
 			a.setAttribute("href", pagetogo);
 			a.setAttribute("id", id);
+			
 		var li = document.createElement("li");
 			li.appendChild(a);
+		
 			li.setAttribute("alt", node);
 			a.innerHTML = node;
 			x("mylistB").appendChild(li);
 			$("#mylistB").listview('refresh');
 			
 			a.addEventListener("click", function(){
+				
+				//set page title for gallery view   
+				//viewItemTitle
+				myApp.x("viewItemTitle").innerHTML = event.target.text;
+				
 					var newurl = "";  //this.urlg;
 					ClearTheArea("viewGalleryItems");
 					//alert(this.id);
@@ -1345,6 +1353,7 @@ var reviewFunction =
 								console.log(data[i].image);
 								var img = document.createElement("img");
 									img.setAttribute("title", data[i].image);
+									console.log(img.getAttribute("width")+".................");
 									img.setAttribute("src", "http://www.45graphics.net/45GraphicsApp/assets/default.gif");
 									li.appendChild(img);
 									li.appendChild(details);
@@ -1353,7 +1362,7 @@ var reviewFunction =
 								
 								
 								}
-							
+							setTimeout("lookAtImagesPosition()", 500);
 							
 						});	
 					}) 
