@@ -896,7 +896,25 @@ function getUrl(url, type, id, node, page)
 		
 	}
 	
-
+function createLink(LINK, node)
+{
+	this.LINK = LINK;
+	this.node = node;
+	}
+createLink.prototype.theLink = function(){
+	
+	var a = document.createElement("a");
+		a.setAttribute("href", this.LINK);
+		a.setAttribute("id", this.LINK);
+		a.innerHTML = this.node; 
+		a.setAttribute("class", "moduleB");
+		a.addEventListener("click", function(){
+			
+			window.open(this.id, "_system");
+			
+			}, false);
+		myApp.x("a").appendChild(a);
+	}
 
 getUrl.prototype.linkCreate = function linkCreate(){
 	var a = document.createElement("a");
@@ -921,7 +939,7 @@ getUrl.prototype.car = function car(){
 				//a.onclick = function(){
 					
 				x(this.id).addEventListener("click", function(){
-				alert(this.id+"-"+url);
+				//alert(this.id+"-"+url+ "line 924");
 				
 				
 				//data[i].make ? newurl += "&make="+data[i].make : "";
@@ -1080,6 +1098,8 @@ function gothere(){
 							
 							
 							place.appendChild(img);
+							//set appointment
+						var optionsDealer =["setAppointment"];
 							
 						var items = ["phone", "name", "dealer_name", "make",  "model", "year", "price", "miles", "color", "interior_color", "vin_number", "description", "dateInsert"];
 						var title = ["Call Today", "Seller name", "Dealer", "Make", "Model", "Year", "Price", "Miles", "Exterior color", "Interior color", "Vin number", "Description", "Date entered"];
@@ -1094,6 +1114,9 @@ function gothere(){
 						var p = "";
 						for(var i=0; i<items.length; i++){
 							
+							
+							
+							
 							if(items[i] == "phone"){
 									p = document.createElement("a");
 									p.innerHTML = title[i];
@@ -1102,10 +1125,11 @@ function gothere(){
 									p.setAttribute("href", "tel:+"+jsonFile[this.id].area+""+jsonFile[this.id][items[i]]);
 									place.appendChild(p);
 								}else{
-							//alert(jsonFile[this.id][items[i]]);
+							console.log(jsonFile[this.id][items[i]]);
+							if(jsonFile[this.id][items[i]]){
 							var li = document.createElement("li");
 								li.setAttribute("class", "car");
-								if(jsonFile[this.id][items[i]] != null){
+								
 								//alert(jsonFile[this.id].items[i]);
 								var s = jsonFile[this.id][items[i]];
 								li.innerHTML =  title[i] + ": "+s.charAt(0).toUpperCase()+ s.toLowerCase().slice(1);
@@ -1120,7 +1144,7 @@ function gothere(){
 					
 						
 						
-						alert(jsonFile[this.id].model);
+						//alert(jsonFile[this.id].model);
 				window.location.href = '#viewItemPlease';
 	
 	}
@@ -1133,7 +1157,7 @@ function gothere(){
 	
 	function module(){
 			$.getJSON(yeahBaby()+"mobile/"+thePath()+"/module.json", function(data){
-				   	var a = ["call", "sms", "image", "textNode", "car", "LINK", "moduleGallery"];
+				   	var a = ["call", "sms", "image", "textNode", "car", "link", "moduleGallery"];
 					console.log(data.length+"**************************************");
 					for(var i=0; i<data.length; i++){
  		//				alert(data[i].module);
@@ -1144,6 +1168,13 @@ function gothere(){
 							var phone = new phoneNumber(data[i].number, data[i].node);
 								phone.call();
 								break;
+								
+							case "LINK":
+								var l = new createLink(data[i].url, data[i].node);
+									l.theLink();
+								break;
+								
+								
 						//fix
 							case "sms":
 							var phone = new phoneNumber("619-316-9904", "text us");
