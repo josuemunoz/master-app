@@ -23,8 +23,7 @@ this.where = "size";
 	var id = localStorage.getItem("userId");
 	}else{
 		//id 6 is for app tester
-		var id=67;
-		
+		var id=23;
 	}
 	
 function thePath(){ //this will return the path of current user
@@ -32,7 +31,7 @@ function thePath(){ //this will return the path of current user
 			}
 
 	var doc_css = document.createElement("link");
-	 doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
+	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
 	doc_css.setAttribute("type", "text/css");
 	doc_css.setAttribute("rel", "stylesheet");
 	document.getElementsByTagName('head')[0].appendChild(doc_css);
@@ -514,6 +513,7 @@ function setFooter(company){
 
 <div data-role="page" id="viewGallery" data-add-back-btn="true">
     <div data-role="header">
+   
       <h1 id="viewItemTitle">Gallery test</h1>
     </div>
   

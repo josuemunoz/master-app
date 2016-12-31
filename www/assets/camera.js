@@ -2,7 +2,8 @@
 //logMe.clearTheList("mylistC");
 //console.log(localStorage.getItem("userId"));
 //module()
-
+//event.target
+//createAGallery 592
 //content
 //lookAtImagesPosition()
 
@@ -246,7 +247,7 @@ var logMe =
 		},
 		
 	createFolderLinks: function(nameA, num, images, w, h){
-		console.log("Running line 259 createFolderLinks()");
+		console.log("Running line 249 createFolderLinks()");
 		var TextNode = document.createTextNode(nameA+ " "+ num);
 		var a = document.createElement("a");
 		var li = document.createElement("li");
@@ -260,7 +261,6 @@ var logMe =
 			//this.width = width;
 			//this.height = height;
 		
-	
 			a.onclick = function(){
 				///////////////////////////////////////////////////////////////
 				//alert(this.id);
@@ -590,25 +590,30 @@ var app = {
 	},
 	
 	createAGallery: function(){
+		//creates the gallery name
 		var x = app._("jmmenuul");
 		var li = document.createElement("li");
 			li.setAttribute("id", "createAGallery");
-			li.innerHTML = "Create Gallery";
+			li.innerHTML = "Create Gallery fix";
 			x.appendChild(li);
 			
 			li.onclick = function(){
-				//app.askForFolderName();
+				alert("working on fix");
+				console.log("Running line 600. createAGallery()");
 				navigator.notification.prompt("Name of gallery", app.askForFolderName, "Create a new gallery", ["Create", "Cancel"]);
 				
 				}
 		},
 		
 	askForFolderName: function(results){
+		var x = "";
 		//alert(results.buttonIndex);
 			if(results.buttonIndex == 1){
-			//alert(results.input1);
-			var x = results.input1;
+			alert(results.input1+" fix line 612");
+			x = results.input1;
+			app.folder = "";
 			app.folder = x.replace(/\s+/g, '-');
+			//app.folder = x.replace(/\s+/g, '-');
 			 app.takeApicture();
 			}
 			
