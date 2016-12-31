@@ -22,7 +22,7 @@
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
     
-    <preference name="android-installLocation" value="auto" />
+   
    
    
     <icon src="icon.png" />
