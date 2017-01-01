@@ -69,6 +69,14 @@
     <access origin="*" />
 	
 	
+	<config-file platform="ios" target="*-Info.plist" parent="CAMERA_USAGE_DESCRIPTION">
+		<string>This will use the camera for gallery</string>
+	</config-file>
+	<config-file platform="ios" target="*-Info.plist" parent="PHOTOLIBRARY_USAGE_DESCRIPTION">
+		<string>The library will be used if pictures are needed from phone used by user.</string>
+	</config-file>
+	
+	
 	<preference name="android-minSdkVersion" value="15" />
     
 	<plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1" />
