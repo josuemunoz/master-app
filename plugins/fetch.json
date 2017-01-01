@@ -13,7 +13,10 @@
             "id": "cordova-plugin-camera@~2.1.1"
         },
         "is_top_level": true,
-        "variables": {}
+        "variables": {
+            "CAMERA_USAGE_DESCRIPTION": "your usage message",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": "your usage message"
+        }
     },
     "cordova-plugin-media-capture": {
         "source": {
