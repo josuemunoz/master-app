@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.masterapp" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.phonegap.masterapp" version="1.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <allow-intent href="market:*" />
     <name>Master App</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        app tester for josue45.com
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="apps@45graphics.net" href="http://josue45.com">
+        josue45.com team
     </author>
     <content src="index.html" />
     <preference name="permissions" value="none" />
@@ -23,7 +23,6 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
-    <preference name="android-installLocation" value="auto" />
     <icon src="icon.png" />
     <gap:splash gap:platform="android" gap:qualifier="port-ldpi" src="www/res/screen/android/screen-ldpi-portrait.png" />
     <gap:splash gap:platform="android" gap:qualifier="port-mdpi" src="www/res/screen/android/screen-mdpi-portrait.png" />
@@ -33,6 +32,9 @@
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="*" />
     <preference name="android-minSdkVersion" value="14" />
+    <variable name="CAMERA_USAGE_DESCRIPTION" value="App would like to access the camera." />
+    <variable name="MICROPHONE_USAGE_DESCRIPTION" value="App would like to access the microphone." />
+    <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="App would like to access the library." />
     <allow href="https://www.youtube.com" />
     <allow-intent href="http://www.youtube.com" />
     <allow-intent href="http://*/*" />

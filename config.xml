@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.masterapp" version="1.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.phonegap.masterapp" version="1.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Master App</name>
     <description>
         app tester for josue45.com
@@ -82,13 +82,12 @@
     <plugin name="cordova-plugin-inappbrowser" source="npm" spec="~1.3.0" />
 	
 	
-    
-	
-
-	
-<!--
+ 
+ 
 
 <plugin name="cordova-plugin-media-capture" source="npm" spec="~1.2.0" />
+
+	<variable name="NSPhotoLibraryUsageDescription" value="pictures will be used for the folders if you decide to create gallery." />
   <variable name="CAMERA_USAGE_DESCRIPTION" value="App would like to access the camera." />
   <variable name="MICROPHONE_USAGE_DESCRIPTION" value="App would like to access the microphone." />
   <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="App would like to access the library." />
@@ -102,7 +101,7 @@
     <plugin name="cordova-plugin-statusbar" source="npm" spec="~2.1.2" />
     <plugin name="cordova-plugin-vibration" source="npm" spec="~2.1.0" />
     
-   -->
+   
    <plugin name="cordova-plugin-splashscreen" source="npm" spec="~3.2.1" />
    <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
    	<allow href="https://www.youtube.com" />
