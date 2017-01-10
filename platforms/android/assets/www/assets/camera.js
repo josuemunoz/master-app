@@ -7,6 +7,8 @@
 //content
 //lookAtImagesPosition()
 
+//Delete
+
 //b
 function yeahBaby(){ return "http://m.josue45.com/"; }
 
@@ -382,6 +384,7 @@ var logMe =
 	},
 			
 	countImages: function(image){
+		//removes childnode from #here
 		var x = logMe._("here");
 		x.removeChild(logMe._(image));
 		var img = x.getElementsByTagName("img");
@@ -543,10 +546,14 @@ var app = {
 	takeApicture: function(){
 		//alert("somewhere");
 		//if(this.folder){
-		console.warn("This id was clicked line 533"+ event.target.id);
+			console.log("//////////////////////////////////// fix " +event);
+		console.warn("This id was clicked line 550");
+		
+		if(event){
 		if(event.target.id == "logOutButton"){
 			this.folder = "gallery";
 			}
+		}
 		
 		console.warn(this.folder+" line 538");
 		//}
@@ -607,13 +614,17 @@ var app = {
 		
 	askForFolderName: function(results){
 		var x = "";
+		console.log("*****running line 614: folder name: "+app.folder);
+		app.folder = "";
+		
 		//alert(results.buttonIndex);
 			if(results.buttonIndex == 1){
 			alert(results.input1+" fix line 612");
 			x = results.input1;
-			app.folder = "";
+			
 			app.folder = x.replace(/\s+/g, '-');
 			//app.folder = x.replace(/\s+/g, '-');
+			console.log("******running line 614: folder name: "+app.folder);
 			 app.takeApicture();
 			}
 			
