@@ -2,7 +2,7 @@
 <widget id="com.phonegap.masterapp" version="1.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Master App</name>
     <description>
-        app tester for josue45.com
+        josue45 app
     </description>
     <author email="apps@45graphics.net" href="http://josue45.com">
         josue45.com team
