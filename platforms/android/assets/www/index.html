@@ -1,13 +1,23 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<meta charset="utf-8">
+
+ <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    
+ 
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<!-- 
+<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" /> 
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" />-->
+
 <title>Master App</title>
+ 
 <link href="http://m.josue45.com/mobile/mobileTest/css.css" rel="stylesheet" type="text/css"/>
 <link href="http://m.josue45.com/jquery-mobile/jquery.mobile.theme-1.0.min.css" rel="stylesheet" type="text/css"/>
 <link href="http://m.josue45.com/jquery-mobile/jquery.mobile.structure-1.0.min.css" rel="stylesheet" type="text/css"/>
-
+ 
 <!-- external files already-->
 <script src="http://m.josue45.com/jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
 <!-- <script src="http://m.josue45.com/mobile/mobileTest/js/jquery.innerfade.js" type="text/javascript"></script> -->
@@ -16,7 +26,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <script type="text/javascript" language="javascript">
-this.where = "size";
+//this.where = "size";
 //http://m.josue45.com/
 //http://www.m.josue45.com/
    if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
@@ -24,18 +34,14 @@ this.where = "size";
 	}else{
 		//id 6 is for app tester
 		var id=23;
+		
 	}
 	
 function thePath(){ //this will return the path of current user
 		return id;
 			}
 
-	var doc_css = document.createElement("link");
-	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
-	doc_css.setAttribute("type", "text/css");
-	doc_css.setAttribute("rel", "stylesheet");
-	document.getElementsByTagName('head')[0].appendChild(doc_css);
-	
+	 
 		 
 //**************************************
 //place user id here to make it an app
@@ -82,11 +88,11 @@ function thePath(){ //this will return the path of current user
 	
 $(document).ready( function(){
 
+		
+		
 		appSettings();
 		phones();
 		module();
-		
-			
 
 			
 			
@@ -597,7 +603,7 @@ function setFooter(company){
 <div data-role="page" id="appGallery" data-add-back-btn="true">
 <div id="takePictureB">TAKE PIC</div>
   <div data-role="header">
-  <div><h1>gallery area for test!</h1></div>
+  
     <h1 id="appGalleryTitle">Header</h1>
   </div>
   
@@ -793,7 +799,7 @@ customCss{ width:40%; float:left; color:#FFF;}
 
 
 <script type="text/javascript" src="cordova.js"></script>
- <!-- <script type="text/javascript" language="javascript" src="http://m.josue45.com/mobile/mobileTest/camera.js"></script>-->
+<!--  <script type="text/javascript" language="javascript" src="http://m.josue45.com/mobile/mobileTest/camera.js"></script>-->
 <script type="text/javascript" language="javascript" src="assets/camera.js"></script> 
 
 
@@ -801,7 +807,6 @@ customCss{ width:40%; float:left; color:#FFF;}
  <script type="text/javascript">
 			app.initialize();
 			window.onload = function(){
-				//getJsonFile();
 				
 				document.addEventListener("scroll", lookAtImagesPosition, false);
 				//setTimeout("lookAtImagesPosition()",1000);

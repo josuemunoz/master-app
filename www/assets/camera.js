@@ -15,6 +15,14 @@ function yeahBaby(){ return "http://m.josue45.com/"; }
 function userPath(){
 return yeahBaby()+"mobile/"+thePath()+"/";
 }
+
+var doc_css = document.createElement("link");
+	doc_css.setAttribute("href", "http://m.josue45.com/mobile/final-customcss.php?iduser="+thePath());
+	doc_css.setAttribute("type", "text/css");
+	doc_css.setAttribute("rel", "stylesheet");
+	document.getElementsByTagName('head')[0].appendChild(doc_css);
+		 
+
 var logMe = 
 
 {
@@ -120,7 +128,10 @@ var logMe =
 					li.setAttribute("onClick", "app.takeApicture()");
 					li.innerHTML = "Take a picture";
 			//this.folder = folder;
-			//app.folder = "gallery";
+			
+			
+			
+			//this.folder = "gallery";
 			console.log("****************************************************************");
 					ul.appendChild(li);
 			
@@ -221,8 +232,9 @@ var logMe =
 				localStorage.getItem("userId") ? sendData = "?userid="+localStorage.getItem("userId") : sendData = "?userid="+thePath();
 				//var sendData = "?userid="+localStorage.getItem("userId");
 				//http://josue45.com/api/jm.php
+				//x.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // if added it will not work
 				x.open("GET", "http://josue45.com/api/jm.php"+sendData, true);
-				x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				
 				x.onreadystatechange = function(){
 						if(x.readyState == 4 && x.status == 200){
 							var r = JSON.parse(x.responseText);
@@ -546,24 +558,30 @@ var app = {
 	takeApicture: function(){
 		//alert("somewhere");
 		//if(this.folder){
-			console.log("//////////////////////////////////// fix " +event);
+		console.log("//////////////////////////////////// fix ");
 		console.warn("This id was clicked line 550");
+		//-------------------------------------------------------------------------------fixxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+		//alert("heeee ha");
 		
-		if(event){
+		
+		/*
+		//alert(event.type);
+		if(event.type){
 		if(event.target.id == "logOutButton"){
 			this.folder = "gallery";
 			}
 		}
+		*/
 		
 		console.warn(this.folder+" line 538");
 		//}
 		
 		app.createFolder();
 		navigator.camera.getPicture(this.yeah, this.onFail, {
-			quality: 100, 
+			quality: 90, 
 			destinationType: Camera.DestinationType.FILE_URI,
-			targetWidth: 360,  correctOrientation: true,
- 			targetHeight: 600,
+			targetWidth: 360,  
+ 			targetHeight: 600, correctOrientation: true,
 	 	});
 	 },
 	 
@@ -593,6 +611,7 @@ var app = {
 					break;
 				}
 			}
+			
 			app.makeFolder();
 	},
 	
@@ -601,15 +620,16 @@ var app = {
 		var x = app._("jmmenuul");
 		var li = document.createElement("li");
 			li.setAttribute("id", "createAGallery");
-			li.innerHTML = "Create Gallery fix";
+			li.innerHTML = "Create Gallery fix 623";
 			x.appendChild(li);
 			
-			li.onclick = function(){
-				alert("working on fix");
+			li.addEventListener("click", function(){
+				console.log("working on fix 609");
+				
 				console.log("Running line 600. createAGallery()");
 				navigator.notification.prompt("Name of gallery", app.askForFolderName, "Create a new gallery", ["Create", "Cancel"]);
 				
-				}
+				}, false);
 		},
 		
 	askForFolderName: function(results){
@@ -625,7 +645,7 @@ var app = {
 			app.folder = x.replace(/\s+/g, '-');
 			//app.folder = x.replace(/\s+/g, '-');
 			console.log("******running line 614: folder name: "+app.folder);
-			 app.takeApicture();
+			app.takeApicture();
 			}
 			
 		},
@@ -700,24 +720,19 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
 	//****************************************************************************************************************************************
     onDeviceReady: function() {
-			//document.addEventListener("backbutton", app.videoBackfromIframe, false);
-		app.checkConnection();
-		logMe.toggleMenu("menuApp");
-		app.togglePictureLink();
-		//alert("device is ready");
-		logMe.checkIfLoggedIn();
 		logMe.displayFolders();
-		//navigator.vibrate(1000);	
-		//document.addEventListener('menubutton', app.Menu, true);
-		//alert(navigator.connection.type);
-		app.checkIfListIsLoaded();
+		logMe.checkIfLoggedIn();	
+		logMe.toggleMenu("menuApp");
+		//app.checkConnection();
 		
-		//app.localNotice();
+		//app.checkIfListIsLoaded();
+		app.togglePictureLink();
+				
 		
 	},
 	
 	checkIfListIsLoaded: function(){
-			setTimeout("app.isChildOfThis()",1000);
+			//setTimeout("app.isChildOfThis()",1000);
 		},
 	//does not work on phones
 	

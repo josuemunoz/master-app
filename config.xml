@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.masterapp" version="1.0.10" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.phonegap.masterapp" version="1.0.11" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Master App</name>
     <description>
         josue45 app
@@ -82,14 +82,11 @@
 	
 	
 	
-	<preference name="android-minSdkVersion" value="15" />
+	<preference name="android-minSdkVersion" value="14" />
     
 	<plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1" />
 	
-	<plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" >
-		<variable name="CAMERA_USAGE_DESCRIPTION" value="pictures will be used for the folders if you decide to create gallery." />
-		<variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="pictures will be used for the folders if you decide to create gallery." />
-	</plugin>
+	<plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" />
 	
     <plugin name="cordova-plugin-console" source="npm" spec="~1.0.2" />
     <plugin name="cordova-plugin-device-motion" source="npm" spec="~1.2.0" />
@@ -127,7 +124,15 @@
    <plugin name="cordova-plugin-splashscreen" source="npm" spec="~3.2.1" />
    <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
    	<allow href="https://www.youtube.com" />
+	
+ 
+   
+	
+	<!--
+	 <access origin="*" />
+	-->
     <allow-intent href="http://www.youtube.com" />
+	<allow-intent href="http://www.josue45.com" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
