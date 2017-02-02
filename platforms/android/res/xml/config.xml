@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.masterapp" version="1.0.10" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.phonegap.masterapp" version="1.0.12" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <allow-intent href="market:*" />
     <name>Master App</name>
@@ -30,7 +30,6 @@
     <gap:splash gap:platform="android" gap:qualifier="port-xhdpi" src="www/res/screen/android/screen-xhdpi-portrait.png" />
     <gap:splash gap:platform="blackberry" src="www/res/screen/blackberry/screen-225.png" />
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
-    <access origin="*" />
     <config-file parent="CAMERA_USAGE_DESCRIPTION" platform="ios" target="*-Info.plist">
         <string>This will use the camera for gallery</string>
     </config-file>
@@ -40,10 +39,16 @@
     <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
         <string>pictures will be used only if app user takes them.</string>
     </config-file>
+    <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+        <string>pictures will be used only if app user takes them :).</string>
+    </config-file>
+    <config-file parent="NSMicrophoneUsageDescription" platform="ios" target="*-Info.plist">
+        <string>sound will be used only if app user wants :).</string>
+    </config-file>
     <preference name="android-minSdkVersion" value="14" />
-    <allow href="https://www.youtube.com" />
-    <allow-intent href="http://www.youtube.com" />
-    <allow-intent href="http://www.josue45.com" />
+    <access origin="*" />
+    <allow-navigation href="https://*youtube.com/*" />
+    <allow-intent href="http://*josue45.com/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

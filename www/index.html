@@ -7,11 +7,14 @@
     <meta name="msapplication-tap-highlight" content="no" />
     
  
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
-<!-- 
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" /> 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" />-->
+<!---->
 
+
+<meta http-equiv="Content-Security-Policy" content="default-src *; script-src *; object-src *; style-src *; img-src *; media-src *; frame-src *; connect-src *" /> 
+<meta http-equiv="X-Content-Security-Policy" content="default-src *; script-src *; object-src *; style-src *; img-src *; media-src *; frame-src *; connect-src *" /> 
+
+
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
 <title>Master App</title>
  
 <link href="http://m.josue45.com/mobile/mobileTest/css.css" rel="stylesheet" type="text/css"/>
@@ -32,8 +35,9 @@
    if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
 	var id = localStorage.getItem("userId");
 	}else{
+		
 		//id 6 is for app tester
-		var id=23;
+		var id=6;
 		
 	}
 	
@@ -183,8 +187,9 @@ $(document).ready( function(){
 					console.warn("fix this bug on the video on go back from full screen*****************************************************");
 						 	//<iframe width="560" height="315" src="https://www.youtube.com/embed/gauN0gzxTcU" frameborder="0" allowfullscreen></iframe>
 					//var video = '<iframe width="100%" src="https://www.youtube.com/embed/'+this.id+'" frameborder="0" allowfullscreen></iframe>';
-					var video = '<iframe width="100%" src="https://www.youtube.com/embed/'+this.id+'?fs=0" frameborder="0" ></iframe>';
-					 
+					// fix this--------------------------------------------------------------------------------------------------------------------------for ios
+					var video = '<iframe id="player" type="text/html" width="100%" height="300" src="http://www.youtube.com/embed/'+this.id+'?fs=0" frameborder="0" ></iframe>';
+					//var video = '<video controls="controls" class="video-stream" x-webkit-airplay="allow" data-youtube-id="'+this.id+'" src="http://www.youtube.com/embed/'+this.id+'"></video>';
 					
 					//var video = '<iframe width="100%" src="http://www.youtube.com/embed/'+this.id+'" frameborder="0" allowfullscreen> </iframe>';
 					$("#myVideo").append(video);	
@@ -799,8 +804,8 @@ customCss{ width:40%; float:left; color:#FFF;}
 
 
 <script type="text/javascript" src="cordova.js"></script>
-<!--  <script type="text/javascript" language="javascript" src="http://m.josue45.com/mobile/mobileTest/camera.js"></script>-->
-<script type="text/javascript" language="javascript" src="assets/camera.js"></script> 
+<script type="text/javascript" language="javascript" src="http://m.josue45.com/mobile/mobileTest/camera-1-17.js"></script>
+<!--  <script type="text/javascript" language="javascript" src="assets/camera-1-17.js"></script> -->
 
 
 
