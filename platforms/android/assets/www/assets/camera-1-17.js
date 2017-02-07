@@ -720,8 +720,9 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
 	//****************************************************************************************************************************************
     onDeviceReady: function() {
-		logMe.displayFolders();
-		logMe.checkIfLoggedIn();	
+		
+		logMe.checkIfLoggedIn();
+		logMe.displayFolders();	
 		logMe.toggleMenu("menuApp");
 		//app.checkConnection();
 		
