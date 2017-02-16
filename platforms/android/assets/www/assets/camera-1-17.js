@@ -10,6 +10,9 @@
 //Delete
 
 //b
+
+function sel_(x){ return document.getElementById(x); }
+
 function yeahBaby(){ return "http://m.josue45.com/"; }
 
 function userPath(){
@@ -1189,7 +1192,8 @@ function gothere(){
 	
 	function module(){
 			$.getJSON(yeahBaby()+"mobile/"+thePath()+"/module.json", function(data){
-				   	var a = ["call", "sms", "image", "textNode", "car", "link", "moduleGallery"];
+					//list of modules
+				   	var a = ["call", "sms", "image", "textNode", "car", "link", "moduleGallery", "video"];
 					console.log(data.length+"**************************************");
 					for(var i=0; i<data.length; i++){
  		//				alert(data[i].module);
@@ -1245,12 +1249,40 @@ function gothere(){
 									d = new donate(data[i].node, data[i].url);
 									//d();
 								break;
+							
+							case "video": // module, node, video
+								new moduleVideo(data[i].node, data[i].video, data[i].key);
+								
+								break;
 	
 					} 
 				}
 			});
 		}
 
+function moduleVideo(node,video, key){
+	//<iframe width="560" height="315" src="https://www.youtube.com/embed/jG6JEksUCgc" frameborder="0" allowfullscreen></iframe>
+	
+	var x = sel_("a");
+	
+	var v = document.createTextNode(video);
+	var iframe = document.createElement("iframe");
+		iframe.setAttribute("width", 350);
+		iframe.setAttribute("height", 200);
+		iframe.setAttribute("src", "https://www.youtube.com/embed/"+video+"?key="+key);
+		iframe.setAttribute("frameborder", 0);
+		//iframe.setAttribute("allowfullscreen", "");
+		x.appendChild(iframe);
+	//alert(video);
+	
+	var iosVideo = document.createElement("video");
+	var iosSource = document.createElement("source");
+		iosSource.setAttribute("src", "https://www.youtube.com/embed/"+video);
+		//iosSource.setAttribute("type", "video/mp4");
+		iosVideo.appendChild(iosSource);
+		x.appendChild(iosVideo);
+		
+	}
 
 function donate(text, urlDonate){
 	if(urlDonate == ""){
