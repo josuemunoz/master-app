@@ -1251,37 +1251,39 @@ function gothere(){
 								break;
 							
 							case "video": // module, node, video
-								new moduleVideo(data[i].node, data[i].video, data[i].key);
-								
+								new moduleVideo(data[i].node, data[i].video, data[i].key);			
 								break;
 	
 					} 
 				}
 			});
 		}
+		
 
 function moduleVideo(node,video, key){
 	//<iframe width="560" height="315" src="https://www.youtube.com/embed/jG6JEksUCgc" frameborder="0" allowfullscreen></iframe>
-	
 	var x = sel_("a");
-	
 	var v = document.createTextNode(video);
 	var iframe = document.createElement("iframe");
-		iframe.setAttribute("width", 350);
+		iframe.setAttribute("id", video);
+		iframe.setAttribute("width", "100%");
 		iframe.setAttribute("height", 200);
+		iframe.setAttribute("frameborder", 0);
+		//iframe.setAttribute("allowfullscreen", false);
 		iframe.setAttribute("src", "https://www.youtube.com/embed/"+video+"?key="+key);
+		//iframe.setAttribute("src", "https://www.youtube.com/embed/"+video);
 		iframe.setAttribute("frameborder", 0);
 		//iframe.setAttribute("allowfullscreen", "");
 		x.appendChild(iframe);
 	//alert(video);
-	
+	/*
 	var iosVideo = document.createElement("video");
 	var iosSource = document.createElement("source");
 		iosSource.setAttribute("src", "https://www.youtube.com/embed/"+video);
 		//iosSource.setAttribute("type", "video/mp4");
 		iosVideo.appendChild(iosSource);
 		x.appendChild(iosVideo);
-		
+	*/	
 	}
 
 function donate(text, urlDonate){

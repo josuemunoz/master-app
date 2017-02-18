@@ -131,7 +131,9 @@
 	
 	  
 	<access origin="*" />
+	<allow-intent href="*" />
     <allow-navigation href="https://youtube.com/" />
+	<allow-intent href="http://youtube.com/*" />
 	<allow-intent href="http://josue45.com/" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
