@@ -66,6 +66,14 @@
 	
 	
 	
+	<platform name="ios">
+    <config-file platform="ios" target="*-Info.plist" parent="NSAppTransportSecurity">
+        <dict>
+            <key>NSAllowsArbitraryLoads</key>
+            <true/>
+        </dict>
+    </config-file>
+</platform>
   
 	
 	
@@ -132,6 +140,7 @@
 	  
 	<access origin="*" />
 	<allow-intent href="*" />
+	<allow-navigation href="*" />
     <allow-navigation href="https://youtube.com/" />
 	<allow-intent href="http://youtube.com/*" />
 	<allow-intent href="http://josue45.com/" />
@@ -145,7 +154,12 @@
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
-        <allow-intent href="itms:*" />
+	
+	<access origin="*" />
+	<allow-intent href="*" />
+	<allow-navigation href="*" />
+    
+	    <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
 	
