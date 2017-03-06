@@ -6,11 +6,18 @@
 //createAGallery 592
 //content
 //lookAtImagesPosition()
-
+//reviewFunction 1352
 //Delete
+
+/*
+addPictureEvent 448
+togglePictureLink
+*/
 
 //b
 
+		
+		
 function sel_(x){ return document.getElementById(x); }
 
 function yeahBaby(){ return "http://m.josue45.com/"; }
@@ -446,6 +453,7 @@ var app = {
 	addPictureEvent: function(){
 		console.log("addPictureEvent()............");
 		app._("takePictureB").onclick = this.addPicture; //line 346
+		app._("folderPictureB").onclick = this.addFolderPicture;
 		},
 		
 	isChildOfThis: function(){
@@ -457,22 +465,53 @@ var app = {
 			}
 		},
 		
-	togglePictureLink: function(){
+	togglePictureLink: function(){ // allow access to links if user is logged in.
 		var x = app._("takePictureB");
+		var y = app._("folderPictureB");
 			if(logMe.userIsValid()){
 				x.style.display = "block";
+				y.style.display = "block";
 			}else{
-				x.style.display = "none"
+				x.style.display = "none";
+				y.style.display = "none";
 			}
 		},	
 		
+		
+	addFolderPicture: function(){
+		
+	app.addFolderPicturePlease();
+		
+		},
+		addFolderPicturePlease: function(){
+			//alert("addFolderpicture");
+			
+		 pictureSource=navigator.camera.PictureSourceType;
+		app.createFolder();
+		navigator.camera.getPicture(this.yeahFolder, this.onFail, {
+			quality: 90, 
+			//destinationType: Camera.DestinationType.FILE_URI,
+			//destinationType: pictureSource.PHOTOLIBRARY,
+			sourceType: pictureSource.PHOTOLIBRARY,
+			
+			targetWidth: 360,  
+ 			targetHeight: 600, correctOrientation: true,
+	 	});
+		
+			
+			
+			},
+	test5: function(){
+		
+		},
+			
 	addPicture: function(){
 		//alert(e.target.parentNode.id);
 		app.takeApicture();
 		},
 	
 	setEventForSellData: function(){
-			var btn = document.getElementById("sellProducts");
+		var btn = document.getElementById("sellProducts");
 		
 			btn.onclick = app.sendData;
 		},
@@ -522,7 +561,7 @@ var app = {
 	},
 	
 	returnHomeMsg: function(){
-		window.location.href = "#page";
+			window.location.href = "#page";
 		},
 		
 	collectData: function(currentImage){ //collects data for products data entry
@@ -619,7 +658,7 @@ var app = {
 	},
 	
 	createAGallery: function(){
-		//creates the gallery name
+			//creates the gallery name
 		var x = app._("jmmenuul");
 		var li = document.createElement("li");
 			li.setAttribute("id", "createAGallery");
@@ -674,6 +713,27 @@ var app = {
 					r.send(data);
 				
 			},
+			
+	yeahFolder: function(imageURI){ //*************************************************************************************
+			//alert(imageURI);
+			this.imageFilename = imageURI;
+			    var options = new FileUploadOptions();
+				options.fileKey="file";
+				//options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);//+'.jpg';
+				var fixName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+				var n  = fixName.substr(fixName.lastIndexOf('?')+1);
+				//alert(n);
+				options.fileName=n+'.jpg';
+
+				options.mimeType="image/jpeg";
+				options.chunkedMode = false;
+				var ft = new FileTransfer();
+				//var c = localStorage.getItem('userId');
+				var c = localStorage.getItem("userId");
+				ft.upload(imageURI, "http://m.josue45.com/class/upload_pictures_to_user.php?user="+c+"&folder="+app.folder, this.win, this.fail, options, true);
+				app.onSuccess(imageURI);
+							//*************************************************************************************		
+},
 			
 	yeah: function(imageURI){ //*************************************************************************************
 			
@@ -859,6 +919,7 @@ var myApp =
 			node = document.createTextNode(this.node);
 			this.tagName ? tag = document.createElement(this.tagName) : tag = document.createElement("b");
 			tag.className = "moduleB";
+			
 			tag.appendChild(node);
 			this.insert ? x(this.insert).appendChild(tag): x("c").appendChild(tag);
 		}
@@ -1193,11 +1254,15 @@ function gothere(){
 	function module(){
 			$.getJSON(yeahBaby()+"mobile/"+thePath()+"/module.json", function(data){
 					//list of modules
-				   	var a = ["call", "sms", "image", "textNode", "car", "link", "moduleGallery", "video"];
+				   	var a = ["email", "call", "sms", "image", "textNode", "car", "link", "moduleGallery", "video"];
 					console.log(data.length+"**************************************");
 					for(var i=0; i<data.length; i++){
  		//				alert(data[i].module);
 						switch (data[i].module) {
+						
+							case "email":
+							var email = new moduleEmail(data[i].email, data[i].node, data[i].css);
+							break;
 						
 						//fix
 							case "call":
@@ -1250,7 +1315,7 @@ function gothere(){
 									//d();
 								break;
 							
-							case "video": // module, node, video
+							case "video": // module, node, video, key
 								new moduleVideo(data[i].node, data[i].video, data[i].key);			
 								break;
 	
@@ -1259,8 +1324,23 @@ function gothere(){
 			});
 		}
 		
+function ce(x){ return document.createElement(x); }
 
-function moduleVideo(node,video, key){
+function moduleEmail(email, node, css){
+	//alert(email +" " +node);
+	
+	if(email != ""){
+		var a = ce("a");
+			a.setAttribute("href", "mailto:"+email);
+			a.setAttribute("class", css);
+			var n = document.createTextNode(node);
+			a.innerHTML = n.nodeValue;
+			app._("a").appendChild(a);
+		}
+	
+	}
+
+function moduleVideo(node,video, key){ //creates 1 time video on home screen
 	//<iframe width="560" height="315" src="https://www.youtube.com/embed/jG6JEksUCgc" frameborder="0" allowfullscreen></iframe>
 	var x = sel_("a");
 	var v = document.createTextNode(video);
@@ -1269,21 +1349,10 @@ function moduleVideo(node,video, key){
 		iframe.setAttribute("width", "100%");
 		iframe.setAttribute("height", 200);
 		iframe.setAttribute("frameborder", 0);
-		//iframe.setAttribute("allowfullscreen", false);
-		iframe.setAttribute("src", "https://www.youtube.com/embed/"+video+"?key="+key);
+		iframe.setAttribute("src", "https://www.youtube.com/embed/"+video+"?key="+key+"&fs=0");
 		//iframe.setAttribute("src", "https://www.youtube.com/embed/"+video);
 		iframe.setAttribute("frameborder", 0);
-		//iframe.setAttribute("allowfullscreen", "");
 		x.appendChild(iframe);
-	//alert(video);
-	/*
-	var iosVideo = document.createElement("video");
-	var iosSource = document.createElement("source");
-		iosSource.setAttribute("src", "https://www.youtube.com/embed/"+video);
-		//iosSource.setAttribute("type", "video/mp4");
-		iosVideo.appendChild(iosSource);
-		x.appendChild(iosVideo);
-	*/	
 	}
 
 function donate(text, urlDonate){

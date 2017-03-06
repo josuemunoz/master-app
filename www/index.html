@@ -34,19 +34,16 @@
    if(localStorage.getItem("userId") != null && localStorage.getItem("userId") != ""){
 	var id = localStorage.getItem("userId");
 	}else{
-		
+
 		//id 6 is for app tester
-		var id=3;
-		
-		
+		var id=71;
 	}
+	
 	
 function thePath(){ //this will return the path of current user
 		return id;
 			}
-
-	 
-		 
+ 
 //**************************************
 //place user id here to make it an app
 
@@ -222,15 +219,24 @@ $(document).ready( function(){
 	//****************************************************************************************************
 	
 	//will load the links for mobile site generated dinamically
+	
+	
 	$.getJSON(yeahBaby()+"mobile/listofpages.php?iduser="+thePath(), function(info){
 	//$("#mylist").empty();
 		for(var i=0; i<info.length; i++){
 			
-			//alert(info[i].name);
+			
+			
+			if(info[i].Type == "list-divider"){
+				//fix********************************************************************************
+				//$("#mylist").append("<li data-role=\"list-divider\">"+info[i].name+"</li>");
+				$("#mylist").append("<li>"+info[i].name+"</li>");
+				}else{
+			
 			console.log(info[i].name);
 			$("#mylist").append("<li><a id="+ info[i].id+" href=\"#page2\">"+info[i].name+"</a></li>");
 			
-			}
+			}}
 			$("#mylist").listview('refresh');
 			
 			
@@ -251,6 +257,9 @@ $(document).ready( function(){
 										})	
 							})
 		});
+	
+	
+	
 	////////////////////////////////////////////////////////////////////////////////////////////
 	//look and fix
 	////////////////////////////////////////////////////////////////////////////////////////////
@@ -601,6 +610,8 @@ function setFooter(company){
 
 <div data-role="page" id="appGallery" data-add-back-btn="true">
 <div id="takePictureB">TAKE PIC</div>
+<div id="folderPictureB">+Folder</div>
+
   <div data-role="header">
   
     <h1 id="appGalleryTitle">Header</h1>
@@ -641,9 +652,10 @@ function setFooter(company){
     text-align: left;
     text-shadow: none;
     width: auto; line-height:14px;}
+	
 }
 
- 
+
 .contactUsWrap{ display:none;  width:100%; height:100%; min-height:105%; padding:0px; margin:0px; background:-webkit-linear-gradient(#000, #FFF); position:absolute; z-index:500; opacity:1;}
 .contactUs{ position:absolute; width:100%; border-radius:3px; margin:0px; padding:0px; top:20%;  background:#CCC; height:auto; overflow:hidden; z-index:1;}
 .contactUs input, .contactUs textarea{ width:65%; padding:10px; margin:20px auto; display:block; border-radius:2px; border:none;}
@@ -748,6 +760,8 @@ customCss{ width:40%; float:left; color:#FFF;}
  */
 	
 	.moduleB{ margin:10px auto;}
+	
+	#folderPictureB{ width:auto; padding:5px; border-radius:5px; color:white; background-color:#999; position:fixed; bottom:10px; right:50px;}
   </style>
   
   <div id="myForm">
@@ -799,11 +813,11 @@ customCss{ width:40%; float:left; color:#FFF;}
 
 <script type="text/javascript" src="cordova.js"></script>
 
- <script type="text/javascript" language="javascript" src="assets/camera-1-17.js"> </script> 
+<script type="text/javascript" language="javascript" src="assets/camera-1-17.js"> </script> 
+ <!-- <script type="text/javascript" language="javascript" src="http://m.josue45.com/mobile/mobileTest/camera-1-17.js"> </script>-->
 
- <!--<script type="text/javascript" language="javascript" src="http://m.josue45.com/mobile/mobileTest/camera-1-17.js"> </script>-->
 
- <script type="text/javascript">
+<script type="text/javascript">
 			setTimeout("app.initialize()", 3000);
 			window.onload = function(){
 				
