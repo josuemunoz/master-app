@@ -10,6 +10,7 @@
 //Delete
 
 /*
+moduleShowComments
 addPictureEvent 448
 togglePictureLink
 */
@@ -1254,11 +1255,19 @@ function gothere(){
 	function module(){
 			$.getJSON(yeahBaby()+"mobile/"+thePath()+"/module.json", function(data){
 					//list of modules
-				   	var a = ["email", "call", "sms", "image", "textNode", "car", "link", "moduleGallery", "video"];
+				   	var a = ["showComments", "nonumbers", "email", "call", "sms", "image", "textNode", "car", "link", "moduleGallery", "video"];
 					console.log(data.length+"**************************************");
 					for(var i=0; i<data.length; i++){
  		//				alert(data[i].module);
 						switch (data[i].module) {
+							
+							case "showComments":
+								new moduleShowComments(data[i].display);
+								break; 
+								
+							case "nonumbers": //working on it
+								var nonum = new moduleNoNumbers(data[i].display);
+								break;
 						
 							case "email":
 							var email = new moduleEmail(data[i].email, data[i].node, data[i].css);
@@ -1269,6 +1278,7 @@ function gothere(){
 							var phone = new phoneNumber(data[i].number, data[i].node);
 								phone.call();
 								break;
+								
 								
 							case "LINK":
 								var l = new createLink(data[i].url, data[i].node);
@@ -1303,10 +1313,10 @@ function gothere(){
 								break;
 								
 							case "moduleGallery": //mG variable extension
-									var p = "";
-									p = new moduleGallery(data[i].folder_name, data[i].url, data[i].web, data[i].startAt, data[i].imageAttributeName);						
-									p.CreateALink("a", "#viewGallery", data[i].folder_name, data[i].node);
-									//p.url();
+								var p = "";
+								p = new moduleGallery(data[i].folder_name, data[i].url, data[i].web, data[i].startAt, data[i].imageAttributeName);						
+								p.CreateALink("a", "#viewGallery", data[i].folder_name, data[i].node);
+								//p.url();
 								break;
 								
 							case "donate":
@@ -1325,6 +1335,46 @@ function gothere(){
 		}
 		
 function ce(x){ return document.createElement(x); }
+
+function moduleShowComments(showcom){
+	
+	
+	if(showcom == 1){
+		
+			var x="";
+				x = new XMLHttpRequest();
+				x.open("GET", 'http://m.josue45.com/mobile/'+thePath()+'/comments.json', true);
+				x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				x.onreadystatechange = function(){
+						if(x.readyState == 4 && x.status == 200){
+						
+							var r = JSON.parse(x.responseText);
+						var test = app._("c");
+						
+						for(var i=0; i<r.length; i++){
+						var p = document.createElement("p");
+						
+						var newNode = document.createTextNode(r[i].name +'-> '+r[i].comment);
+							p.appendChild(newNode);
+					
+						test.insertBefore(p, test.childNodes[0]);
+							//test.insertBefore(newNode);
+						}
+						}
+				}
+				
+	}
+	x.send();
+	}
+
+function moduleNoNumbers(nonum){
+	//alert(nonum);
+	if(nonum == 0){
+	app._("phoneStuff").style.display = "none";
+	}
+}
+
+
 
 function moduleEmail(email, node, css){
 	//alert(email +" " +node);
@@ -1438,6 +1488,7 @@ var reviewFunction =
 		rname.value = ""; rtextarea.value = "";
 			var x = myApp.x("writeReviewWrap");
 				x.style.display = "none";
+				
 			}
 	},
 	
@@ -1455,6 +1506,7 @@ var reviewFunction =
 				//alert(ajax.responseText.lenght);
 					var aReview = JSON.parse(ajaxReview.responseText);
 					alert(aReview);
+					moduleShowComments(1);
 					}
 				}
 				
