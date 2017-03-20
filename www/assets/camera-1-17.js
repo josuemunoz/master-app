@@ -626,6 +626,8 @@ var app = {
 			targetWidth: 360,  
  			targetHeight: 600, correctOrientation: true,
 	 	});
+		
+		
 	 },
 	 
 	createFolder: function(){			
