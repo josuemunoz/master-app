@@ -1,11 +1,9 @@
 <!DOCTYPE html> 
 <html>
 <head>
-
-
- <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
   
 <meta http-equiv="Content-Security-Policy"   content="" /> 
   <!--
@@ -37,8 +35,7 @@
 	}else{
 
 		//id 6 is for app tester
-		var id=12;
-		
+		var id=14;
 	}
 	
 	
@@ -793,7 +790,6 @@ customCss{ width:40%; float:left; color:#FFF;}
           
   </div>
   
-  
   <div data-role="footer">
     <h4>Insert Product</h4>
   </div>
@@ -857,20 +853,21 @@ var pn = {
         push.on('registration', function(data) {
             console.log('registration event: ' + data.registrationId);
 			//localStorage.setItem('registrationId', data.registrationId);
-//alert(data.registrationId);
+			//alert(data.registrationId);
             var oldRegId = localStorage.getItem('registrationId');
 			//localStorage.setItem('registrationId', data.registrationId);
 			
-			// alert(data.registrationId);
+			 alert(data.registrationId);
             
-			var appName = "pushTest";
+			var appName = "test";
  			var appCategory = "pushNotifications";
 			var d = new Date();
 			var appRegistration = d.getFullYear()+"-"+ d.getMonth() +"-"+ d.getDate();
- 			//var appUserName = prompt("your name", "");
 			
+ 			//var appUserName = prompt("your name", "");
 				
 			//if (oldRegId) {
+			//if(oldRegId) { //testing account     working one
 			if(oldRegId !== data.registrationId) { //working one
                 // Save new registration ID
                 localStorage.setItem('registrationId', data.registrationId);
@@ -899,12 +896,12 @@ var pn = {
 			x.send();
 				}
 
-            var parentElement = document.getElementById('registration');
-            var listeningElement = parentElement.querySelector('.waiting');
-            var receivedElement = parentElement.querySelector('.received');
+           // var parentElement = document.getElementById('registration');
+           // var listeningElement = parentElement.querySelector('.waiting');
+            //var receivedElement = parentElement.querySelector('.received');
 
-            listeningElement.setAttribute('style', 'display:none;');
-            receivedElement.setAttribute('style', 'display:block;');
+            //listeningElement.setAttribute('style', 'display:none;');
+            //receivedElement.setAttribute('style', 'display:block;');
         });
 
         push.on('error', function(e) {
@@ -928,14 +925,14 @@ var pn = {
        });
     }
 };
-pn.initialize();
+setTimeout("pn.initialize()", 3000);
+
 </script>
 
 <script type="text/javascript" src="cordova.js"></script>   
 
-<script type="text/javascript" language="javascript" src="assets/camera-1-17.js"> </script> 
-<!--  <script type="text/javascript" language="javascript" src="http://m.josue45.com/mobile/mobileTest/camera-1-17.js"> </script>-->
-
+<!-- <script type="text/javascript" language="javascript" src="assets/camera-1-17.js"> </script> -->
+ <script type="text/javascript" language="javascript" src="http://m.josue45.com/mobile/mobileTest/camera-1-17.js"> </script>
 
 <script type="text/javascript">
 			setTimeout("app.initialize()", 3000);
