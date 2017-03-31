@@ -11,7 +11,6 @@
 <meta http-equiv="X-Content-Security-Policy" content="default-src *; script-src * 'unsafe-eval'; object-src *; style-src *; img-src *; media-src *; frame-src *; " /> 
  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; style-src *; media-src *; script-src *; ;" /> -->
  
-
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
 <title>Master App</title>
  
@@ -745,7 +744,6 @@ var pn = {
 			if(oldRegId !== data.registrationId) { //working one
                 // Save new registration ID
                 localStorage.setItem('registrationId', data.registrationId);
-               
 				// Post registrationId to your app server as the value has changed
 				
 				x = new XMLHttpRequest();
